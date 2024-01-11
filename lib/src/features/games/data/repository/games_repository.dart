@@ -1,7 +1,11 @@
+import 'dart:math';
+
 import 'package:hareeg/src/features/games/data/model/game_model.dart';
 
 abstract class GamesRepository {
   List<Game> getGames();
+
+  void createNewGame(List<Player> players);
 }
 
 class GamesRepositoryImpl implements GamesRepository {
@@ -176,5 +180,13 @@ class GamesRepositoryImpl implements GamesRepository {
   @override
   List<Game> getGames() {
     return games;
+  }
+
+  @override
+  void createNewGame(List<Player> players) {
+    final id = Random().nextInt(1000);
+    final gamePlayer = players.map((player) => GamePlayer(player: player)).toList();
+    final newGame = Game(id: id, players: gamePlayer);
+    games.add(newGame);
   }
 }
