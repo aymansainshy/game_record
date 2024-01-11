@@ -173,19 +173,48 @@ class GameItemWidget extends StatelessWidget {
                   height: 25,
                   child: Row(
                     children: [
-                      Transform.translate(
-                        offset: const Offset(0, 3),
-                        child: SizedBox(
-                          height: 21,
-                          child: Text(
-                            game?.status == GameStatus.currentPlaying ? "Continue" : "Details",
-                            style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                                  color: Colors.grey,
-                                  // fontSize: 14,
-                                ),
+                      if (game?.status == GameStatus.createdNew)
+                        Transform.translate(
+                          offset: const Offset(0, 3),
+                          child: SizedBox(
+                            height: 21,
+                            child: Text(
+                              "Start",
+                              style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                                    color: Colors.red,
+                                    // fontSize: 14,
+                                  ),
+                            ),
                           ),
                         ),
-                      ),
+                      if (game?.status == GameStatus.paused)
+                        Transform.translate(
+                          offset: const Offset(0, 3),
+                          child: SizedBox(
+                            height: 21,
+                            child: Text(
+                              "Continue",
+                              style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                                    color: Colors.grey,
+                                    // fontSize: 14,
+                                  ),
+                            ),
+                          ),
+                        ),
+                      if (game?.status == GameStatus.completed)
+                        Transform.translate(
+                          offset: const Offset(0, 3),
+                          child: SizedBox(
+                            height: 21,
+                            child: Text(
+                              "Details",
+                              style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                                    color: Colors.grey,
+                                    // fontSize: 14,
+                                  ),
+                            ),
+                          ),
+                        ),
                       const SizedBox(width: 10),
                       RotatedBox(
                         quarterTurns: 0,

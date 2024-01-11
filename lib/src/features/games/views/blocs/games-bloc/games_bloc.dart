@@ -9,13 +9,20 @@ part 'games_state.dart';
 
 class GamesBloc extends Bloc<GamesEvent, GamesState> {
   final GamesRepository _gameRepository;
-  late List<Game?> games = [];
 
-  GamesBloc(this._gameRepository) : super(GamesInitial()) {
+  GamesBloc(this._gameRepository) : super(GamesState(games: [])) {
+    final currentState = state;
+
     on<GetAllGames>((event, emit) {
-      emit(GamesInProgress());
-      games = _gameRepository.getGames();
-      emit(GamesSuccess(games));
+      List<Game?> games = _gameRepository.getGames();
+      // emit(state.copyWith(games: games));
+      emit(GamesState(games: games));
+    });
+
+    on<CreateGame>((event, emit) {
+      _gameRepository.createNewGame(event.players);
+      List<Game?> games = _gameRepository.getGames();
+      emit(GamesState(games: games));
     });
   }
 }

@@ -1,4 +1,4 @@
-enum GameStatus { currentPlaying, paused, completed }
+enum GameStatus { createdNew, currentPlaying, paused, completed }
 
 class Game {
   final int id;
@@ -10,7 +10,7 @@ class Game {
     required this.id,
     required this.players,
     this.champion,
-    this.status = GameStatus.currentPlaying,
+    this.status = GameStatus.createdNew,
   });
 
   List<GamePlayer>? getCurrentPlayers() {

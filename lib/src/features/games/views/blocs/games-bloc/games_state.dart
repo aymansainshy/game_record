@@ -1,29 +1,31 @@
 part of 'games_bloc.dart';
 
-abstract class GamesState extends Equatable {
-  const GamesState();
-}
+// abstract class GamesState {
+//   final List<Game?> games;
+//
+//   const GamesState(this.games);
+// }
+//
+// class GamesInitial extends GamesState {
+//   GamesInitial(super.games);
+// }
+//
+// class GamesInProgress extends GamesState {
+//   GamesInProgress(super.games);
+// }
 
-class GamesInitial extends GamesState {
-  @override
-  List<Object> get props => [];
-}
-
-class GamesInProgress extends GamesState {
-  @override
-  List<Object?> get props => [];
-}
-
-class GamesSuccess extends GamesState {
+class GamesState {
   final List<Game?> games;
 
-  GamesSuccess(this.games);
+  GamesState({
+    required this.games,
+  });
 
-  @override
-  List<Object?> get props => [];
+  GamesState copyWith({List<Game?>? games}) {
+    return GamesState(games: games ?? this.games);
+  }
 }
 
-class GamesFailure extends GamesState {
-  @override
-  List<Object?> get props => [];
-}
+// class GamesFailure extends GamesState {
+//   GamesFailure(super.games);
+// }

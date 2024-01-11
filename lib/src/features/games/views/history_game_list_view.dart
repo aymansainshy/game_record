@@ -27,23 +27,16 @@ class _HistoryGameViewState extends State<HistoryGameView> {
       width: mediaQuery.width,
       child: BlocBuilder<GamesBloc, GamesState>(
         builder: (context, gamesStates) {
-          switch (gamesStates) {
-            case GamesInProgress():
-              return const Center(child: CircularProgressIndicator());
-            case GamesSuccess():
-              final gameList =
-                  gamesStates.games.where((game) => game?.status == GameStatus.completed).toList().reversed.toList();
-              return ListView.builder(
-                itemCount: gameList.length,
-                itemBuilder: (context, index) {
-                  return GameItemWidget(
-                    game: gameList[index],
-                  );
-                },
+          final gameList =
+              gamesStates.games.where((game) => game?.status == GameStatus.completed).toList().reversed.toList();
+          return ListView.builder(
+            itemCount: gameList.length,
+            itemBuilder: (context, index) {
+              return GameItemWidget(
+                game: gameList[index],
               );
-            default:
-              return const SizedBox.shrink();
-          }
+            },
+          );
         },
       ),
     );

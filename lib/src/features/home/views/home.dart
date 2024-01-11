@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:hareeg/src/features/games/views/create_new_game_view.dart';
 import 'package:hareeg/src/features/games/views/current_game_list_view.dart';
 import 'package:hareeg/src/features/games/views/history_game_list_view.dart';
 import 'package:hareeg/src/features/home/widgets/custom_buttom_nav_bar.dart';
@@ -56,6 +57,7 @@ class _HomeViewState extends State<HomeView> {
     );
   }
 
+  // final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
   @override
   Widget build(BuildContext context) {
     final mediaQuery = MediaQuery.sizeOf(context);
@@ -66,7 +68,14 @@ class _HomeViewState extends State<HomeView> {
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.all(Radius.circular(10)),
               ),
-              onPressed: () {},
+              onPressed: () {
+                showModalBottomSheet(
+                  context: context,
+                  builder: (context) {
+                    return const CreateNewGameView();
+                  },
+                );
+              },
               icon: const Icon(Icons.games_outlined),
               label: const Text("Start New Game"),
             )

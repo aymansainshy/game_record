@@ -10,3 +10,12 @@ class GetAllGames extends GamesEvent {
   @override
   List<Object?> get props => [];
 }
+
+class CreateGame extends GamesEvent {
+  const CreateGame(this.players);
+
+  final List<Player> players;
+
+  @override
+  List<Object?> get props => [players];
+}

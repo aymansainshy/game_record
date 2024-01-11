@@ -12,7 +12,7 @@ class GamesRepositoryImpl implements GamesRepository {
   final List<Game> games = [
     Game(
       id: 1,
-      status: GameStatus.currentPlaying,
+      status: GameStatus.paused,
       champion: null,
       players: [
         GamePlayer(
@@ -164,7 +164,7 @@ class GamesRepositoryImpl implements GamesRepository {
     ),
     Game(
       id: 3,
-      status: GameStatus.currentPlaying,
+      status: GameStatus.paused,
       champion: null,
       players: [
         GamePlayer(
