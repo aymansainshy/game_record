@@ -38,7 +38,9 @@ class GameItemWidget extends StatelessWidget {
         margin: const EdgeInsets.all(5),
         padding: const EdgeInsets.all(10),
         decoration: BoxDecoration(
-          color: game?.status == GameStatus.completed ? Theme.of(context).cardColor : AppColors.primaryColorHex,
+          color: game?.status == GameStatus.completed
+              ? Theme.of(context).colorScheme.secondary
+              : AppColors.primaryColorHex,
           border: Border.all(
             width: 2,
             color: AppColors.primaryColorHex,
@@ -94,7 +96,7 @@ class GameItemWidget extends StatelessWidget {
                           maxLines: 1,
                           overflow: TextOverflow.ellipsis,
                           style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                                color: game?.status == GameStatus.completed ? Colors.black45 : Colors.white,
+                                color: Colors.white,
                               ),
                         ),
                       ),
@@ -107,7 +109,7 @@ class GameItemWidget extends StatelessWidget {
                       if (game?.status == GameStatus.completed)
                         Icon(
                           CupertinoIcons.timer_fill,
-                          color: AppColors.primaryColorHex,
+                          color: Colors.white,
                         ),
                     ],
                   ),
@@ -128,7 +130,7 @@ class GameItemWidget extends StatelessWidget {
                   TextSpan(
                     text: "Champion",
                     style: Theme.of(context).textTheme.titleMedium?.copyWith(
-                          color: game?.status == GameStatus.completed ? Colors.black : Colors.white,
+                          color: Colors.white,
                         ),
                   ),
                   TextSpan(
@@ -136,7 +138,7 @@ class GameItemWidget extends StatelessWidget {
                         ? "   👑  ${game?.getGameChampion(game?.champion)?.player.name}  👑"
                         : "  No Champion Yet",
                     style: Theme.of(context).textTheme.titleMedium?.copyWith(
-                          color: game?.status == GameStatus.completed ? AppColors.primaryColorHex : Color(0xFF4DE354),
+                          color: game?.status == GameStatus.completed ? Colors.orange : Color(0xFF4DE354),
                           fontSize: 20,
                         ),
                   ),
@@ -152,7 +154,7 @@ class GameItemWidget extends StatelessWidget {
                       TextSpan(
                         text: "Score   ",
                         style: Theme.of(context).textTheme.titleMedium?.copyWith(
-                              color: game?.status == GameStatus.completed ? Colors.black : Colors.white,
+                              color: Colors.white,
                             ),
                       ),
                       TextSpan(
@@ -190,7 +192,7 @@ class GameItemWidget extends StatelessWidget {
                         child: Icon(
                           CupertinoIcons.forward,
                           size: 18,
-                          color: game?.status == GameStatus.completed ? Colors.black45 : Colors.grey,
+                          color: Colors.grey,
                         ),
                       ),
                     ],

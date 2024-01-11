@@ -34,7 +34,7 @@ class _CurrentGameViewState extends State<CurrentGameView> {
             case GamesSuccess():
               final gameList = gamesStates.games
                   .where((game) => game?.status == GameStatus.currentPlaying || game?.status == GameStatus.paused)
-                  .toList();
+                  .toList().reversed.toList();
 
               // final duration = context.select((GameTimerBloc bloc) => bloc.state.duration);
               // final minutesStr = ((duration / 60) % 60).floor().toString().padLeft(2, '0');

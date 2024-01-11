@@ -31,7 +31,8 @@ class _HistoryGameViewState extends State<HistoryGameView> {
             case GamesInProgress():
               return const Center(child: CircularProgressIndicator());
             case GamesSuccess():
-              final gameList = gamesStates.games.where((game) => game?.status == GameStatus.completed).toList();
+              final gameList =
+                  gamesStates.games.where((game) => game?.status == GameStatus.completed).toList().reversed.toList();
               return ListView.builder(
                 itemCount: gameList.length,
                 itemBuilder: (context, index) {
