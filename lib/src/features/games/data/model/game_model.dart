@@ -39,11 +39,13 @@ class Game {
 
 class GamePlayer {
   final Player player;
+  final bool? isFire;
   final PlayerScore? playerScore;
 
   GamePlayer({
     required this.player,
     this.playerScore,
+    this.isFire = false,
   });
 
   void addScore(int? score, int roundNumber) {

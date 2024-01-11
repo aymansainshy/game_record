@@ -26,75 +26,106 @@ class GameBoardDetailsView extends StatelessWidget {
         height: mediaQuery.height,
         width: mediaQuery.width,
         child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
+          mainAxisAlignment: MainAxisAlignment.start,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            Text(
-              "${hoursStr} : ${minutesStr} : ${secondsStr}",
-              maxLines: 1,
-              overflow: TextOverflow.ellipsis,
-              style: Theme.of(context).textTheme.displayLarge?.copyWith(
-                    color: Colors.black45,
+            Container(
+              height: mediaQuery.height * 0.10,
+              width: mediaQuery.width,
+              color: Colors.black12,
+              padding: EdgeInsets.symmetric(horizontal: 20),
+              child: Row(
+                children: [
+                  Expanded(
+                    child: Text(
+                      "${hoursStr} : ${minutesStr} : ${secondsStr}",
+                      maxLines: 1,
+                      overflow: TextOverflow.ellipsis,
+                      style: Theme.of(context).textTheme.displayLarge?.copyWith(
+                            color: Colors.black45,
+                          ),
+                    ),
                   ),
+                  BlocBuilder<GameTimerBloc, GameTimerState>(
+                    builder: (context, timerState) {
+                      switch (timerState) {
+                        case GameTimerInitial():
+                          return GestureDetector(
+                            onTap: () {
+                              context.read<GameTimerBloc>().add(TimerStarted(duration: 5000));
+                            },
+                            child: Icon(
+                              CupertinoIcons.play_arrow_solid,
+                              color: AppColors.primaryColorHex,
+                              size: 45,
+                            ),
+                          );
+
+                        case TimerRunInProgress():
+                          return GestureDetector(
+                            onTap: () {
+                              context.read<GameTimerBloc>().add(const TimerPaused());
+                            },
+                            child: Icon(
+                              Icons.pause,
+                              color: AppColors.primaryColorHex,
+                              size: 45,
+                            ),
+                          );
+
+                        case TimerRunPause():
+                          return GestureDetector(
+                            onTap: () {
+                              context.read<GameTimerBloc>().add(const TimerResumed());
+                            },
+                            child: Icon(
+                              // CupertinoIcons.play_arrow,
+                              CupertinoIcons.play_arrow_solid,
+                              color: AppColors.primaryColorHex,
+                              size: 40,
+                            ),
+                          );
+                        case TimerRunComplete():
+                          return GestureDetector(
+                            onTap: () {
+                              context.read<GameTimerBloc>().add(const TimerReset());
+                            },
+                            child: Icon(
+                              CupertinoIcons.reply,
+                              color: AppColors.primaryColorHex,
+                              size: 40,
+                            ),
+                          );
+
+                        default:
+                          return GestureDetector(
+                            onTap: () {
+                              // context.read<GameTimerBloc>().add(const TimerReset());
+                            },
+                            child: Icon(
+                              CupertinoIcons.delete,
+                              color: AppColors.primaryColorHex,
+                              size: 40,
+                            ),
+                          );
+                      }
+                    },
+                  ),
+                ],
+              ),
             ),
-            BlocBuilder<GameTimerBloc, GameTimerState>(
-              builder: (context, timerState) {
-                switch (timerState) {
-                  case GameTimerInitial():
-                    return GestureDetector(
-                      onTap: () {
-                        context.read<GameTimerBloc>().add(TimerStarted(duration: 60));
-                      },
-                      child: Icon(
-                        CupertinoIcons.play_arrow_solid,
-                        color: AppColors.primaryColorHex,
-                      ),
-                    );
-
-                  case TimerRunInProgress():
-                    return GestureDetector(
-                      onTap: () {
-                        context.read<GameTimerBloc>().add(const TimerPaused());
-                      },
-                      child: Icon(
-                        CupertinoIcons.pause,
-                        color: AppColors.primaryColorHex,
-                      ),
-                    );
-
-                  case TimerRunPause():
-                    return GestureDetector(
-                      onTap: () {
-                        context.read<GameTimerBloc>().add(const TimerResumed());
-                      },
-                      child: Icon(
-                        CupertinoIcons.play_arrow,
-                        color: AppColors.primaryColorHex,
-                      ),
-                    );
-                  case TimerRunComplete():
-                    return GestureDetector(
-                      onTap: () {
-                        context.read<GameTimerBloc>().add(const TimerReset());
-                      },
-                      child: Icon(
-                        CupertinoIcons.reply,
-                        color: AppColors.primaryColorHex,
-                      ),
-                    );
-
-                  default:
-                    return GestureDetector(
-                      onTap: () {
-                        // context.read<GameTimerBloc>().add(const TimerReset());
-                      },
-                      child: Icon(
-                        CupertinoIcons.delete,
-                        color: AppColors.primaryColorHex,
-                      ),
-                    );
-                }
-              },
+            Padding(
+              padding: const EdgeInsets.all(10.0),
+              child: SizedBox(
+                width: mediaQuery.width,
+                height: 50,
+                child: ElevatedButton(
+                  onPressed: () {
+                    context.read<GameTimerBloc>().add(const TimerReset());
+                  },
+                  child: Text("End Game"),
+                ),
+              ),
             ),
           ],
         ),

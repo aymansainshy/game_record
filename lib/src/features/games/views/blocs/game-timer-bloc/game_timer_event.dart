@@ -14,6 +14,12 @@ final class TimerPaused extends GameTimerEvent {
   const TimerPaused();
 }
 
+final class SetTimerInitial extends GameTimerEvent {
+  const SetTimerInitial({required this.duration});
+
+  final int duration;
+}
+
 final class TimerResumed extends GameTimerEvent {
   const TimerResumed();
 }

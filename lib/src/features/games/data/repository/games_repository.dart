@@ -21,7 +21,7 @@ class GamesRepositoryImpl implements GamesRepository {
               ),
               Round(
                 roundNumber: 2,
-                score: 0,
+                score: 3,
               ),
             ],
           ),
@@ -37,6 +37,36 @@ class GamesRepositoryImpl implements GamesRepository {
               Round(
                 roundNumber: 2,
                 score: 8,
+              ),
+            ],
+          ),
+        ),
+        GamePlayer(
+          player: Player(id: 3, name: 'Asaad'),
+          playerScore: PlayerScore(
+            rounds: [
+              Round(
+                roundNumber: 1,
+                score: 14,
+              ),
+              Round(
+                roundNumber: 2,
+                score: 3,
+              ),
+            ],
+          ),
+        ),
+        GamePlayer(
+          player: Player(id: 4, name: 'Misbah'),
+          playerScore: PlayerScore(
+            rounds: [
+              Round(
+                roundNumber: 1,
+                score: 8,
+              ),
+              Round(
+                roundNumber: 2,
+                score: 2,
               ),
             ],
           ),

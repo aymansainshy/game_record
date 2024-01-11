@@ -27,7 +27,7 @@ class GameItemWidget extends StatelessWidget {
     return GestureDetector(
       onTap: () {
         if (game?.status == GameStatus.currentPlaying) {
-          context.read<GameTimerBloc>().add(TimerStarted(duration: 799));
+          context.read<GameTimerBloc>().add(SetTimerInitial(duration: 5000));
         }
 
         context.push(RouteName.gameBoard);
