@@ -6,6 +6,7 @@ import 'package:hareeg/src/features/games/data/model/game_model.dart';
 import 'package:hareeg/src/features/games/views/blocs/game-timer-bloc/game_timer_bloc.dart';
 import 'package:hareeg/src/router/app_router.dart';
 import 'package:hareeg/src/theme/app_theme.dart';
+import 'package:hareeg/src/utils/assets_helper.dart';
 import 'package:intl/intl.dart';
 
 class GameItemWidget extends StatelessWidget {
@@ -32,12 +33,16 @@ class GameItemWidget extends StatelessWidget {
         context.push(RouteName.gameBoard);
       },
       child: Container(
-        height: 150,
+        height: 180,
         width: double.infinity,
         margin: const EdgeInsets.all(5),
         padding: const EdgeInsets.all(10),
         decoration: BoxDecoration(
-          color: Theme.of(context).cardColor,
+          color: game?.status == GameStatus.completed ? Theme.of(context).cardColor : AppColors.primaryColorHex,
+          border: Border.all(
+            width: 2,
+            color: AppColors.primaryColorHex,
+          ),
           borderRadius: const BorderRadius.all(
             Radius.circular(10),
           ),
@@ -51,11 +56,16 @@ class GameItemWidget extends StatelessWidget {
                 Expanded(
                     child: Row(
                   mainAxisAlignment: MainAxisAlignment.start,
-                  crossAxisAlignment: CrossAxisAlignment.start,
+                  crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
-                    Icon(
-                      Icons.circle,
-                      color: AppColors.primaryColorHex,
+                    // Icon(
+                    //   Icons.circle,
+                    //   color: AppColors.primaryColorHex,
+                    // ),
+                    SizedBox(
+                      height: 40,
+                      width: 40,
+                      child: Image.asset(AssetsUtils.cardImage),
                     ),
                     const SizedBox(width: 10),
                     Transform.translate(
@@ -64,7 +74,7 @@ class GameItemWidget extends StatelessWidget {
                         "Game #${game?.id}",
                         maxLines: 1,
                         overflow: TextOverflow.ellipsis,
-                        style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                        style: Theme.of(context).textTheme.bodyLarge?.copyWith(
                               color: Colors.black45,
                               fontWeight: FontWeight.bold,
                             ),
@@ -75,7 +85,7 @@ class GameItemWidget extends StatelessWidget {
                 Expanded(
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.end,
-                    crossAxisAlignment: CrossAxisAlignment.start,
+                    crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
                       Transform.translate(
                         offset: const Offset(0, 2),
@@ -84,7 +94,7 @@ class GameItemWidget extends StatelessWidget {
                           maxLines: 1,
                           overflow: TextOverflow.ellipsis,
                           style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                                color: Colors.black45,
+                                color: game?.status == GameStatus.completed ? Colors.black45 : Colors.white,
                               ),
                         ),
                       ),
@@ -92,7 +102,7 @@ class GameItemWidget extends StatelessWidget {
                       if (game?.status == GameStatus.currentPlaying)
                         Icon(
                           CupertinoIcons.play_arrow_solid,
-                          color: AppColors.primaryColorHex,
+                          color: game?.status == GameStatus.completed ? AppColors.primaryColorHex : Colors.white,
                         ),
                       if (game?.status == GameStatus.completed)
                         Icon(
@@ -111,20 +121,22 @@ class GameItemWidget extends StatelessWidget {
                     color: Colors.grey,
                   ),
             ),
-            const SizedBox(height: 20),
+            const SizedBox(height: 30),
             RichText(
               text: TextSpan(
                 children: [
                   TextSpan(
                     text: "Champion",
-                    style: Theme.of(context).textTheme.titleMedium?.copyWith(),
+                    style: Theme.of(context).textTheme.titleMedium?.copyWith(
+                          color: game?.status == GameStatus.completed ? Colors.black : Colors.white,
+                        ),
                   ),
                   TextSpan(
                     text: game?.champion != null
-                        ? "   👑  ${game?.players[game!.champion!].name}  👑"
+                        ? "   👑  ${game?.getGameChampion(game?.champion)?.player.name}  👑"
                         : "  No Champion Yet",
                     style: Theme.of(context).textTheme.titleMedium?.copyWith(
-                          color: AppColors.primaryColorHex,
+                          color: game?.status == GameStatus.completed ? AppColors.primaryColorHex : Color(0xFF4DE354),
                           fontSize: 20,
                         ),
                   ),
@@ -138,12 +150,14 @@ class GameItemWidget extends StatelessWidget {
                   text: TextSpan(
                     children: [
                       TextSpan(
-                        text: "Score    ",
-                        style: Theme.of(context).textTheme.titleMedium?.copyWith(),
+                        text: "Score   ",
+                        style: Theme.of(context).textTheme.titleMedium?.copyWith(
+                              color: game?.status == GameStatus.completed ? Colors.black : Colors.white,
+                            ),
                       ),
                       TextSpan(
                         text: game?.champion != null
-                            ? "${game?.totalPlayerScore(game?.players[game!.champion!].id)}"
+                            ? "${game?.getGameChampion(game?.champion)?.totalPlayerScore()}"
                             : "--",
                         style: Theme.of(context).textTheme.titleLarge?.copyWith(
                               color: Colors.redAccent,
@@ -171,11 +185,12 @@ class GameItemWidget extends StatelessWidget {
                         ),
                       ),
                       const SizedBox(width: 10),
-                      const RotatedBox(
+                      RotatedBox(
                         quarterTurns: 0,
                         child: Icon(
                           CupertinoIcons.forward,
                           size: 18,
+                          color: game?.status == GameStatus.completed ? Colors.black45 : Colors.grey,
                         ),
                       ),
                     ],

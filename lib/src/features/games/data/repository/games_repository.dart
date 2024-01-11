@@ -11,48 +11,72 @@ class GamesRepositoryImpl implements GamesRepository {
       status: GameStatus.currentPlaying,
       champion: null,
       players: [
-        Player(id: 1, name: 'Ayman'),
-        Player(id: 2, name: 'Jehad'),
-      ],
-      rounds: [
-        Round(
-          roundNumber: 1,
-          playerScore: [
-            PlayerScore(playerId: 1, score: 3),
-            PlayerScore(playerId: 2, score: 0),
-          ],
+        GamePlayer(
+          player: Player(id: 1, name: 'Ayman'),
+          playerScore: PlayerScore(
+            rounds: [
+              Round(
+                roundNumber: 1,
+                score: 4,
+              ),
+              Round(
+                roundNumber: 2,
+                score: 0,
+              ),
+            ],
+          ),
         ),
-        Round(
-          roundNumber: 2,
-          playerScore: [
-            PlayerScore(playerId: 1, score: 0),
-            PlayerScore(playerId: 2, score: 18),
-          ],
+        GamePlayer(
+          player: Player(id: 2, name: 'Jehad'),
+          playerScore: PlayerScore(
+            rounds: [
+              Round(
+                roundNumber: 1,
+                score: 0,
+              ),
+              Round(
+                roundNumber: 2,
+                score: 8,
+              ),
+            ],
+          ),
         ),
       ],
     ),
     Game(
       id: 2,
       status: GameStatus.completed,
-      champion: 1,
+      champion: 3,
       players: [
-        Player(id: 1, name: 'Misbah'),
-        Player(id: 2, name: 'Assad'),
-      ],
-      rounds: [
-        Round(
-          roundNumber: 1,
-          playerScore: [
-            PlayerScore(playerId: 1, score: 14),
-            PlayerScore(playerId: 2, score: 0),
-          ],
+        GamePlayer(
+          player: Player(id: 3, name: 'Asaad'),
+          playerScore: PlayerScore(
+            rounds: [
+              Round(
+                roundNumber: 1,
+                score: 0,
+              ),
+              Round(
+                roundNumber: 2,
+                score: -3,
+              ),
+            ],
+          ),
         ),
-        Round(
-          roundNumber: 2,
-          playerScore: [
-            PlayerScore(playerId: 1, score: 31),
-            PlayerScore(playerId: 2, score: -13),
-          ],
+        GamePlayer(
+          player: Player(id: 4, name: 'Misbah'),
+          playerScore: PlayerScore(
+            rounds: [
+              Round(
+                roundNumber: 1,
+                score: 14,
+              ),
+              Round(
+                roundNumber: 2,
+                score: 17,
+              ),
+            ],
+          ),
         ),
       ],
     ),

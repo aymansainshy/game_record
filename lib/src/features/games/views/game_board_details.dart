@@ -20,6 +20,7 @@ class GameBoardDetailsView extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         automaticallyImplyLeading: true,
+        backgroundColor: Theme.of(context).colorScheme.background,
       ),
       body: SizedBox(
         height: mediaQuery.height,
@@ -32,7 +33,7 @@ class GameBoardDetailsView extends StatelessWidget {
               "${hoursStr} : ${minutesStr} : ${secondsStr}",
               maxLines: 1,
               overflow: TextOverflow.ellipsis,
-              style: Theme.of(context).textTheme.displayMedium?.copyWith(
+              style: Theme.of(context).textTheme.displayLarge?.copyWith(
                     color: Colors.black45,
                   ),
             ),
@@ -42,7 +43,7 @@ class GameBoardDetailsView extends StatelessWidget {
                   case GameTimerInitial():
                     return GestureDetector(
                       onTap: () {
-                        context.read<GameTimerBloc>().add(TimerStarted(duration: 799));
+                        context.read<GameTimerBloc>().add(TimerStarted(duration: 60));
                       },
                       child: Icon(
                         CupertinoIcons.play_arrow_solid,

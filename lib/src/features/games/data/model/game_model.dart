@@ -2,32 +2,64 @@ enum GameStatus { currentPlaying, paused, completed }
 
 class Game {
   final int id;
-  late List<Player> players;
-  late int? champion;
-  late List<Round>? rounds;
   late GameStatus status;
+  late List<GamePlayer> players;
+  late int? champion;
 
   Game({
     required this.id,
     required this.players,
     this.champion,
-    this.rounds,
     this.status = GameStatus.currentPlaying,
   });
 
-  double? totalPlayerScore(int? playerId) {
-    late double? totalScore = 0.0;
+  void addGamePlayer(GamePlayer gamePlayer) {
+    this.players.add(gamePlayer);
+  }
 
-    late List<PlayerScore?>? playerScores = [];
+  void changeGameStatus(GameStatus gameStatus) {
+    this.status = gameStatus;
+  }
 
-    rounds?.forEach((round) {
-      final loadedScores = round.playerScore?.where((pScore) => pScore?.playerId == playerId).toList();
-      playerScores = loadedScores;
+  GamePlayer? getGameChampion(int? id) {
+    return players.firstWhere((player) => player.player.id.toString() == id.toString());
+  }
+
+// int totalPlayerScore(int? id) {
+//   late int totalScore = 0;
+//
+//   final GamePlayer gamePlayer = players.firstWhere((player) => player.player.id.toString() == id.toString());
+//   gamePlayer.playerScore?.rounds?.forEach((round) {
+//     totalScore = totalScore + round.score!;
+//   });
+//
+//   return totalScore;
+// }
+}
+
+class GamePlayer {
+  final Player player;
+  final PlayerScore? playerScore;
+
+  GamePlayer({
+    required this.player,
+    this.playerScore,
+  });
+
+  void addScore(int? score, int roundNumber) {
+    this.playerScore?.rounds?.add(Round(
+          roundNumber: roundNumber,
+          score: score,
+        ));
+  }
+
+  int totalPlayerScore() {
+    late int totalScore = 0;
+
+    playerScore?.rounds?.forEach((round) {
+      totalScore = totalScore + round.score!;
     });
 
-    final scores = playerScores?.map((playerScore) => playerScore?.score).toList();
-
-    totalScore = scores?.fold(0.0, (previousValue, score) => previousValue + score!);
     return totalScore;
   }
 }
@@ -44,28 +76,19 @@ class Player {
 
 class Round {
   final int roundNumber;
-  final List<PlayerScore?>? playerScore;
-  late double? totalScore;
+  final int? score;
 
   Round({
     required this.roundNumber,
-    required this.playerScore,
+    this.score = 0,
   });
-
-// double? totalPlayerScore(int playerId) {
-//   late double? totalScore = 0.0;
-//   final playerScores = playerScore?.where((playerScore) => playerScore?.playerId.toString() == playerId.toString()).toList();
-//   totalScore = playerScores?.fold(0.0, (previousValue, playerScores) => previousValue + playerScores!.score);
-//   return totalScore;
-// }
 }
 
 class PlayerScore {
-  final int playerId;
-  final double score;
+  final List<Round>? rounds;
+  late int? totalScore;
 
   PlayerScore({
-    required this.playerId,
-    this.score = 0.0,
+    this.rounds,
   });
 }

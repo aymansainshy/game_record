@@ -48,7 +48,7 @@ class MyApp extends StatelessWidget {
             }
             return AnimatedSplashView(
               duration: 500,
-              imagePath: AssetsUtils.appLogo,
+              imagePath: AssetsUtils.cardImage,
             );
           },
         ),
