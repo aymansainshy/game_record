@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:hareeg/src/features/games/data/model/game_model.dart';
 import 'package:hareeg/src/features/games/views/game_board_details.dart';
 import 'package:hareeg/src/features/home/views/home.dart';
 
@@ -22,7 +23,10 @@ class AppRouter {
       GoRoute(
         path: RouteName.gameBoard,
         name: RouteName.gameBoard,
-        builder: (context, state) => const GameBoardDetailsView(),
+        builder: (context, state) {
+          final game = state.extra as Game;
+          return GameBoardDetailsView(game: game);
+        },
       ),
 
       // pageBuilder: (context, state) => CustomTransitionPage<void>(

@@ -36,9 +36,9 @@ class _CurrentGameViewState extends State<CurrentGameView> {
                   .where((game) => game?.status == GameStatus.currentPlaying || game?.status == GameStatus.paused)
                   .toList();
 
-              final duration = context.select((GameTimerBloc bloc) => bloc.state.duration);
-              final minutesStr = ((duration / 60) % 60).floor().toString().padLeft(2, '0');
-              final secondsStr = (duration % 60).floor().toString().padLeft(2, '0');
+              // final duration = context.select((GameTimerBloc bloc) => bloc.state.duration);
+              // final minutesStr = ((duration / 60) % 60).floor().toString().padLeft(2, '0');
+              // final secondsStr = (duration % 60).floor().toString().padLeft(2, '0');
 
               return ListView.builder(
                 itemCount: gameList.length,

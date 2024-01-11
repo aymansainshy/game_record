@@ -30,7 +30,7 @@ class GameItemWidget extends StatelessWidget {
           context.read<GameTimerBloc>().add(SetTimerInitial(duration: 5000));
         }
 
-        context.push(RouteName.gameBoard);
+        context.push(RouteName.gameBoard, extra: game);
       },
       child: Container(
         height: 180,
@@ -75,7 +75,7 @@ class GameItemWidget extends StatelessWidget {
                         maxLines: 1,
                         overflow: TextOverflow.ellipsis,
                         style: Theme.of(context).textTheme.bodyLarge?.copyWith(
-                              color: Colors.black45,
+                              color: Colors.grey,
                               fontWeight: FontWeight.bold,
                             ),
                       ),

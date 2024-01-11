@@ -23,6 +23,22 @@ class GamesRepositoryImpl implements GamesRepository {
                 roundNumber: 2,
                 score: 3,
               ),
+              Round(
+                roundNumber: 3,
+                score: 3,
+              ),
+              Round(
+                roundNumber: 4,
+                score: -1,
+              ),
+              Round(
+                roundNumber: 5,
+                score: 3,
+              ),
+              Round(
+                roundNumber: 6,
+                score: 6,
+              ),
             ],
           ),
         ),
@@ -37,6 +53,22 @@ class GamesRepositoryImpl implements GamesRepository {
               Round(
                 roundNumber: 2,
                 score: 8,
+              ),
+              Round(
+                roundNumber: 3,
+                score: 4,
+              ),
+              Round(
+                roundNumber: 4,
+                score: 5,
+              ),
+              Round(
+                roundNumber: 5,
+                score: -1,
+              ),
+              Round(
+                roundNumber: 6,
+                score: -1,
               ),
             ],
           ),
@@ -53,6 +85,10 @@ class GamesRepositoryImpl implements GamesRepository {
                 roundNumber: 2,
                 score: 3,
               ),
+              Round(
+                roundNumber: 3,
+                score: 14,
+              ),
             ],
           ),
         ),
@@ -67,6 +103,18 @@ class GamesRepositoryImpl implements GamesRepository {
               Round(
                 roundNumber: 2,
                 score: 2,
+              ),
+              Round(
+                roundNumber: 3,
+                score: -1,
+              ),
+              Round(
+                roundNumber: 4,
+                score: 14,
+              ),
+              Round(
+                roundNumber: 5,
+                score: 14,
               ),
             ],
           ),
@@ -107,6 +155,19 @@ class GamesRepositoryImpl implements GamesRepository {
               ),
             ],
           ),
+        ),
+      ],
+    ),
+    Game(
+      id: 3,
+      status: GameStatus.currentPlaying,
+      champion: null,
+      players: [
+        GamePlayer(
+          player: Player(id: 3, name: 'Asaad'),
+        ),
+        GamePlayer(
+          player: Player(id: 4, name: 'Misbah'),
         ),
       ],
     ),

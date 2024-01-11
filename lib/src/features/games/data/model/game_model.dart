@@ -13,8 +13,17 @@ class Game {
     this.status = GameStatus.currentPlaying,
   });
 
+  List<GamePlayer>? getCurrentPlayers() {
+    final currentPlayers = players.where((player) => player.isFire() ?? false).toList();
+    return currentPlayers;
+  }
+
   void addGamePlayer(GamePlayer gamePlayer) {
     this.players.add(gamePlayer);
+  }
+
+  void addChampion(GamePlayer gamePlayer) {
+    this.champion = gamePlayer.player.id;
   }
 
   void changeGameStatus(GameStatus gameStatus) {
@@ -24,28 +33,15 @@ class Game {
   GamePlayer? getGameChampion(int? id) {
     return players.firstWhere((player) => player.player.id.toString() == id.toString());
   }
-
-// int totalPlayerScore(int? id) {
-//   late int totalScore = 0;
-//
-//   final GamePlayer gamePlayer = players.firstWhere((player) => player.player.id.toString() == id.toString());
-//   gamePlayer.playerScore?.rounds?.forEach((round) {
-//     totalScore = totalScore + round.score!;
-//   });
-//
-//   return totalScore;
-// }
 }
 
 class GamePlayer {
   final Player player;
-  final bool? isFire;
   final PlayerScore? playerScore;
 
   GamePlayer({
     required this.player,
     this.playerScore,
-    this.isFire = false,
   });
 
   void addScore(int? score, int roundNumber) {
@@ -53,6 +49,15 @@ class GamePlayer {
           roundNumber: roundNumber,
           score: score,
         ));
+  }
+
+  bool? isFire() {
+    final totalScore = totalPlayerScore();
+    return totalScore >= 31;
+  }
+
+  bool? isChampion(Game game) {
+    return game.champion == this.player.id;
   }
 
   int totalPlayerScore() {
