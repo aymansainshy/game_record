@@ -1,6 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:hareeg/src/features/games/views/current_game_view.dart';
+import 'package:hareeg/src/features/games/views/create_new_game_view.dart';
+import 'package:hareeg/src/features/games/views/current_game_list_view.dart';
+import 'package:hareeg/src/features/games/views/history_game_list_view.dart';
 import 'package:hareeg/src/features/home/widgets/custom_buttom_nav_bar.dart';
 
 class HomeView extends StatefulWidget {
@@ -10,30 +12,18 @@ class HomeView extends StatefulWidget {
   State<HomeView> createState() => _HomeViewState();
 }
 
-class HistoryView extends StatelessWidget {
-  const HistoryView({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return const Placeholder();
-  }
-}
-
 class _HomeViewState extends State<HomeView> {
   // final GlobalKey _popupMenuKey = GlobalKey();
   var pageIndex = 0;
 
   final bottomNavItems = [
-    BottomNavItem(
-      CupertinoIcons.play_arrow_solid,
-      "Current Game",
-    ),
+    BottomNavItem(CupertinoIcons.play_arrow_solid, "Current Game"),
     BottomNavItem(CupertinoIcons.square_favorites_alt, "History"),
   ];
 
   final List<Widget> _views = const [
     CurrentGameView(),
-    HistoryView(),
+    HistoryGameView(),
   ];
 
   void showPopupMenu(BuildContext context) {
@@ -67,6 +57,7 @@ class _HomeViewState extends State<HomeView> {
     );
   }
 
+  // final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
   @override
   Widget build(BuildContext context) {
     final mediaQuery = MediaQuery.sizeOf(context);
@@ -77,7 +68,14 @@ class _HomeViewState extends State<HomeView> {
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.all(Radius.circular(10)),
               ),
-              onPressed: () {},
+              onPressed: () {
+                showModalBottomSheet(
+                  context: context,
+                  builder: (context) {
+                    return const CreateNewGameView();
+                  },
+                );
+              },
               icon: const Icon(Icons.games_outlined),
               label: const Text("Start New Game"),
             )
@@ -118,7 +116,7 @@ class _HomeViewState extends State<HomeView> {
                           ),
                           const SizedBox(height: 5),
                           Text(
-                            "Get your orders delivered to your customers",
+                            "Have your fun playing the game ♠️♥️♣️♦️ ",
                             style: Theme.of(context).textTheme.titleSmall?.copyWith(),
                           ),
                         ],

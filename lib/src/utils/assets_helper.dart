@@ -1,3 +1,3 @@
 class AssetsUtils {
-  static const appLogo = "assets/images/logo.png";
+  static const cardImage = "assets/images/card.png";
 }

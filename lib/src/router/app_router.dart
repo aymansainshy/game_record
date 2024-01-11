@@ -2,15 +2,13 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:hareeg/src/features/games/data/model/game_model.dart';
+import 'package:hareeg/src/features/games/views/game_board_details.dart';
 import 'package:hareeg/src/features/home/views/home.dart';
 
 class RouteName {
   static const homeView = "/";
-  static const loginView = "/login-view";
-  static const registerView = "/register-view";
-  static const orderDetailsView = "/order-details-view";
-  static const deliveryOrderRequestView = "/delivery-order-request-view";
-  static const addNewProductView = "/add-new-product-view";
+  static const gameBoard = "/game-board-details-view";
 }
 
 class AppRouter {
@@ -21,6 +19,14 @@ class AppRouter {
         path: RouteName.homeView,
         name: RouteName.homeView,
         builder: (context, state) => const HomeView(),
+      ),
+      GoRoute(
+        path: RouteName.gameBoard,
+        name: RouteName.gameBoard,
+        builder: (context, state) {
+          final game = state.extra as Game;
+          return GameBoardDetailsView(game: game);
+        },
       ),
 
       // pageBuilder: (context, state) => CustomTransitionPage<void>(

@@ -6,9 +6,9 @@ class AppColors {
   static const Color _kSharedColorGrey = Colors.grey;
 
   // Theme Colors
-  static const MaterialColor primarySwatch = Colors.deepOrange;
-  static const Color primaryColorHex = Color(0xFFF14802);
-  static const Color secondaryColor = Color(0xFFEDA685);
+  static const MaterialColor primarySwatch = Colors.deepPurple;
+  static const Color primaryColorHex = Color(0xFF032A75);
+  static const Color secondaryColor = Color(0xFF203641);
   static const Color brawnColor = Color(0xFF383435);
 
   static const Color cardColor = _kSharedColorWhite;
