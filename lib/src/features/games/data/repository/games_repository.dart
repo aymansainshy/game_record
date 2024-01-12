@@ -47,7 +47,7 @@ class GamesRepositoryImpl implements GamesRepository {
           ),
         ),
         GamePlayer(
-          player: Player(id: 2, name: 'Jehad'),
+          player: Player(id: 2, name: 'Jihad'),
           playerScore: PlayerScore(
             rounds: [
               Round(

@@ -93,7 +93,6 @@ class Round {
 
 class PlayerScore {
   final List<Round>? rounds;
-  late int? totalScore;
 
   PlayerScore({
     this.rounds,
