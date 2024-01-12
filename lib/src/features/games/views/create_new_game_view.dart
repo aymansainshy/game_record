@@ -132,7 +132,6 @@ class _CreateNewGameViewState extends State<CreateNewGameView> {
                 child: ElevatedButton(
                   onPressed: () {
                     if (playersState.playersToAdd != null) {
-                      print(playersState.playersToAdd);
                       BlocProvider.of<GamesBloc>(context).add(CreateGame(playersState.playersToAdd!));
                       BlocProvider.of<PlayersBloc>(context).add(ClearPlayerFromAddList());
                       Navigator.pop(context);

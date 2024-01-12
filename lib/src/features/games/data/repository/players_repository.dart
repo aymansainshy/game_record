@@ -9,9 +9,9 @@ abstract class PlayersRepository {
 class PlayersRepositoryImpl implements PlayersRepository {
   final List<Player> _players = [
     Player(id: 1, name: 'Ayman'),
-    Player(id: 1, name: 'Jehad'),
-    Player(id: 1, name: 'Assad'),
-    Player(id: 1, name: 'Misbah'),
+    Player(id: 2, name: 'Jihad'),
+    Player(id: 3, name: 'Assad'),
+    Player(id: 4, name: 'Misbah'),
   ];
 
   @override
