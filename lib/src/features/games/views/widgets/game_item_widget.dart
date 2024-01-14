@@ -185,7 +185,7 @@ class GameItemWidget extends StatelessWidget {
                           ),
                           Text("--", style: Theme.of(context).textTheme.titleSmall?.copyWith(color: Colors.redAccent)),
                           Text(
-                            "${game!.players[index].totalPlayerScore() ?? 0}",
+                            "${game!.players[index].totalPlayerScore()}",
                             style: Theme.of(context).textTheme.bodySmall?.copyWith(color: Colors.greenAccent),
                           ),
                         ],

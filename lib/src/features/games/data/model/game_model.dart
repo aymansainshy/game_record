@@ -1,10 +1,10 @@
 enum GameStatus { createdNew, currentPlaying, paused, completed }
 
 class Game {
-  final int id;
+  final String id;
   late GameStatus status;
   late List<GamePlayer> players;
-  late int? champion;
+  late String? champion;
 
   Game({
     required this.id,
@@ -14,7 +14,7 @@ class Game {
   });
 
   List<GamePlayer>? getCurrentPlayers() {
-    final currentPlayers = players.where((player) => player.isFire() ?? false).toList();
+    final currentPlayers = players.where((player) => !player.isFire()).toList();
     return currentPlayers;
   }
 
@@ -30,8 +30,8 @@ class Game {
     this.status = gameStatus;
   }
 
-  GamePlayer? getGameChampion(int? id) {
-    return players.firstWhere((player) => player.player.id.toString() == id.toString());
+  GamePlayer? getGameChampion(String? id) {
+    return players.firstWhere((player) => player.player.id == id);
   }
 }
 
@@ -51,7 +51,7 @@ class GamePlayer {
         ));
   }
 
-  bool? isFire() {
+  bool isFire() {
     final totalScore = totalPlayerScore();
     return totalScore >= 31;
   }
@@ -72,7 +72,7 @@ class GamePlayer {
 }
 
 class Player {
-  final int id;
+  final String id;
   final String name;
 
   Player({
