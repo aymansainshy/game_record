@@ -97,6 +97,14 @@ class _GameBoardState extends State<GameBoard> {
     Colors.deepPurpleAccent,
     Colors.black26,
     AppColors.primaryColorHex,
+    Colors.green,
+    Colors.deepOrange,
+    Colors.blueGrey,
+    Colors.deepPurpleAccent,
+    Colors.black26,
+    AppColors.primaryColorHex,
+    Colors.green,
+    Colors.deepOrange,
   ];
 
   @override
@@ -129,7 +137,8 @@ class _GameBoardState extends State<GameBoard> {
                     return Center(
                       child: Text(
                         widget.game.players[index].player.name,
-                        style: Theme.of(context).textTheme.bodyLarge?.copyWith(
+                        overflow: TextOverflow.ellipsis,
+                        style: Theme.of(context).textTheme.bodyMedium?.copyWith(
                               fontWeight: FontWeight.bold,
                             ),
                       ),
@@ -141,64 +150,68 @@ class _GameBoardState extends State<GameBoard> {
           ],
         ),
         SizedBox(height: 10),
-        Row(
-          mainAxisAlignment: MainAxisAlignment.start,
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            ...List.generate(
-              widget.game.players.length,
-              (pIndex) {
-                final gamePlayers = widget.game.players[pIndex];
+        Expanded(
+          child: SingleChildScrollView(
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                ...List.generate(
+                  widget.game.players.length,
+                  (pIndex) {
+                    final gamePlayers = widget.game.players[pIndex];
 
-                return Column(
-                  children: [
-                    if (gamePlayers.playerScore != null)
-                      ...List.generate(gamePlayers.playerScore!.rounds!.length, (index) {
-                        final round = gamePlayers.playerScore!.rounds;
+                    return Column(
+                      children: [
+                        if (gamePlayers.playerScore != null)
+                          ...List.generate(gamePlayers.playerScore!.rounds!.length, (index) {
+                            final round = gamePlayers.playerScore!.rounds;
 
-                        return Container(
-                          height: 50,
-                          width: (mediaQuery.width / widget.game.players.length),
-                          padding: EdgeInsets.all(8),
-                          decoration: BoxDecoration(
-                            color: colors[pIndex].withOpacity(0.5),
-                            borderRadius: BorderRadius.all(
-                              Radius.circular(10),
-                            ),
-                          ),
-                          child: Container(
-                            decoration: BoxDecoration(
-                              color: Colors.white,
-                              borderRadius: BorderRadius.all(
-                                Radius.circular(6),
-                              ),
-                            ),
-                            child: LayoutBuilder(builder: (context, constraints) {
-                              return Center(
-                                child: Text(
-                                  round![index].score!.toString(),
-                                  style: Theme.of(context).textTheme.bodyLarge?.copyWith(
-                                      // fontWeight: FontWeight.bold,
-                                      ),
+                            return Container(
+                              height: 48,
+                              width: (mediaQuery.width / widget.game.players.length),
+                              padding: EdgeInsets.all(8),
+                              decoration: BoxDecoration(
+                                color: colors[pIndex].withOpacity(0.5),
+                                borderRadius: BorderRadius.all(
+                                  Radius.circular(10),
                                 ),
-                              );
-                            }),
-                          ),
-                        );
-                      }),
-                    // const SizedBox(height: 10),
-                    TotalScoreWidget(
-                      color: colors[pIndex],
-                      gamePlayerLength: widget.game.players.length,
-                      mediaQuery: mediaQuery,
-                      gamePlayer: gamePlayers,
-                      game: widget.game,
-                    ),
-                  ],
-                );
-              },
+                              ),
+                              child: Container(
+                                decoration: BoxDecoration(
+                                  color: Colors.white,
+                                  borderRadius: BorderRadius.all(
+                                    Radius.circular(6),
+                                  ),
+                                ),
+                                child: LayoutBuilder(builder: (context, constraints) {
+                                  return Center(
+                                    child: Text(
+                                      round![index].score!.toString(),
+                                      style: Theme.of(context).textTheme.bodyLarge?.copyWith(
+                                          // fontWeight: FontWeight.bold,
+                                          ),
+                                    ),
+                                  );
+                                }),
+                              ),
+                            );
+                          }),
+                        // const SizedBox(height: 10),
+                        TotalScoreWidget(
+                          color: colors[pIndex],
+                          gamePlayerLength: widget.game.players.length,
+                          mediaQuery: mediaQuery,
+                          gamePlayer: gamePlayers,
+                          game: widget.game,
+                        ),
+                      ],
+                    );
+                  },
+                ),
+              ],
             ),
-          ],
+          ),
         ),
       ],
     );
@@ -248,7 +261,7 @@ class TotalScoreWidget extends StatelessWidget {
               return Center(
                 child: Text(
                   gamePlayer.totalPlayerScore().toString(),
-                  style: Theme.of(context).textTheme.titleLarge?.copyWith(
+                  style: Theme.of(context).textTheme.titleMedium?.copyWith(
                         fontWeight: FontWeight.bold,
                       ),
                 ),
@@ -257,8 +270,8 @@ class TotalScoreWidget extends StatelessWidget {
           ),
           if (gamePlayer.isFire() ?? false)
             Positioned(
-              top: -20,
-              left: -10,
+              top: -25,
+              left: -15,
               child: Text(
                 "🔥",
                 style: Theme.of(context).textTheme.displaySmall?.copyWith(),

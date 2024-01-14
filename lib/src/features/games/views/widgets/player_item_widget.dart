@@ -16,11 +16,10 @@ class PlayerItemWidget extends StatefulWidget {
 }
 
 class _PlayerItemWidgetState extends State<PlayerItemWidget> {
-  late bool? isAdded = false;
-
   @override
   Widget build(BuildContext context) {
     final mediaQuery = MediaQuery.sizeOf(context);
+
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 5.0, vertical: 2),
       child: Container(
@@ -55,15 +54,23 @@ class _PlayerItemWidgetState extends State<PlayerItemWidget> {
               ),
             ),
             const SizedBox(width: 10),
-            Checkbox(
-              value: isAdded,
-              onChanged: (value) {
-                setState(() {
-                  isAdded = value;
-                });
-                if (value != null && value) {
-                  BlocProvider.of<PlayersBloc>(context).add(AddPlayerToAddList(player: widget.player!));
-                }
+            BlocBuilder<PlayersBloc, PlayersState>(
+              builder: (context, playerState) {
+                late bool? isAdded = playerState.playersToAdd?.contains(widget.player);
+
+                return Checkbox(
+                  value: isAdded,
+                  onChanged: (value) {
+                    isAdded = value;
+
+                    if (value != null && value) {
+                      BlocProvider.of<PlayersBloc>(context).add(AddPlayerToAddList(player: widget.player!));
+                    }
+                    if (value != null && !value) {
+                      BlocProvider.of<PlayersBloc>(context).add(RemovePlayerToAddList(player: widget.player!));
+                    }
+                  },
+                );
               },
             ),
           ],

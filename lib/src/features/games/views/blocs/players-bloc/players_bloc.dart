@@ -15,18 +15,24 @@ class PlayersBloc extends Bloc<PlayersEvent, PlayersState> {
   final List<Player> playersToAdd = [];
 
   PlayersBloc(this.playersRepository) : super(PlayersState(players: [], playersToAdd: [])) {
-    // final currentState = state;
-
     on<GetPlayers>((event, emit) {
       final players = playersRepository.getPlayersList();
       emit(state.copyWith(players: players));
     });
 
     on<AddPlayerToAddList>((event, emit) {
-      if (playersToAdd.contains(event.player)) {
-        playersToAdd.remove(event.player);
-      }
+      // if (playersToAdd.contains(event.player)) {
+      //   playersToAdd.remove(event.player);
+      // }
       playersToAdd.add(event.player);
+      emit(state.copyWith(playersToAdd: playersToAdd));
+    });
+
+    on<RemovePlayerToAddList>((event, emit) {
+      // if (playersToAdd.contains(event.player)) {
+      //   playersToAdd.remove(event.player);
+      // }
+      playersToAdd.remove(event.player);
       emit(state.copyWith(playersToAdd: playersToAdd));
     });
 

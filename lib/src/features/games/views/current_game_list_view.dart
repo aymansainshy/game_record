@@ -28,20 +28,51 @@ class _CurrentGameViewState extends State<CurrentGameView> {
       width: mediaQuery.width,
       child: BlocBuilder<GamesBloc, GamesState>(
         builder: (context, gamesStates) {
-          final gameList = gamesStates.games
-              .where((game) => game?.status == GameStatus.createdNew || game?.status == GameStatus.paused)
-              .toList()
-              .reversed
-              .toList();
+          switch (gamesStates) {
+            case GamesInProgress():
+              return const Center(child: CircularProgressIndicator());
 
-          return ListView.builder(
-            itemCount: gameList.length,
-            itemBuilder: (context, index) {
-              return GameItemWidget(
-                game: gameList[index],
+            case GamesFailure():
+              return Center(
+                child: Text(
+                  "Something went wrong, please try again",
+                  style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                        color: Colors.black45,
+                      ),
+                ),
               );
-            },
-          );
+
+            case GamesSuccess():
+              final gameList = gamesStates.games
+                      ?.where((game) => game?.status == GameStatus.createdNew || game?.status == GameStatus.paused)
+                      .toList()
+                      .reversed
+                      .toList() ??
+                  [];
+
+              if (gameList.isEmpty) {
+                return Center(
+                  child: Text(
+                    "No Games.",
+                    style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                          color: Colors.black45,
+                        ),
+                  ),
+                );
+              }
+
+              return ListView.builder(
+                itemCount: gameList?.length,
+                itemBuilder: (context, index) {
+                  return GameItemWidget(
+                    game: gameList?[index],
+                  );
+                },
+              );
+
+            default:
+              return const SizedBox.shrink();
+          }
         },
       ),
     );

@@ -24,16 +24,17 @@ class GameItemWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    // final mediaQuery = MediaQuery.sizeOf(context);
     return GestureDetector(
       onTap: () {
-        if (game?.status == GameStatus.currentPlaying) {
+        if (game?.status != GameStatus.currentPlaying) {
           context.read<GameTimerBloc>().add(SetTimerInitial(duration: 5000));
         }
 
         context.push(RouteName.gameBoard, extra: game);
       },
       child: Container(
-        height: 180,
+        height: 220,
         width: double.infinity,
         margin: const EdgeInsets.all(5),
         padding: const EdgeInsets.all(10),
@@ -101,10 +102,10 @@ class GameItemWidget extends StatelessWidget {
                         ),
                       ),
                       const SizedBox(width: 15),
-                      if (game?.status == GameStatus.currentPlaying)
+                      if (game?.status != GameStatus.completed)
                         Icon(
                           CupertinoIcons.play_arrow_solid,
-                          color: game?.status == GameStatus.completed ? AppColors.primaryColorHex : Colors.white,
+                          color: Colors.white,
                         ),
                       if (game?.status == GameStatus.completed)
                         Icon(
@@ -148,26 +149,49 @@ class GameItemWidget extends StatelessWidget {
             const Spacer(),
             Row(
               children: [
-                RichText(
-                  text: TextSpan(
-                    children: [
-                      TextSpan(
-                        text: "Score   ",
-                        style: Theme.of(context).textTheme.titleMedium?.copyWith(
-                              color: Colors.white,
-                            ),
-                      ),
-                      TextSpan(
-                        text: game?.champion != null
-                            ? "${game?.getGameChampion(game?.champion)?.totalPlayerScore()}"
-                            : "--",
-                        style: Theme.of(context).textTheme.titleLarge?.copyWith(
-                              color: Colors.redAccent,
-                            ),
-                      ),
-                    ],
+                if (game?.status == GameStatus.completed)
+                  RichText(
+                    text: TextSpan(
+                      children: [
+                        TextSpan(
+                          text: "Score   ",
+                          style: Theme.of(context).textTheme.titleMedium?.copyWith(
+                                color: Colors.white,
+                              ),
+                        ),
+                        TextSpan(
+                          text: game?.champion != null
+                              ? "${game?.getGameChampion(game?.champion)?.totalPlayerScore()}"
+                              : "--",
+                          style: Theme.of(context).textTheme.titleLarge?.copyWith(
+                                color: Colors.redAccent,
+                              ),
+                        ),
+                      ],
+                    ),
                   ),
-                ),
+                if (game?.status != GameStatus.completed)
+                  Text("Scores", style: Theme.of(context).textTheme.titleMedium?.copyWith(color: Colors.white)),
+                const SizedBox(width: 20),
+                if (game?.status != GameStatus.completed)
+                  ...List.generate(game!.players.length, (index) {
+                    return Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                      child: Column(
+                        children: [
+                          Text(
+                            game!.players[index].player.name.substring(0, 2),
+                            style: Theme.of(context).textTheme.bodySmall?.copyWith(color: Colors.grey),
+                          ),
+                          Text("--", style: Theme.of(context).textTheme.titleSmall?.copyWith(color: Colors.redAccent)),
+                          Text(
+                            "${game!.players[index].totalPlayerScore()}",
+                            style: Theme.of(context).textTheme.bodySmall?.copyWith(color: Colors.greenAccent),
+                          ),
+                        ],
+                      ),
+                    );
+                  }),
                 const Spacer(),
                 SizedBox(
                   height: 25,

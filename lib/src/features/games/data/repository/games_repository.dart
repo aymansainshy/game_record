@@ -1,5 +1,3 @@
-import 'dart:math';
-
 import 'package:hareeg/src/features/games/data/model/game_model.dart';
 
 abstract class GamesRepository {
@@ -11,12 +9,12 @@ abstract class GamesRepository {
 class GamesRepositoryImpl implements GamesRepository {
   final List<Game> games = [
     Game(
-      id: 1,
+      id: "1",
       status: GameStatus.paused,
       champion: null,
       players: [
         GamePlayer(
-          player: Player(id: 1, name: 'Ayman'),
+          player: Player(id: "1", name: 'Ayman'),
           playerScore: PlayerScore(
             rounds: [
               Round(
@@ -47,7 +45,7 @@ class GamesRepositoryImpl implements GamesRepository {
           ),
         ),
         GamePlayer(
-          player: Player(id: 2, name: 'Jehad'),
+          player: Player(id: "2", name: 'Jihad'),
           playerScore: PlayerScore(
             rounds: [
               Round(
@@ -78,7 +76,7 @@ class GamesRepositoryImpl implements GamesRepository {
           ),
         ),
         GamePlayer(
-          player: Player(id: 3, name: 'Asaad'),
+          player: Player(id: "3", name: 'Asaad'),
           playerScore: PlayerScore(
             rounds: [
               Round(
@@ -97,7 +95,7 @@ class GamesRepositoryImpl implements GamesRepository {
           ),
         ),
         GamePlayer(
-          player: Player(id: 4, name: 'Misbah'),
+          player: Player(id: "4", name: 'Misbah'),
           playerScore: PlayerScore(
             rounds: [
               Round(
@@ -126,12 +124,12 @@ class GamesRepositoryImpl implements GamesRepository {
       ],
     ),
     Game(
-      id: 2,
+      id: "2",
       status: GameStatus.completed,
-      champion: 3,
+      champion: "3",
       players: [
         GamePlayer(
-          player: Player(id: 3, name: 'Asaad'),
+          player: Player(id: "3", name: 'Asaad'),
           playerScore: PlayerScore(
             rounds: [
               Round(
@@ -146,7 +144,7 @@ class GamesRepositoryImpl implements GamesRepository {
           ),
         ),
         GamePlayer(
-          player: Player(id: 4, name: 'Misbah'),
+          player: Player(id: "4", name: 'Misbah'),
           playerScore: PlayerScore(
             rounds: [
               Round(
@@ -163,15 +161,15 @@ class GamesRepositoryImpl implements GamesRepository {
       ],
     ),
     Game(
-      id: 3,
+      id: "3",
       status: GameStatus.paused,
       champion: null,
       players: [
         GamePlayer(
-          player: Player(id: 3, name: 'Asaad'),
+          player: Player(id: "3", name: 'Asaad'),
         ),
         GamePlayer(
-          player: Player(id: 4, name: 'Misbah'),
+          player: Player(id: "4", name: 'Misbah'),
         ),
       ],
     ),
@@ -184,7 +182,8 @@ class GamesRepositoryImpl implements GamesRepository {
 
   @override
   void createNewGame(List<Player> players) {
-    final id = Random().nextInt(1000);
+    // final id = Random().nextInt(1000);
+    final String id = DateTime.now().toIso8601String();
     final gamePlayer = players.map((player) => GamePlayer(player: player)).toList();
     final newGame = Game(id: id, players: gamePlayer);
     games.add(newGame);

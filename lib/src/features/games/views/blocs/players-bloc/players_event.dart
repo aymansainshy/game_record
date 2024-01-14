@@ -18,6 +18,15 @@ class AddPlayerToAddList extends PlayersEvent {
   List<Object?> get props => [player];
 }
 
+class RemovePlayerToAddList extends PlayersEvent {
+  final Player player;
+
+  RemovePlayerToAddList({required this.player});
+
+  @override
+  List<Object?> get props => [player];
+}
+
 class ClearPlayerFromAddList extends PlayersEvent {
   @override
   List<Object?> get props => [];
