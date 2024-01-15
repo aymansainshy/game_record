@@ -3,25 +3,29 @@ enum GameStatus { createdNew, currentPlaying, paused, completed }
 class Game {
   final String id;
   final String gameNo;
-  late GameStatus status;
-  late List<GamePlayer> players;
+  final List<GamePlayer> _players;
   late String? champion;
+  late GameStatus status;
 
   Game({
     required this.id,
     required this.gameNo,
-    required this.players,
+    required List<GamePlayer> players,
     this.champion,
     this.status = GameStatus.createdNew,
-  });
+  }) : _players = players;
+
+  List<GamePlayer> getGamePlayers() {
+    return _players;
+  }
 
   List<GamePlayer>? getCurrentPlayers() {
-    final currentPlayers = players.where((player) => !player.isFire()).toList();
+    final currentPlayers = this._players.where((player) => !player.isFire()).toList();
     return currentPlayers;
   }
 
   void addGamePlayer(GamePlayer gamePlayer) {
-    this.players.add(gamePlayer);
+    this._players.add(gamePlayer);
   }
 
   void changeGameStatus(GameStatus gameStatus) {
@@ -33,18 +37,22 @@ class Game {
   }
 
   GamePlayer? getGameChampion(String? id) {
-    return players.firstWhere((player) => player.player.id == id);
+    return this._players.firstWhere((gPlayer) => gPlayer.player.id == id);
   }
 }
 
 class GamePlayer {
   final Player player;
-  late List<int?>? playerScores;
+  final List<int?> _playerScores;
 
   GamePlayer({
     required this.player,
-    this.playerScores = const [],
-  });
+    List<int?>? scores,
+  }) : _playerScores = scores ?? [];
+
+  List<int?> getPlayerScores() {
+    return _playerScores;
+  }
 
   bool isFire() {
     return totalPlayerScore() >= 31;
@@ -55,13 +63,13 @@ class GamePlayer {
   }
 
   void addScore(int? newScore) {
-    this.playerScores?.add(newScore);
+    this._playerScores.add(newScore);
   }
 
   int totalPlayerScore() {
     late int totalScore = 0;
 
-    playerScores?.forEach((score) {
+    this._playerScores.forEach((score) {
       totalScore = totalScore + score!;
     });
     return totalScore;

@@ -18,19 +18,19 @@ class GamesRepositoryImpl implements GamesRepository {
       players: [
         GamePlayer(
           player: Player(id: "1", name: 'Ayman'),
-          playerScores: [4, 3, 3, -1, 3, 6],
+          scores: [4, 3, 3, -1, 3, 6],
         ),
         GamePlayer(
           player: Player(id: "2", name: 'Jihad'),
-          playerScores: [0, 8, 4, 5, -1, -1],
+          scores: [0, 8, 4, 5, -1, -1],
         ),
         GamePlayer(
           player: Player(id: "3", name: 'Asaad'),
-          playerScores: [14, 3, 14],
+          scores: [14, 3, 14],
         ),
         GamePlayer(
           player: Player(id: "4", name: 'Misbah'),
-          playerScores: [8, 2, -1, 14, 14],
+          scores: [8, 2, -1, 14, 14],
         ),
       ],
     ),
@@ -42,11 +42,11 @@ class GamesRepositoryImpl implements GamesRepository {
       players: [
         GamePlayer(
           player: Player(id: "3", name: 'Asaad'),
-          playerScores: [0, -3],
+          scores: [0, -3],
         ),
         GamePlayer(
           player: Player(id: "4", name: 'Misbah'),
-          playerScores: [14, 17],
+          scores: [14, 17],
         ),
       ],
     ),

@@ -115,10 +115,10 @@ class _GameBoardState extends State<GameBoard> {
         Row(
           children: [
             ...List.generate(
-              widget.game.players.length,
+              widget.game.getGamePlayers().length,
               (index) => Container(
                 height: 50,
-                width: (mediaQuery.width / widget.game.players.length),
+                width: (mediaQuery.width / widget.game.getGamePlayers().length),
                 padding: EdgeInsets.all(8),
                 decoration: BoxDecoration(
                   color: colors[index],
@@ -136,7 +136,7 @@ class _GameBoardState extends State<GameBoard> {
                   child: LayoutBuilder(builder: (context, constraints) {
                     return Center(
                       child: Text(
-                        widget.game.players[index].player.name,
+                        widget.game.getGamePlayers()[index].player.name,
                         overflow: TextOverflow.ellipsis,
                         style: Theme.of(context).textTheme.bodyMedium?.copyWith(
                               fontWeight: FontWeight.bold,
@@ -157,50 +157,49 @@ class _GameBoardState extends State<GameBoard> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 ...List.generate(
-                  widget.game.players.length,
+                  widget.game.getGamePlayers().length,
                   (pIndex) {
-                    final gamePlayers = widget.game.players[pIndex];
+                    final gamePlayers = widget.game.getGamePlayers()[pIndex];
 
                     return Column(
                       children: [
-                        if (gamePlayers.playerScores != null)
-                          ...List.generate(gamePlayers.playerScores!.length, (index) {
-                            final scoresList = gamePlayers.playerScores;
+                        ...List.generate(gamePlayers.getPlayerScores().length, (index) {
+                          final scoresList = gamePlayers.getPlayerScores();
 
-                            return Container(
-                              height: 48,
-                              width: (mediaQuery.width / widget.game.players.length),
-                              padding: EdgeInsets.all(8),
+                          return Container(
+                            height: 48,
+                            width: (mediaQuery.width / widget.game.getGamePlayers().length),
+                            padding: EdgeInsets.all(8),
+                            decoration: BoxDecoration(
+                              color: colors[pIndex].withOpacity(0.5),
+                              borderRadius: BorderRadius.all(
+                                Radius.circular(10),
+                              ),
+                            ),
+                            child: Container(
                               decoration: BoxDecoration(
-                                color: colors[pIndex].withOpacity(0.5),
+                                color: Colors.white,
                                 borderRadius: BorderRadius.all(
-                                  Radius.circular(10),
+                                  Radius.circular(6),
                                 ),
                               ),
-                              child: Container(
-                                decoration: BoxDecoration(
-                                  color: Colors.white,
-                                  borderRadius: BorderRadius.all(
-                                    Radius.circular(6),
+                              child: LayoutBuilder(builder: (context, constraints) {
+                                return Center(
+                                  child: Text(
+                                    scoresList[index].toString(),
+                                    style: Theme.of(context).textTheme.bodyLarge?.copyWith(
+                                        // fontWeight: FontWeight.bold,
+                                        ),
                                   ),
-                                ),
-                                child: LayoutBuilder(builder: (context, constraints) {
-                                  return Center(
-                                    child: Text(
-                                      scoresList![index].toString(),
-                                      style: Theme.of(context).textTheme.bodyLarge?.copyWith(
-                                          // fontWeight: FontWeight.bold,
-                                          ),
-                                    ),
-                                  );
-                                }),
-                              ),
-                            );
-                          }),
+                                );
+                              }),
+                            ),
+                          );
+                        }),
                         // const SizedBox(height: 10),
                         TotalScoreWidget(
                           color: colors[pIndex],
-                          gamePlayerLength: widget.game.players.length,
+                          gamePlayerLength: widget.game.getGamePlayers().length,
                           mediaQuery: mediaQuery,
                           gamePlayer: gamePlayers,
                           game: widget.game,
