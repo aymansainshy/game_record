@@ -1,3 +1,5 @@
+import 'package:equatable/equatable.dart';
+
 enum GameStatus { createdNew, currentPlaying, paused, completed }
 
 class Game {
@@ -7,16 +9,43 @@ class Game {
   late String? champion;
   late GameStatus status;
   late int _duration;
+  final DateTime createdAt;
 
   Game({
     required this.id,
     required this.gameNo,
     required List<GamePlayer> players,
+    required this.createdAt,
     this.champion,
     this.status = GameStatus.createdNew,
     int duration = 0,
   })  : _players = players,
         _duration = duration;
+
+  int maxScore() {
+    final soresList = this._players.map((gPlayer) => gPlayer.totalPlayerScore()).toList();
+    // final filteredScores = soresList.where((score) => score <= 30).toList();
+    int maxNumber = soresList.reduce((value, element) => value > element ? value : element);
+    return maxNumber;
+  }
+
+  bool isContainFiredPerson() {
+    final List<GamePlayer> firedPlayer = this._players.where((gPlayer) => gPlayer.totalPlayerScore() >= 31).toList();
+
+    if (firedPlayer.isNotEmpty) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+
+  int maxRound() {
+    int maxR = 0;
+    final maxScore = this.maxScore();
+    final gPlayer = this._players.firstWhere((gPlayer) => gPlayer.totalPlayerScore() == maxScore);
+    maxR = gPlayer.getPlayerScores().length;
+    return maxR;
+  }
 
   int getGameDuration() {
     return this._duration;
@@ -35,8 +64,8 @@ class Game {
     return currentPlayers;
   }
 
-  void addGamePlayer(GamePlayer gamePlayer) {
-    this._players.add(gamePlayer);
+  void addGamePlayer(List<GamePlayer> gamePlayers) {
+    this._players.addAll(gamePlayers);
   }
 
   void changeGameStatus(GameStatus gameStatus) {
@@ -80,14 +109,17 @@ class GamePlayer {
   int totalPlayerScore() {
     late int totalScore = 0;
 
-    this._playerScores.forEach((score) {
-      totalScore = totalScore + score!;
+    this._playerScores.forEach((int? score) {
+      if (score == null) {
+        return;
+      }
+      totalScore = totalScore + score;
     });
     return totalScore;
   }
 }
 
-class Player {
+class Player extends Equatable {
   final String id;
   final String name;
 
@@ -95,6 +127,10 @@ class Player {
     required this.id,
     required this.name,
   });
+
+  @override
+  // TODO: implement props
+  List<Object?> get props => [id, name];
 }
 
 // class PlayerScore {

@@ -124,7 +124,7 @@ class GameItemWidget extends StatelessWidget {
             ),
             const Spacer(),
             Text(
-              DateFormat.yMMMMEEEEd().format(DateTime.now()),
+              DateFormat.yMMMMEEEEd().format(game.createdAt),
               style: Theme.of(context).textTheme.bodyMedium?.copyWith(
                     color: Colors.grey,
                   ),

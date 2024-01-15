@@ -20,5 +20,10 @@ class SingleGameBloc extends Bloc<SingleGameEvent, SingleGameState> {
       event.game.status = event.status;
       emit(SingleGameState());
     });
+
+    on<AddNewPlayerToCurrentGame>((event, emit) {
+      event.game.addGamePlayer(event.players);
+      emit(SingleGameState());
+    });
   }
 }

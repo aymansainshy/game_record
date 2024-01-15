@@ -13,6 +13,7 @@ class GamesRepositoryImpl implements GamesRepository {
     Game(
       gameNo: "7841",
       id: DateTime.now().toIso8601String(),
+      createdAt: DateTime.now(),
       status: GameStatus.paused,
       champion: null,
       players: [
@@ -38,6 +39,7 @@ class GamesRepositoryImpl implements GamesRepository {
       gameNo: "1211",
       duration: 234567,
       id: DateTime.now().toIso8601String(),
+      createdAt: DateTime.now(),
       status: GameStatus.completed,
       champion: "3",
       players: [
@@ -54,6 +56,7 @@ class GamesRepositoryImpl implements GamesRepository {
     Game(
       gameNo: "2411",
       id: DateTime.now().toIso8601String(),
+      createdAt: DateTime.now(),
       status: GameStatus.paused,
       champion: null,
       players: [
@@ -77,7 +80,7 @@ class GamesRepositoryImpl implements GamesRepository {
     final String gameNo = Random().nextInt(9999).toString();
     final String id = DateTime.now().toIso8601String();
     final gamePlayers = players.map((player) => GamePlayer(player: player)).toList();
-    final newGame = Game(id: id, gameNo: gameNo, players: gamePlayers);
+    final newGame = Game(id: id, gameNo: gameNo, players: gamePlayers, createdAt: DateTime.now());
     _games.add(newGame);
   }
 }

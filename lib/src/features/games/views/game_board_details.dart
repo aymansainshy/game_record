@@ -5,10 +5,11 @@ import 'package:hareeg/src/features/games/data/model/game_model.dart';
 import 'package:hareeg/src/features/games/views/blocs/game-timer-bloc/game_timer_bloc.dart';
 import 'package:hareeg/src/features/games/views/blocs/games-bloc/games_bloc.dart';
 import 'package:hareeg/src/features/games/views/blocs/sigle-game-bloc/single_game_bloc.dart';
-import 'package:hareeg/src/features/games/views/blocs/sigle-game-bloc/single_game_bloc.dart';
+import 'package:hareeg/src/features/games/views/widgets/add_new_player_to_current_game_sheet.dart';
 import 'package:hareeg/src/features/games/views/widgets/game_timer_widget.dart';
 import 'package:hareeg/src/features/games/views/widgets/total_score_widget.dart';
 import 'package:hareeg/src/theme/app_theme.dart';
+import 'package:intl/intl.dart';
 
 class GameBoardDetailsView extends StatelessWidget {
   const GameBoardDetailsView({
@@ -96,8 +97,19 @@ class GameBoardDetailsView extends StatelessWidget {
             width: mediaQuery.width,
             child: Column(
               mainAxisAlignment: MainAxisAlignment.start,
-              crossAxisAlignment: CrossAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
+                if (game.status == GameStatus.completed)
+                  Padding(
+                    padding: const EdgeInsets.only(left: 10, right: 10, top: 15),
+                    child: Text(
+                      DateFormat.yMMMMEEEEd().format(game.createdAt),
+                      style: Theme.of(context).textTheme.titleLarge?.copyWith(
+                            color: Colors.black45,
+                            // fontWeight: FontWeight.bold,
+                          ),
+                    ),
+                  ),
                 if (game.status != GameStatus.completed)
                   Container(
                     height: mediaQuery.height * 0.08,
@@ -124,14 +136,16 @@ class GameBoardDetailsView extends StatelessWidget {
                 Expanded(
                   child: GameBoard(game: game),
                 ),
-                if (game.status == GameStatus.currentPlaying)
-                  Padding(
-                    padding: const EdgeInsets.all(10.0),
-                    child: SizedBox(
-                      width: mediaQuery.width,
-                      height: 50,
-                      child: Row(
-                        children: [
+                Padding(
+                  padding: const EdgeInsets.all(10.0),
+                  child: SizedBox(
+                    width: mediaQuery.width,
+                    height: 50,
+                    child: Row(
+                      children: [
+                        if (game.status == GameStatus.paused || game.status == GameStatus.createdNew)
+                          Expanded(child: SizedBox.shrink()),
+                        if (game.status == GameStatus.paused || game.status == GameStatus.createdNew)
                           Expanded(
                             child: ElevatedButton(
                               style: ButtonStyle(
@@ -147,7 +161,21 @@ class GameBoardDetailsView extends StatelessWidget {
                                   ),
                                 ),
                               ),
-                              onPressed: () {},
+                              onPressed: () {
+                                if (game.isContainFiredPerson()) {
+                                  ScaffoldMessenger.of(context).showSnackBar(
+                                    SnackBar(content: Text("You can't add new Players, the game contains 🔥persons")),
+                                  );
+                                  return;
+                                }
+
+                                showModalBottomSheet(
+                                  context: context,
+                                  builder: (context) {
+                                    return AddNewPlayerToCurrentGameSheet(game: game);
+                                  },
+                                );
+                              },
                               child: Row(
                                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                                 children: [
@@ -157,7 +185,8 @@ class GameBoardDetailsView extends StatelessWidget {
                               ),
                             ),
                           ),
-                          SizedBox(width: 10),
+                        if (game.status == GameStatus.currentPlaying) Expanded(child: SizedBox.shrink()),
+                        if (game.status == GameStatus.currentPlaying)
                           Expanded(
                             child: ElevatedButton(
                               onPressed: () {},
@@ -170,10 +199,10 @@ class GameBoardDetailsView extends StatelessWidget {
                               ),
                             ),
                           ),
-                        ],
-                      ),
+                      ],
                     ),
                   ),
+                ),
               ],
             ),
           ),

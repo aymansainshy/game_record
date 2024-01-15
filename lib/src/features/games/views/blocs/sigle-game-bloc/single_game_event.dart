@@ -29,3 +29,16 @@ class UpdateGameStatus extends SingleGameEvent {
   @override
   List<Object?> get props => [game, status];
 }
+
+class AddNewPlayerToCurrentGame extends SingleGameEvent {
+  const AddNewPlayerToCurrentGame({
+    required this.game,
+    required this.players,
+  });
+
+  final List<GamePlayer> players;
+  final Game game;
+
+  @override
+  List<Object?> get props => [game, players];
+}
