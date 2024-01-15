@@ -139,6 +139,7 @@ class _AddNewPlayerToCurrentGameSheetState extends State<AddNewPlayerToCurrentGa
                 child: ElevatedButton(
                   onPressed: () {
                     if (playersState.playersToAdd != null && playersState.playersToAdd!.isNotEmpty) {
+
                       if ((widget.game.getGamePlayers().length + playersState.playersToAdd!.length) > 6) {
                         Navigator.pop(context);
                         ScaffoldMessenger.of(context).showSnackBar(

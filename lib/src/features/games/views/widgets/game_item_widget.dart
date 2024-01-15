@@ -42,7 +42,7 @@ class GameItemWidget extends StatelessWidget {
         context.push(RouteName.gameBoard, extra: game);
       },
       child: Container(
-        height: 220,
+        height: 200,
         width: double.infinity,
         margin: const EdgeInsets.all(5),
         padding: const EdgeInsets.all(10),
@@ -129,7 +129,7 @@ class GameItemWidget extends StatelessWidget {
                     color: Colors.grey,
                   ),
             ),
-            const SizedBox(height: 30),
+            const SizedBox(height: 10),
             RichText(
               text: TextSpan(
                 children: [

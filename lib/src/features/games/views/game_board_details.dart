@@ -169,6 +169,13 @@ class GameBoardDetailsView extends StatelessWidget {
                                   return;
                                 }
 
+                                if (game.getGamePlayers().length >= 6) {
+                                  ScaffoldMessenger.of(context).showSnackBar(
+                                    SnackBar(content: Text("You can't add new Players, Max is 6 Players")),
+                                  );
+                                  return;
+                                }
+
                                 showModalBottomSheet(
                                   context: context,
                                   builder: (context) {
