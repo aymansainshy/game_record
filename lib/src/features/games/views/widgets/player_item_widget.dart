@@ -24,8 +24,8 @@ class _PlayerItemWidgetState extends State<PlayerItemWidget> {
       padding: const EdgeInsets.symmetric(horizontal: 5.0, vertical: 2),
       child: Container(
         margin: const EdgeInsets.symmetric(horizontal: 20.0),
-        padding: const EdgeInsets.symmetric(horizontal: 10.0),
-        height: 40,
+        padding: const EdgeInsets.symmetric(horizontal: 20.0),
+        height: 45,
         width: mediaQuery.width,
         decoration: const BoxDecoration(
           color: Colors.white,
@@ -45,7 +45,7 @@ class _PlayerItemWidgetState extends State<PlayerItemWidget> {
                     "${widget.player?.name}",
                     maxLines: 1,
                     overflow: TextOverflow.ellipsis,
-                    style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                    style: Theme.of(context).textTheme.bodyLarge?.copyWith(
                           // fontWeight: FontWeight.bold,
                           color: Colors.black87,
                         ),

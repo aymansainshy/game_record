@@ -31,3 +31,12 @@ class ClearPlayerFromAddList extends PlayersEvent {
   @override
   List<Object?> get props => [];
 }
+
+class CreateNewPlayer extends PlayersEvent {
+  final String name;
+
+  const CreateNewPlayer({required this.name});
+
+  @override
+  List<Object?> get props => [];
+}

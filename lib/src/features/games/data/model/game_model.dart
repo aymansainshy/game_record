@@ -2,71 +2,76 @@ enum GameStatus { createdNew, currentPlaying, paused, completed }
 
 class Game {
   final String id;
-  late GameStatus status;
-  late List<GamePlayer> players;
+  final String gameNo;
+  final List<GamePlayer> _players;
   late String? champion;
+  late GameStatus status;
 
   Game({
     required this.id,
-    required this.players,
+    required this.gameNo,
+    required List<GamePlayer> players,
     this.champion,
     this.status = GameStatus.createdNew,
-  });
+  }) : _players = players;
+
+  List<GamePlayer> getGamePlayers() {
+    return _players;
+  }
 
   List<GamePlayer>? getCurrentPlayers() {
-    final currentPlayers = players.where((player) => !player.isFire()).toList();
+    final currentPlayers = this._players.where((player) => !player.isFire()).toList();
     return currentPlayers;
   }
 
   void addGamePlayer(GamePlayer gamePlayer) {
-    this.players.add(gamePlayer);
-  }
-
-  void addChampion(GamePlayer gamePlayer) {
-    this.champion = gamePlayer.player.id;
+    this._players.add(gamePlayer);
   }
 
   void changeGameStatus(GameStatus gameStatus) {
     this.status = gameStatus;
   }
 
+  void addChampion(String playerId) {
+    this.champion = id;
+  }
+
   GamePlayer? getGameChampion(String? id) {
-    return players.firstWhere((player) => player.player.id == id);
+    return this._players.firstWhere((gPlayer) => gPlayer.player.id == id);
   }
 }
 
 class GamePlayer {
   final Player player;
-  final PlayerScore? playerScore;
+  final List<int?> _playerScores;
 
   GamePlayer({
     required this.player,
-    this.playerScore,
-  });
+    List<int?>? scores,
+  }) : _playerScores = scores ?? [];
 
-  void addScore(int? score, int roundNumber) {
-    this.playerScore?.rounds?.add(Round(
-          roundNumber: roundNumber,
-          score: score,
-        ));
+  List<int?> getPlayerScores() {
+    return _playerScores;
   }
 
   bool isFire() {
-    final totalScore = totalPlayerScore();
-    return totalScore >= 31;
+    return totalPlayerScore() >= 31;
   }
 
   bool? isChampion(Game game) {
     return game.champion == this.player.id;
   }
 
+  void addScore(int? newScore) {
+    this._playerScores.add(newScore);
+  }
+
   int totalPlayerScore() {
     late int totalScore = 0;
 
-    playerScore?.rounds?.forEach((round) {
-      totalScore = totalScore + round.score!;
+    this._playerScores.forEach((score) {
+      totalScore = totalScore + score!;
     });
-
     return totalScore;
   }
 }
@@ -81,20 +86,34 @@ class Player {
   });
 }
 
-class Round {
-  final int roundNumber;
-  final int? score;
+// class PlayerScore {
+//   final List<int?>? scores;
+//
+//   PlayerScore({
+//     this.scores,
+//   });
+//
+//   int totalPlayerScore() {
+//     late int totalScore = 0;
+//
+//     scores?.forEach((score) {
+//       totalScore = totalScore + score!;
+//     });
+//
+//     return totalScore;
+//   }
+//
+//   void addScore(int? score) {
+//     this.scores?.add(score);
+//   }
+// }
 
-  Round({
-    required this.roundNumber,
-    this.score = 0,
-  });
-}
-
-class PlayerScore {
-  final List<Round>? rounds;
-
-  PlayerScore({
-    this.rounds,
-  });
-}
+// class Round {
+//   final int roundNumber;
+//   final int? score;
+//
+//   Round({
+//     required this.roundNumber,
+//     this.score = 0,
+//   });
+// }

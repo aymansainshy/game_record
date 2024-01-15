@@ -61,26 +61,24 @@ class GameItemWidget extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.start,
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
-                    // Icon(
-                    //   Icons.circle,
-                    //   color: AppColors.primaryColorHex,
-                    // ),
                     SizedBox(
                       height: 40,
                       width: 40,
                       child: Image.asset(AssetsUtils.cardImage),
                     ),
                     const SizedBox(width: 10),
-                    Transform.translate(
-                      offset: const Offset(0, 2),
-                      child: Text(
-                        "Game #${game?.id}",
-                        maxLines: 1,
-                        overflow: TextOverflow.ellipsis,
-                        style: Theme.of(context).textTheme.bodyLarge?.copyWith(
-                              color: Colors.grey,
-                              fontWeight: FontWeight.bold,
-                            ),
+                    Expanded(
+                      child: Transform.translate(
+                        offset: const Offset(0, 2),
+                        child: Text(
+                          "Game# ${game?.gameNo}",
+                          maxLines: 1,
+                          overflow: TextOverflow.ellipsis,
+                          style: Theme.of(context).textTheme.bodyLarge?.copyWith(
+                                color: Colors.grey,
+                                fontWeight: FontWeight.bold,
+                              ),
+                        ),
                       ),
                     ),
                   ],
@@ -174,18 +172,18 @@ class GameItemWidget extends StatelessWidget {
                   Text("Scores", style: Theme.of(context).textTheme.titleMedium?.copyWith(color: Colors.white)),
                 const SizedBox(width: 20),
                 if (game?.status != GameStatus.completed)
-                  ...List.generate(game!.players.length, (index) {
+                  ...List.generate(game!.getGamePlayers().length, (index) {
                     return Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 8.0),
                       child: Column(
                         children: [
                           Text(
-                            game!.players[index].player.name.substring(0, 2),
+                            game!.getGamePlayers()[index].player.name.substring(0, 2),
                             style: Theme.of(context).textTheme.bodySmall?.copyWith(color: Colors.grey),
                           ),
                           Text("--", style: Theme.of(context).textTheme.titleSmall?.copyWith(color: Colors.redAccent)),
                           Text(
-                            "${game!.players[index].totalPlayerScore()}",
+                            "${game!.getGamePlayers()[index].totalPlayerScore()}",
                             style: Theme.of(context).textTheme.bodySmall?.copyWith(color: Colors.greenAccent),
                           ),
                         ],
