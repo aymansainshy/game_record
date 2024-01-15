@@ -1,19 +1,25 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:hareeg/src/features/games/views/blocs/games-bloc/games_bloc.dart';
+import 'package:hareeg/src/features/games/data/model/game_model.dart';
 import 'package:hareeg/src/features/games/views/blocs/players-bloc/players_bloc.dart';
+import 'package:hareeg/src/features/games/views/blocs/sigle-game-bloc/single_game_bloc.dart';
 import 'package:hareeg/src/features/games/views/widgets/create_new_player_bottom_sheet.dart';
 import 'package:hareeg/src/features/games/views/widgets/player_item_widget.dart';
 
-class CreateNewGameBottomSheet extends StatefulWidget {
-  const CreateNewGameBottomSheet({super.key});
+class AddNewPlayerToCurrentGameSheet extends StatefulWidget {
+  const AddNewPlayerToCurrentGameSheet({
+    super.key,
+    required this.game,
+  });
+
+  final Game game;
 
   @override
-  State<CreateNewGameBottomSheet> createState() => _CreateNewGameBottomSheetState();
+  State<AddNewPlayerToCurrentGameSheet> createState() => _AddNewPlayerToCurrentGameSheetState();
 }
 
-class _CreateNewGameBottomSheetState extends State<CreateNewGameBottomSheet> {
-  final playersToAddList = [];
+class _AddNewPlayerToCurrentGameSheetState extends State<AddNewPlayerToCurrentGameSheet> {
+  // final playersToAddList = [];
 
   @override
   void initState() {
@@ -108,13 +114,16 @@ class _CreateNewGameBottomSheetState extends State<CreateNewGameBottomSheet> {
               }
 
               final playersList = playersState.players!.reversed.toList();
+              final gamePlayer = widget.game.getGamePlayers().map((gPlayer) => gPlayer.player).toList();
+              final List<Player> filteredPlayers = playersList.where((player) => !gamePlayer.contains(player)).toList();
+
               return Expanded(
                 child: ListView.builder(
                     shrinkWrap: true,
-                    itemCount: playersList.length,
+                    itemCount: filteredPlayers.length,
                     itemBuilder: (context, index) {
                       return PlayerItemWidget(
-                        player: playersList[index],
+                        player: filteredPlayers[index],
                       );
                     }),
               );
@@ -130,12 +139,38 @@ class _CreateNewGameBottomSheetState extends State<CreateNewGameBottomSheet> {
                 child: ElevatedButton(
                   onPressed: () {
                     if (playersState.playersToAdd != null && playersState.playersToAdd!.isNotEmpty) {
-                      BlocProvider.of<GamesBloc>(context).add(CreateGame(playersState.playersToAdd!));
+
+                      if ((widget.game.getGamePlayers().length + playersState.playersToAdd!.length) > 6) {
+                        Navigator.pop(context);
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          SnackBar(content: Text("You can't add new Players, Max is 6 Players")),
+                        );
+                        return;
+                      }
+
+                      final maxScore = widget.game.maxScore();
+                      final maxRound = widget.game.maxRound();
+
+                      final gamePlayers = playersState.playersToAdd
+                          ?.map(
+                            (player) => GamePlayer(
+                              player: player,
+                              scores: maxScore > 0 ? [...List.generate(maxRound - 1, (index) => 0), maxScore] : null,
+                            ),
+                          )
+                          .toList();
+
+                      context.read<SingleGameBloc>().add(
+                            AddNewPlayerToCurrentGame(
+                              game: widget.game,
+                              players: gamePlayers!,
+                            ),
+                          );
                       BlocProvider.of<PlayersBloc>(context).add(ClearPlayerFromAddList());
                       Navigator.pop(context);
                     }
                   },
-                  child: Text("Create Game"),
+                  child: Text("Add Player To Game"),
                 ),
               );
             },

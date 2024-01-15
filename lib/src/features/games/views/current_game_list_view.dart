@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hareeg/src/features/games/data/model/game_model.dart';
-import 'package:hareeg/src/features/games/views/blocs/game-timer-bloc/game_timer_bloc.dart';
 import 'package:hareeg/src/features/games/views/blocs/games-bloc/games_bloc.dart';
 import 'package:hareeg/src/features/games/views/widgets/game_item_widget.dart';
 
@@ -65,7 +64,7 @@ class _CurrentGameViewState extends State<CurrentGameView> {
                 itemCount: gameList.length,
                 itemBuilder: (context, index) {
                   return GameItemWidget(
-                    game: gameList[index],
+                    game: gameList[index]!,
                   );
                 },
               );

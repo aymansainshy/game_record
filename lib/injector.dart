@@ -6,6 +6,7 @@ import 'package:hareeg/src/features/games/data/repository/timer.dart';
 import 'package:hareeg/src/features/games/views/blocs/game-timer-bloc/game_timer_bloc.dart';
 import 'package:hareeg/src/features/games/views/blocs/games-bloc/games_bloc.dart';
 import 'package:hareeg/src/features/games/views/blocs/players-bloc/players_bloc.dart';
+import 'package:hareeg/src/features/games/views/blocs/sigle-game-bloc/single_game_bloc.dart';
 
 import 'src/router/app_router.dart';
 
@@ -23,6 +24,7 @@ void setup() {
   inject.registerLazySingleton<PlayersRepository>(() => PlayersRepositoryImpl());
 
   inject.registerLazySingleton<OnAppStartedAppBloc>(() => OnAppStartedAppBloc());
+  inject.registerLazySingleton<SingleGameBloc>(() => SingleGameBloc());
   inject.registerLazySingleton<GamesBloc>(() => GamesBloc(inject()));
   inject.registerLazySingleton<GameTimerBloc>(() => GameTimerBloc(inject()));
   inject.registerLazySingleton<PlayersBloc>(() => PlayersBloc(inject()));

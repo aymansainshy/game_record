@@ -12,9 +12,9 @@ class PlayersRepositoryImpl implements PlayersRepository {
     Player(id: "2", name: 'Jihad'),
     Player(id: "3", name: 'Asaad'),
     Player(id: "4", name: 'Misbah'),
-    // Player(id: "5", name: 'Mohammed'),
-    // Player(id: "6", name: 'Adam'),
-    // Player(id: "7", name: 'Ali'),
+    Player(id: "5", name: 'Mohammed'),
+    Player(id: "6", name: 'Adam'),
+    Player(id: "7", name: 'Ali'),
   ];
 
   @override
