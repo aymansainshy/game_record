@@ -45,59 +45,69 @@ class _CreateNewPlayerBottomSheetState extends State<CreateNewPlayerBottomSheet>
 
     return Scaffold(
       backgroundColor: Colors.transparent,
-      body: Form(
-        key: _formKey,
-        child: SingleChildScrollView(
-          child: Column(
-            children: [
-              SizedBox(height: 10),
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 0),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Text(
-                      'Create new player',
-                      style: Theme.of(context).textTheme.titleMedium?.copyWith(),
+      body: GestureDetector(
+        onTap: () {
+          if (_focusScopeNode.hasFocus) {
+            _focusScopeNode.unfocus();
+          }
+        },
+        child: FocusScope(
+          node: _focusScopeNode,
+          child: Form(
+            key: _formKey,
+            child: SingleChildScrollView(
+              child: Column(
+                children: [
+                  SizedBox(height: 10),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 0),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Text(
+                          'Create new player',
+                          style: Theme.of(context).textTheme.titleMedium?.copyWith(),
+                        ),
+                        IconButton(
+                          onPressed: () {
+                            Navigator.pop(context);
+                          },
+                          icon: Icon(
+                            Icons.close,
+                            size: 30,
+                            color: Theme.of(context).primaryColor,
+                          ),
+                        ),
+                      ],
                     ),
-                    IconButton(
-                      onPressed: () {
-                        Navigator.pop(context);
-                      },
-                      icon: Icon(
-                        Icons.close,
-                        size: 30,
-                        color: Theme.of(context).primaryColor,
+                  ),
+                  SizedBox(height: 10),
+                  CreateNewPlayerForm(
+                    onPlayerSaved: (String? value) {
+                      playerName = value;
+                    },
+                    playerFocusNode: _playerNameFocusNode,
+                  ),
+                  Container(
+                    width: mediaQuery.width,
+                    margin: EdgeInsets.symmetric(horizontal: 25),
+                    decoration: BoxDecoration(
+                      color: Colors.black,
+                      borderRadius: BorderRadius.all(
+                        Radius.circular(15),
                       ),
                     ),
-                  ],
-                ),
-              ),
-              SizedBox(height: 10),
-              CreateNewPlayerForm(
-                onPlayerSaved: (String? value) {
-                  playerName = value;
-                },
-                playerFocusNode: _playerNameFocusNode,
-              ),
-              Container(
-                width: mediaQuery.width,
-                margin: EdgeInsets.symmetric(horizontal: 25),
-                decoration: BoxDecoration(
-                  color: Colors.black,
-                  borderRadius: BorderRadius.all(
-                    Radius.circular(15),
+                    height: 55,
+                    child: ElevatedButton(
+                      onPressed: () {
+                        _saveForm();
+                      },
+                      child: Text("Add Player"),
+                    ),
                   ),
-                ),
-                height: 55,
-                child: ElevatedButton(
-                  onPressed: () {
-                    _saveForm();
-                  },
-                  child: Text("Save Player"),
-                ),
+                ],
               ),
-            ],
+            ),
           ),
         ),
       ),

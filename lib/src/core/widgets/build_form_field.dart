@@ -22,6 +22,7 @@ class BuildFormField extends StatelessWidget {
     this.labelStyle,
     this.onChanged,
     this.fillColor,
+    this.autofocus = false,
   }) : super(key: key);
 
   final void Function(String)? onFieldSubmitted;
@@ -42,12 +43,14 @@ class BuildFormField extends StatelessWidget {
   final String? initialValue;
   final Color? fillColor;
   final int? maxLines;
+  final bool autofocus;
   final TextDirection? textDirection;
   final void Function(String)? onChanged;
 
   @override
   Widget build(BuildContext context) {
     return TextFormField(
+      autofocus: autofocus,
       decoration: InputDecoration(
         errorBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(5),

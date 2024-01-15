@@ -23,6 +23,7 @@ class CreateNewPlayerForm extends StatelessWidget {
       padding: const EdgeInsets.symmetric(horizontal: 25.0, vertical: 10.0),
       child: BuildFormField(
         textDirection: textDirection,
+        autofocus: true,
         fieldName: "Player Name",
         keyboardType: TextInputType.text,
         textInputAction: TextInputAction.done,

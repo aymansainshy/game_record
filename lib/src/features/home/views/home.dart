@@ -4,6 +4,7 @@ import 'package:hareeg/src/features/games/views/widgets/create_new_game_bottom_s
 import 'package:hareeg/src/features/games/views/current_game_list_view.dart';
 import 'package:hareeg/src/features/games/views/history_game_list_view.dart';
 import 'package:hareeg/src/features/home/widgets/custom_buttom_nav_bar.dart';
+import 'package:hareeg/src/utils/assets_helper.dart';
 
 class HomeView extends StatefulWidget {
   const HomeView({super.key});
@@ -125,16 +126,21 @@ class _HomeViewState extends State<HomeView> {
                     Expanded(
                       child: GestureDetector(
                         onTap: () {
-                          showPopupMenu(context);
+                          // showPopupMenu(context);
                         },
-                        child: CircleAvatar(
-                          radius: 25,
-                          backgroundColor: Theme.of(context).colorScheme.secondary,
-                          child: const Icon(
-                            CupertinoIcons.person,
-                            size: 30,
-                          ),
+                        child: Image.asset(
+                          AssetsUtils.recordImage,
+                          height: 60,
+                          width: 60,
                         ),
+                        // CircleAvatar(
+                        //   radius: 25,
+                        //   backgroundColor: Theme.of(context).colorScheme.secondary,
+                        //   child: const Icon(
+                        //     CupertinoIcons.person,
+                        //     size: 30,
+                        //   ),
+                        // ),
                       ),
                     ),
                   ],

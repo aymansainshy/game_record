@@ -107,13 +107,14 @@ class _CreateNewGameBottomSheetState extends State<CreateNewGameBottomSheet> {
                 );
               }
 
+              final playersList = playersState.players!.reversed.toList();
               return Expanded(
                 child: ListView.builder(
                     shrinkWrap: true,
-                    itemCount: playersState.players?.length,
+                    itemCount: playersList.length,
                     itemBuilder: (context, index) {
                       return PlayerItemWidget(
-                        player: playersState.players?[index],
+                        player: playersList[index],
                       );
                     }),
               );
