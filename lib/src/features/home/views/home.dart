@@ -1,6 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:hareeg/src/features/games/views/create_new_game_view.dart';
+import 'package:hareeg/src/features/games/views/widgets/create_new_game_bottom_sheet.dart';
 import 'package:hareeg/src/features/games/views/current_game_list_view.dart';
 import 'package:hareeg/src/features/games/views/history_game_list_view.dart';
 import 'package:hareeg/src/features/home/widgets/custom_buttom_nav_bar.dart';
@@ -72,7 +72,7 @@ class _HomeViewState extends State<HomeView> {
                 showModalBottomSheet(
                   context: context,
                   builder: (context) {
-                    return const CreateNewGameView();
+                    return const CreateNewGameBottomSheet();
                   },
                 );
               },

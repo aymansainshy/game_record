@@ -1,18 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:go_router/go_router.dart';
 import 'package:hareeg/src/features/games/views/blocs/games-bloc/games_bloc.dart';
 import 'package:hareeg/src/features/games/views/blocs/players-bloc/players_bloc.dart';
+import 'package:hareeg/src/features/games/views/widgets/create_new_player_bottom_sheet.dart';
 import 'package:hareeg/src/features/games/views/widgets/player_item_widget.dart';
 
-class CreateNewGameView extends StatefulWidget {
-  const CreateNewGameView({super.key});
+class CreateNewGameBottomSheet extends StatefulWidget {
+  const CreateNewGameBottomSheet({super.key});
 
   @override
-  State<CreateNewGameView> createState() => _CreateNewGameViewState();
+  State<CreateNewGameBottomSheet> createState() => _CreateNewGameBottomSheetState();
 }
 
-class _CreateNewGameViewState extends State<CreateNewGameView> {
+class _CreateNewGameBottomSheetState extends State<CreateNewGameBottomSheet> {
   final playersToAddList = [];
 
   @override
@@ -57,14 +57,11 @@ class _CreateNewGameViewState extends State<CreateNewGameView> {
           GestureDetector(
             onTap: () {
               showModalBottomSheet(
-                  context: context,
-                  builder: (context) {
-                    return Container(
-                      height: 300,
-                      width: mediaQuery.width,
-                      color: Colors.red,
-                    );
-                  });
+                context: context,
+                builder: (context) {
+                  return CreateNewPlayerBottomSheet();
+                },
+              );
             },
             child: Container(
               height: 40,

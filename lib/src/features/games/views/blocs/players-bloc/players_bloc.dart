@@ -10,13 +10,13 @@ part 'players_event.dart';
 part 'players_state.dart';
 
 class PlayersBloc extends Bloc<PlayersEvent, PlayersState> {
-  final PlayersRepository playersRepository;
+  final PlayersRepository _playersRepository;
 
   final List<Player> playersToAdd = [];
 
-  PlayersBloc(this.playersRepository) : super(PlayersState(players: [], playersToAdd: [])) {
+  PlayersBloc(this._playersRepository) : super(PlayersState(players: [], playersToAdd: [])) {
     on<GetPlayers>((event, emit) {
-      final players = playersRepository.getPlayersList();
+      final players = _playersRepository.getPlayersList();
       emit(state.copyWith(players: players));
     });
 
@@ -35,6 +35,11 @@ class PlayersBloc extends Bloc<PlayersEvent, PlayersState> {
     on<ClearPlayerFromAddList>((event, emit) {
       playersToAdd.clear();
       emit(state.copyWith(playersToAdd: playersToAdd));
+    });
+
+    on<CreateNewPlayer>((event, emit) {
+      final playersList = _playersRepository.createPlayer(event.name);
+      emit(state.copyWith(players: playersList));
     });
   }
 }

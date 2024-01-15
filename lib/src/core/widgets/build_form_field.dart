@@ -73,7 +73,7 @@ class BuildFormField extends StatelessWidget {
         suffixIcon: suffixIcon,
         labelText: fieldName,
         filled: true,
-        fillColor: fillColor ?? Theme.of(context).cardColor,
+        fillColor: fillColor ?? Theme.of(context).colorScheme.onPrimary,
         focusColor: Theme.of(context).colorScheme.primary,
         floatingLabelBehavior: FloatingLabelBehavior.auto,
         // label: Text(fieldName!),
