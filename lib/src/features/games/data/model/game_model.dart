@@ -2,12 +2,14 @@ enum GameStatus { createdNew, currentPlaying, paused, completed }
 
 class Game {
   final String id;
+  final String gameNo;
   late GameStatus status;
   late List<GamePlayer> players;
   late String? champion;
 
   Game({
     required this.id,
+    required this.gameNo,
     required this.players,
     this.champion,
     this.status = GameStatus.createdNew,
@@ -22,12 +24,12 @@ class Game {
     this.players.add(gamePlayer);
   }
 
-  void addChampion(GamePlayer gamePlayer) {
-    this.champion = gamePlayer.player.id;
-  }
-
   void changeGameStatus(GameStatus gameStatus) {
     this.status = gameStatus;
+  }
+
+  void addChampion(String playerId) {
+    this.champion = id;
   }
 
   GamePlayer? getGameChampion(String? id) {
@@ -37,22 +39,16 @@ class Game {
 
 class GamePlayer {
   final Player player;
-  final PlayerScore? playerScore;
+  late List<int?>? playerScores;
 
   GamePlayer({
     required this.player,
-    this.playerScore,
+    this.playerScores = const [],
   });
 
-  void addScore(int? score, int roundNumber) {
-    this.playerScore?.rounds?.add(Round(
-          roundNumber: roundNumber,
-          score: score,
-        ));
-  }
-
   bool isFire() {
-    final totalScore = totalPlayerScore();
+    late int totalScore = 0;
+    totalScore = totalPlayerScore();
     return totalScore >= 31;
   }
 
@@ -60,13 +56,16 @@ class GamePlayer {
     return game.champion == this.player.id;
   }
 
+  void addScore(int? newScore) {
+    this.playerScores?.add(newScore);
+  }
+
   int totalPlayerScore() {
     late int totalScore = 0;
 
-    playerScore?.rounds?.forEach((round) {
-      totalScore = totalScore + round.score!;
+    playerScores?.forEach((score) {
+      totalScore = totalScore + score!;
     });
-
     return totalScore;
   }
 }
@@ -81,20 +80,34 @@ class Player {
   });
 }
 
-class Round {
-  final int roundNumber;
-  final int? score;
+// class PlayerScore {
+//   final List<int?>? scores;
+//
+//   PlayerScore({
+//     this.scores,
+//   });
+//
+//   int totalPlayerScore() {
+//     late int totalScore = 0;
+//
+//     scores?.forEach((score) {
+//       totalScore = totalScore + score!;
+//     });
+//
+//     return totalScore;
+//   }
+//
+//   void addScore(int? score) {
+//     this.scores?.add(score);
+//   }
+// }
 
-  Round({
-    required this.roundNumber,
-    this.score = 0,
-  });
-}
-
-class PlayerScore {
-  final List<Round>? rounds;
-
-  PlayerScore({
-    this.rounds,
-  });
-}
+// class Round {
+//   final int roundNumber;
+//   final int? score;
+//
+//   Round({
+//     required this.roundNumber,
+//     this.score = 0,
+//   });
+// }

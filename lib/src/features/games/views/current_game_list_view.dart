@@ -62,10 +62,10 @@ class _CurrentGameViewState extends State<CurrentGameView> {
               }
 
               return ListView.builder(
-                itemCount: gameList?.length,
+                itemCount: gameList.length,
                 itemBuilder: (context, index) {
                   return GameItemWidget(
-                    game: gameList?[index],
+                    game: gameList[index],
                   );
                 },
               );

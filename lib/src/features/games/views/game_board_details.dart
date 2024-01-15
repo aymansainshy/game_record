@@ -163,9 +163,9 @@ class _GameBoardState extends State<GameBoard> {
 
                     return Column(
                       children: [
-                        if (gamePlayers.playerScore != null)
-                          ...List.generate(gamePlayers.playerScore!.rounds!.length, (index) {
-                            final round = gamePlayers.playerScore!.rounds;
+                        if (gamePlayers.playerScores != null)
+                          ...List.generate(gamePlayers.playerScores!.length, (index) {
+                            final scoresList = gamePlayers.playerScores;
 
                             return Container(
                               height: 48,
@@ -187,7 +187,7 @@ class _GameBoardState extends State<GameBoard> {
                                 child: LayoutBuilder(builder: (context, constraints) {
                                   return Center(
                                     child: Text(
-                                      round![index].score!.toString(),
+                                      scoresList![index].toString(),
                                       style: Theme.of(context).textTheme.bodyLarge?.copyWith(
                                           // fontWeight: FontWeight.bold,
                                           ),
@@ -241,7 +241,7 @@ class TotalScoreWidget extends StatelessWidget {
       width: (mediaQuery.width / gamePlayerLength),
       padding: EdgeInsets.all(8),
       decoration: BoxDecoration(
-        color: gamePlayer.isFire() ?? false ? Color(0xFFD22323) : color,
+        color: gamePlayer.isFire() ? Color(0xFFD22323) : color,
         borderRadius: BorderRadius.all(
           Radius.circular(10),
         ),
@@ -252,7 +252,7 @@ class TotalScoreWidget extends StatelessWidget {
         children: [
           Container(
             decoration: BoxDecoration(
-              color: gamePlayer.isFire() ?? false ? Colors.orange : Colors.white,
+              color: gamePlayer.isFire() ? Colors.orange : Colors.white,
               borderRadius: BorderRadius.all(
                 Radius.circular(6),
               ),
@@ -268,7 +268,7 @@ class TotalScoreWidget extends StatelessWidget {
               );
             }),
           ),
-          if (gamePlayer.isFire() ?? false)
+          if (gamePlayer.isFire())
             Positioned(
               top: -25,
               left: -15,

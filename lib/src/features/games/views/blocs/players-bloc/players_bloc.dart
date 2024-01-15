@@ -21,17 +21,13 @@ class PlayersBloc extends Bloc<PlayersEvent, PlayersState> {
     });
 
     on<AddPlayerToAddList>((event, emit) {
-      // if (playersToAdd.contains(event.player)) {
-      //   playersToAdd.remove(event.player);
-      // }
-      playersToAdd.add(event.player);
-      emit(state.copyWith(playersToAdd: playersToAdd));
+      if (playersToAdd.length < 6) {
+        playersToAdd.add(event.player);
+        emit(state.copyWith(playersToAdd: playersToAdd));
+      }
     });
 
     on<RemovePlayerToAddList>((event, emit) {
-      // if (playersToAdd.contains(event.player)) {
-      //   playersToAdd.remove(event.player);
-      // }
       playersToAdd.remove(event.player);
       emit(state.copyWith(playersToAdd: playersToAdd));
     });
