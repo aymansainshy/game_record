@@ -36,6 +36,7 @@ class GamesRepositoryImpl implements GamesRepository {
     ),
     Game(
       gameNo: "1211",
+      duration: 234567,
       id: DateTime.now().toIso8601String(),
       status: GameStatus.completed,
       champion: "3",

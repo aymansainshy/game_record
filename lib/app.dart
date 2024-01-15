@@ -7,6 +7,7 @@ import 'package:hareeg/src/core/widgets/splash_view.dart';
 import 'package:hareeg/src/features/games/views/blocs/game-timer-bloc/game_timer_bloc.dart';
 import 'package:hareeg/src/features/games/views/blocs/games-bloc/games_bloc.dart';
 import 'package:hareeg/src/features/games/views/blocs/players-bloc/players_bloc.dart';
+import 'package:hareeg/src/features/games/views/blocs/sigle-game-bloc/single_game_bloc.dart';
 import 'package:hareeg/src/router/app_router.dart';
 import 'package:hareeg/src/theme/app_theme.dart';
 import 'package:hareeg/src/utils/assets_helper.dart';
@@ -30,6 +31,7 @@ class MyApp extends StatelessWidget {
         BlocProvider<GamesBloc>(create: (context) => inject<GamesBloc>()),
         BlocProvider<GameTimerBloc>(create: (context) => inject<GameTimerBloc>()),
         BlocProvider<PlayersBloc>(create: (context) => inject<PlayersBloc>()),
+        BlocProvider<SingleGameBloc>(create: (context) => inject<SingleGameBloc>()),
       ],
       child: AnnotatedRegion<SystemUiOverlayStyle>(
         value: SystemUiOverlayStyle.dark.copyWith(

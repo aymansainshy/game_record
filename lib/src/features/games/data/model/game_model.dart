@@ -6,6 +6,7 @@ class Game {
   final List<GamePlayer> _players;
   late String? champion;
   late GameStatus status;
+  late int _duration;
 
   Game({
     required this.id,
@@ -13,7 +14,17 @@ class Game {
     required List<GamePlayer> players,
     this.champion,
     this.status = GameStatus.createdNew,
-  }) : _players = players;
+    int duration = 0,
+  })  : _players = players,
+        _duration = duration;
+
+  int getGameDuration() {
+    return this._duration;
+  }
+
+  void updateGameDuration(int newDuration) {
+    this._duration = newDuration;
+  }
 
   List<GamePlayer> getGamePlayers() {
     return _players;

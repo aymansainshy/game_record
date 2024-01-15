@@ -34,8 +34,10 @@ class GameTimerBloc extends Bloc<GameTimerEvent, GameTimerState> {
   void _onStarted(TimerStarted event, Emitter<GameTimerState> emit) {
     emit(TimerRunInProgress(event.duration));
     _tickerSubscription?.cancel();
-    _tickerSubscription =
-        _ticker.tick(ticks: event.duration).listen((duration) => add(_TimerTicked(duration: duration)));
+    _tickerSubscription = _ticker.tick(ticks: event.duration).listen((duration) => add(_TimerTicked(
+          duration: duration,
+          gameId: event.gameId,
+        )));
   }
 
   void _onTicked(_TimerTicked event, Emitter<GameTimerState> emit) {
