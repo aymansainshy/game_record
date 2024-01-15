@@ -47,9 +47,7 @@ class GamePlayer {
   });
 
   bool isFire() {
-    late int totalScore = 0;
-    totalScore = totalPlayerScore();
-    return totalScore >= 31;
+    return totalPlayerScore() >= 31;
   }
 
   bool? isChampion(Game game) {
