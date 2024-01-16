@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -89,128 +91,130 @@ class GameBoardDetailsView extends StatelessWidget {
                   Navigator.of(context).pop();
                 }
               },
-              icon: Icon(Icons.arrow_back),
+              icon: Platform.isAndroid ? Icon(Icons.arrow_back) : Icon(CupertinoIcons.back),
             ),
           ),
           body: SizedBox(
             height: mediaQuery.height,
             width: mediaQuery.width,
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.start,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                if (game.status == GameStatus.completed)
-                  Padding(
-                    padding: const EdgeInsets.only(left: 10, right: 10, top: 15),
-                    child: Text(
-                      DateFormat.yMMMMEEEEd().format(game.createdAt),
-                      style: Theme.of(context).textTheme.titleLarge?.copyWith(
-                            color: Colors.black45,
-                            // fontWeight: FontWeight.bold,
-                          ),
+            child: SafeArea(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.start,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  if (game.status == GameStatus.completed)
+                    Padding(
+                      padding: const EdgeInsets.only(left: 10, right: 10, top: 15),
+                      child: Text(
+                        DateFormat.yMMMMEEEEd().format(game.createdAt),
+                        style: Theme.of(context).textTheme.titleLarge?.copyWith(
+                              color: Colors.black45,
+                              // fontWeight: FontWeight.bold,
+                            ),
+                      ),
                     ),
-                  ),
-                if (game.status != GameStatus.completed)
-                  Container(
-                    height: mediaQuery.height * 0.08,
-                    width: mediaQuery.width,
-                    color: Colors.black12,
-                    padding: EdgeInsets.symmetric(horizontal: 20),
-                    child: Row(
-                      children: [
-                        Expanded(
-                          child: Text(
-                            "${hoursStr} : ${minutesStr} : ${secondsStr}",
-                            maxLines: 1,
-                            overflow: TextOverflow.ellipsis,
-                            style: Theme.of(context).textTheme.displayLarge?.copyWith(
-                                  color: AppColors.primaryColorHex,
-                                ),
-                          ),
-                        ),
-                        GameTimerWidget(game: game),
-                      ],
-                    ),
-                  ),
-                const SizedBox(height: 10),
-                Expanded(
-                  child: GameBoard(game: game),
-                ),
-                Padding(
-                  padding: const EdgeInsets.all(10.0),
-                  child: SizedBox(
-                    width: mediaQuery.width,
-                    height: 50,
-                    child: Row(
-                      children: [
-                        if (game.status == GameStatus.paused || game.status == GameStatus.createdNew)
-                          Expanded(child: SizedBox.shrink()),
-                        if (game.status == GameStatus.paused || game.status == GameStatus.createdNew)
+                  if (game.status != GameStatus.completed)
+                    Container(
+                      height: mediaQuery.height * 0.08,
+                      width: mediaQuery.width,
+                      color: Colors.black12,
+                      padding: EdgeInsets.symmetric(horizontal: 20),
+                      child: Row(
+                        children: [
                           Expanded(
-                            child: ElevatedButton(
-                              style: ButtonStyle(
-                                padding: MaterialStateProperty.all<EdgeInsets>(
-                                  EdgeInsets.zero,
-                                ),
-                                backgroundColor: MaterialStateProperty.all<Color>(Theme.of(context).primaryColor),
-                                foregroundColor: MaterialStateProperty.all<Color>(Colors.white),
-                                shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-                                  RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(5.0),
-                                    // side: BorderSide(color: Colors.red)
+                            child: Text(
+                              "${hoursStr} : ${minutesStr} : ${secondsStr}",
+                              maxLines: 1,
+                              overflow: TextOverflow.ellipsis,
+                              style: Theme.of(context).textTheme.displayLarge?.copyWith(
+                                    color: AppColors.primaryColorHex,
+                                  ),
+                            ),
+                          ),
+                          GameTimerWidget(game: game),
+                        ],
+                      ),
+                    ),
+                  const SizedBox(height: 10),
+                  Expanded(
+                    child: GameBoard(game: game),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.all(10.0),
+                    child: SizedBox(
+                      width: mediaQuery.width,
+                      height: 50,
+                      child: Row(
+                        children: [
+                          if (game.status == GameStatus.paused || game.status == GameStatus.createdNew)
+                            Expanded(child: SizedBox.shrink()),
+                          if (game.status == GameStatus.paused || game.status == GameStatus.createdNew)
+                            Expanded(
+                              child: ElevatedButton(
+                                style: ButtonStyle(
+                                  padding: MaterialStateProperty.all<EdgeInsets>(
+                                    EdgeInsets.zero,
+                                  ),
+                                  backgroundColor: MaterialStateProperty.all<Color>(Theme.of(context).primaryColor),
+                                  foregroundColor: MaterialStateProperty.all<Color>(Colors.white),
+                                  shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                                    RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(5.0),
+                                      // side: BorderSide(color: Colors.red)
+                                    ),
                                   ),
                                 ),
-                              ),
-                              onPressed: () {
-                                if (game.isContainFiredPerson()) {
-                                  ScaffoldMessenger.of(context).showSnackBar(
-                                    SnackBar(content: Text("You can't add new Players, the game contains 🔥persons")),
-                                  );
-                                  return;
-                                }
+                                onPressed: () {
+                                  if (game.isContainFiredPerson()) {
+                                    ScaffoldMessenger.of(context).showSnackBar(
+                                      SnackBar(content: Text("You can't add new Players, the game contains 🔥persons")),
+                                    );
+                                    return;
+                                  }
 
-                                if (game.getGamePlayers().length >= 6) {
-                                  ScaffoldMessenger.of(context).showSnackBar(
-                                    SnackBar(content: Text("You can't add new Players, Max is 6 Players")),
-                                  );
-                                  return;
-                                }
+                                  if (game.getGamePlayers().length >= 6) {
+                                    ScaffoldMessenger.of(context).showSnackBar(
+                                      SnackBar(content: Text("You can't add new Players, Max is 6 Players")),
+                                    );
+                                    return;
+                                  }
 
-                                showModalBottomSheet(
-                                  context: context,
-                                  builder: (context) {
-                                    return AddNewPlayerToCurrentGameSheet(game: game);
-                                  },
-                                );
-                              },
-                              child: Row(
-                                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                                children: [
-                                  Text("Add Player to game"),
-                                  Icon(CupertinoIcons.person_add_solid),
-                                ],
+                                  showModalBottomSheet(
+                                    context: context,
+                                    builder: (context) {
+                                      return AddNewPlayerToCurrentGameSheet(game: game);
+                                    },
+                                  );
+                                },
+                                child: Row(
+                                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                                  children: [
+                                    Text("Add Player to game"),
+                                    Icon(CupertinoIcons.person_add_solid),
+                                  ],
+                                ),
                               ),
                             ),
-                          ),
-                        if (game.status == GameStatus.currentPlaying) Expanded(child: SizedBox.shrink()),
-                        if (game.status == GameStatus.currentPlaying)
-                          Expanded(
-                            child: ElevatedButton(
-                              onPressed: () {},
-                              child: Row(
-                                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                                children: [
-                                  Text("Add Record"),
-                                  Icon(Icons.edit_calendar_outlined),
-                                ],
+                          if (game.status == GameStatus.currentPlaying) Expanded(child: SizedBox.shrink()),
+                          if (game.status == GameStatus.currentPlaying)
+                            Expanded(
+                              child: ElevatedButton(
+                                onPressed: () {},
+                                child: Row(
+                                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                                  children: [
+                                    Text("Add Record"),
+                                    Icon(Icons.edit_calendar_outlined),
+                                  ],
+                                ),
                               ),
                             ),
-                          ),
-                      ],
+                        ],
+                      ),
                     ),
                   ),
-                ),
-              ],
+                ],
+              ),
             ),
           ),
         );

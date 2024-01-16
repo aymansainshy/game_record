@@ -159,7 +159,7 @@ class GameItemWidget extends StatelessWidget {
                     text: TextSpan(
                       children: [
                         TextSpan(
-                          text: "Score   ",
+                          text: "Score ",
                           style: Theme.of(context).textTheme.titleMedium?.copyWith(
                                 color: Colors.white,
                               ),
