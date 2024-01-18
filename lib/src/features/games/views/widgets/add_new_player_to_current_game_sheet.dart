@@ -143,7 +143,10 @@ class _AddNewPlayerToCurrentGameSheetState extends State<AddNewPlayerToCurrentGa
                       if ((widget.game.getGamePlayers().length + playersState.playersToAdd!.length) > 6) {
                         Navigator.pop(context);
                         ScaffoldMessenger.of(context).showSnackBar(
-                          SnackBar(content: Text("You can't add new Players, Max is 6 Players")),
+                          SnackBar(
+                            content: Text("You can't add new Players, Max is 6 Players"),
+                            duration: Duration(milliseconds: 1000),
+                          ),
                         );
                         return;
                       }

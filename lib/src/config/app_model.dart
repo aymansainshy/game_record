@@ -3,7 +3,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 class AppModel {
   static bool debug = true;
   static String version = '1.0.0';
-  static String appName = 'Karrar';
+  static String appName = 'Hareeg Record';
   static String domain = 'https://kraar-backend.ease-group.com/api';
   static SharedPreferences? preferences;
 

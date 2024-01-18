@@ -169,7 +169,7 @@ class GameBoardDetailsView extends StatelessWidget {
                                     ScaffoldMessenger.of(context).showSnackBar(
                                       SnackBar(
                                         content: Text("You can't add new Players, the game contains 🔥persons"),
-                                        duration: Duration(milliseconds: 700),
+                                        duration: Duration(milliseconds: 1000),
                                       ),
                                     );
                                     return;
@@ -179,7 +179,7 @@ class GameBoardDetailsView extends StatelessWidget {
                                     ScaffoldMessenger.of(context).showSnackBar(
                                       SnackBar(
                                         content: Text("You can't add new Players, Max is 6 Players"),
-                                        duration: Duration(milliseconds: 700),
+                                        duration: Duration(milliseconds: 1000),
                                       ),
                                     );
                                     return;
@@ -251,13 +251,13 @@ class _GameBoardState extends State<GameBoard> {
   final List<Color> colors = [
     Colors.blueGrey,
     Colors.deepPurpleAccent,
-    Colors.black26,
+    Colors.black,
     AppColors.primaryColorHex,
     Colors.green,
     Colors.deepOrange,
     Colors.blueGrey,
     Colors.deepPurpleAccent,
-    Colors.black26,
+    Colors.black,
     AppColors.primaryColorHex,
     Colors.green,
     Colors.deepOrange,

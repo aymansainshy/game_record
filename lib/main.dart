@@ -5,7 +5,7 @@ import 'package:hareeg/app.dart';
 import 'package:hareeg/injector.dart' as injector;
 
 void main() {
-  WidgetsFlutterBinding.ensureInitialized(); 
+  WidgetsFlutterBinding.ensureInitialized();
 
   injector.setup();
   SystemChrome.setPreferredOrientations([
