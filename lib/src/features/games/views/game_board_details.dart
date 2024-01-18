@@ -8,6 +8,7 @@ import 'package:hareeg/src/features/games/views/blocs/game-timer-bloc/game_timer
 import 'package:hareeg/src/features/games/views/blocs/games-bloc/games_bloc.dart';
 import 'package:hareeg/src/features/games/views/blocs/sigle-game-bloc/single_game_bloc.dart';
 import 'package:hareeg/src/features/games/views/widgets/add_new_player_to_current_game_sheet.dart';
+import 'package:hareeg/src/features/games/views/widgets/add_new_record_dialog.dart';
 import 'package:hareeg/src/features/games/views/widgets/game_timer_widget.dart';
 import 'package:hareeg/src/features/games/views/widgets/total_score_widget.dart';
 import 'package:hareeg/src/theme/app_theme.dart';
@@ -167,14 +168,20 @@ class GameBoardDetailsView extends StatelessWidget {
                                 onPressed: () {
                                   if (game.isContainFiredPerson()) {
                                     ScaffoldMessenger.of(context).showSnackBar(
-                                      SnackBar(content: Text("You can't add new Players, the game contains 🔥persons")),
+                                      SnackBar(
+                                        content: Text("You can't add new Players, the game contains 🔥persons"),
+                                        duration: Duration(milliseconds: 700),
+                                      ),
                                     );
                                     return;
                                   }
 
                                   if (game.getGamePlayers().length >= 6) {
                                     ScaffoldMessenger.of(context).showSnackBar(
-                                      SnackBar(content: Text("You can't add new Players, Max is 6 Players")),
+                                      SnackBar(
+                                        content: Text("You can't add new Players, Max is 6 Players"),
+                                        duration: Duration(milliseconds: 700),
+                                      ),
                                     );
                                     return;
                                   }
@@ -199,7 +206,16 @@ class GameBoardDetailsView extends StatelessWidget {
                           if (game.status == GameStatus.currentPlaying)
                             Expanded(
                               child: ElevatedButton(
-                                onPressed: () {},
+                                onPressed: () {
+                                  showDialog(
+                                    context: context,
+                                    builder: (context) {
+                                      return AddNewRecordDialog(
+                                        game: game,
+                                      );
+                                    },
+                                  );
+                                },
                                 child: Row(
                                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                                   children: [
