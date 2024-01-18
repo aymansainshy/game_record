@@ -1,15 +1,24 @@
+import 'dart:convert';
 import 'dart:math';
 
 import 'package:hareeg/src/features/games/data/model/game_model.dart';
+import 'package:hareeg/src/features/games/data/model/json_formater.dart';
+import 'package:hareeg/src/features/games/data/storage/local_date_source.dart';
 
 abstract class GamesRepository {
-  List<Game> getGames();
+  Future<List<Game?>> getGames();
 
-  void createNewGame(List<Player> players);
+  Future<void> createNewGame(List<Player> players);
+
+  Future<void> updateAndSaveGame(Game game);
 }
 
 class GamesRepositoryImpl implements GamesRepository {
-  final List<Game> _games = [];
+  GamesRepositoryImpl(this.localDataSource);
+
+  final LocalDataSource localDataSource;
+
+  late List<Game?> _games = [];
   final List<Game> games = [
     Game(
       gameNo: "7841",
@@ -72,16 +81,29 @@ class GamesRepositoryImpl implements GamesRepository {
   ];
 
   @override
-  List<Game> getGames() {
+  Future<List<Game?>> getGames() async {
+    final loadedGames = await localDataSource.getGames();
+
+    if (loadedGames != null) {
+      _games = loadedGames;
+    }
     return _games;
   }
 
   @override
-  void createNewGame(List<Player> players) {
+  Future<void> createNewGame(List<Player> players) async {
     final String gameNo = Random().nextInt(9999).toString();
     final String id = DateTime.now().toIso8601String();
     final gamePlayers = players.map((player) => GamePlayer(player: player)).toList();
     final newGame = Game(id: id, gameNo: gameNo, players: gamePlayers, createdAt: DateTime.now());
+
+    await localDataSource.saveGame(newGame);
+
     _games.add(newGame);
+  }
+
+  @override
+  Future<void> updateAndSaveGame(Game game) async {
+    await localDataSource.saveGame(game);
   }
 }
