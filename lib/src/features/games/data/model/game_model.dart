@@ -5,7 +5,7 @@ enum GameStatus { createdNew, currentPlaying, paused, completed }
 class Game {
   final String id;
   final String gameNo;
-  final List<GamePlayer> _players;
+  final List<GamePlayer> _gPlayers;
   late String? champion;
   late GameStatus status;
   late int _duration;
@@ -19,18 +19,18 @@ class Game {
     this.champion,
     this.status = GameStatus.createdNew,
     int duration = 0,
-  })  : _players = players,
+  })  : _gPlayers = players,
         _duration = duration;
 
   int maxScore() {
-    final soresList = this._players.map((gPlayer) => gPlayer.totalPlayerScore()).toList();
+    final soresList = this._gPlayers.map((gPlayer) => gPlayer.totalPlayerScore()).toList();
     // final filteredScores = soresList.where((score) => score <= 30).toList();
     int maxNumber = soresList.reduce((value, element) => value > element ? value : element);
     return maxNumber;
   }
 
   bool isContainFiredPerson() {
-    final List<GamePlayer> firedPlayer = this._players.where((gPlayer) => gPlayer.totalPlayerScore() >= 31).toList();
+    final List<GamePlayer> firedPlayer = this._gPlayers.where((gPlayer) => gPlayer.totalPlayerScore() >= 31).toList();
 
     if (firedPlayer.isNotEmpty) {
       return true;
@@ -42,7 +42,7 @@ class Game {
   int maxRound() {
     int maxR = 0;
     final maxScore = this.maxScore();
-    final gPlayer = this._players.firstWhere((gPlayer) => gPlayer.totalPlayerScore() == maxScore);
+    final gPlayer = this._gPlayers.firstWhere((gPlayer) => gPlayer.totalPlayerScore() == maxScore);
     maxR = gPlayer.getPlayerScores().length;
     return maxR;
   }
@@ -56,16 +56,16 @@ class Game {
   }
 
   List<GamePlayer> getGamePlayers() {
-    return _players;
+    return _gPlayers;
   }
 
   List<GamePlayer> getCurrentPlayers() {
-    final currentPlayers = this._players.where((player) => !player.isFire()).toList();
+    final currentPlayers = this._gPlayers.where((player) => !player.isFire()).toList();
     return currentPlayers;
   }
 
   void addGamePlayer(List<GamePlayer> gamePlayers) {
-    this._players.addAll(gamePlayers);
+    this._gPlayers.addAll(gamePlayers);
   }
 
   void changeGameStatus(GameStatus gameStatus) {
@@ -77,7 +77,7 @@ class Game {
   }
 
   GamePlayer? getGameChampion(String? id) {
-    return this._players.firstWhere((gPlayer) => gPlayer.player.id == id);
+    return this._gPlayers.firstWhere((gPlayer) => gPlayer.player.id == id);
   }
 }
 

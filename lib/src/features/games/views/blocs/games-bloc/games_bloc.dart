@@ -13,16 +13,16 @@ class GamesBloc extends Bloc<GamesEvent, GamesState> {
   GamesBloc(this._gameRepository) : super(GamesInitial(games: [])) {
     final currentState = state;
 
-    on<GetAllGames>((event, emit) {
+    on<GetAllGames>((event, emit) async {
       emit(GamesInProgress());
-      List<Game?> games = _gameRepository.getGames();
+      List<Game?> games = await _gameRepository.getGames();
       emit(GamesSuccess(games: games));
     });
 
-    on<CreateGame>((event, emit) {
+    on<CreateGame>((event, emit) async {
       emit(GamesInProgress());
       _gameRepository.createNewGame(event.players);
-      List<Game?> games = _gameRepository.getGames();
+      List<Game?> games = await _gameRepository.getGames();
       emit(GamesSuccess(games: games));
     });
     //

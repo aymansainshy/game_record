@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hareeg/src/features/games/data/model/game_model.dart';
 import 'package:hareeg/src/features/games/views/blocs/game-timer-bloc/game_timer_bloc.dart';
+import 'package:hareeg/src/features/games/views/blocs/save-game-locally-bloc/save_game_locally_bloc.dart';
 import 'package:hareeg/src/features/games/views/blocs/sigle-game-bloc/single_game_bloc.dart';
 import 'package:hareeg/src/features/games/views/widgets/new_record_form.dart';
 import 'package:hareeg/src/theme/app_theme.dart';
@@ -172,6 +173,7 @@ class _AddNewRecordDialogState extends State<AddNewRecordDialog> {
                                             game: widget.game,
                                           ));
 
+                                      context.read<SaveGameLocallyBloc>().add(SaveGameStatus(game: widget.game));
                                       context.read<GameTimerBloc>().add(const TimerReset());
                                     }
                                   }
