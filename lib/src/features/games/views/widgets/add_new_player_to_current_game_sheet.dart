@@ -129,21 +129,24 @@ class _AddNewPlayerToCurrentGameSheetState extends State<AddNewPlayerToCurrentGa
               );
             },
           ),
-          const SizedBox(height: 16),
+          const SizedBox(height: 10),
           BlocBuilder<PlayersBloc, PlayersState>(
             builder: (context, playersState) {
               return Container(
-                color: Colors.black,
+                color: Colors.white,
                 width: mediaQuery.width,
                 height: 50,
+                padding: EdgeInsets.symmetric(horizontal: 25),
                 child: ElevatedButton(
                   onPressed: () {
                     if (playersState.playersToAdd != null && playersState.playersToAdd!.isNotEmpty) {
-
                       if ((widget.game.getGamePlayers().length + playersState.playersToAdd!.length) > 6) {
                         Navigator.pop(context);
                         ScaffoldMessenger.of(context).showSnackBar(
-                          SnackBar(content: Text("You can't add new Players, Max is 6 Players")),
+                          SnackBar(
+                            content: Text("You can't add new Players, Max is 6 Players"),
+                            duration: Duration(milliseconds: 1000),
+                          ),
                         );
                         return;
                       }
@@ -175,6 +178,7 @@ class _AddNewPlayerToCurrentGameSheetState extends State<AddNewPlayerToCurrentGa
               );
             },
           ),
+          const SizedBox(height: 10),
         ],
       ),
     );

@@ -87,6 +87,15 @@ class _CreateNewPlayerBottomSheetState extends State<CreateNewPlayerBottomSheet>
                       playerName = value;
                     },
                     playerFocusNode: _playerNameFocusNode,
+                    playerNameValidator: (String? value) {
+                      if (value == null) {
+                        return "Player name is required";
+                      }
+                      if (value.isEmpty) {
+                        return "Enter a valid player name";
+                      }
+                      return null;
+                    },
                   ),
                   Container(
                     width: mediaQuery.width,

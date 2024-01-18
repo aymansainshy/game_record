@@ -9,7 +9,8 @@ abstract class GamesRepository {
 }
 
 class GamesRepositoryImpl implements GamesRepository {
-  final List<Game> _games = [
+  final List<Game> _games = [];
+  final List<Game> games = [
     Game(
       gameNo: "7841",
       id: DateTime.now().toIso8601String(),

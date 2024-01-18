@@ -50,8 +50,8 @@ class GameItemWidget extends StatelessWidget {
           color:
               game.status == GameStatus.completed ? Theme.of(context).colorScheme.secondary : AppColors.primaryColorHex,
           border: Border.all(
-            width: 2,
-            color: AppColors.primaryColorHex,
+            width: 4,
+            color: game.status == GameStatus.createdNew ? Color(0xFF4DE354) : AppColors.primaryColorHex,
           ),
           borderRadius: const BorderRadius.all(
             Radius.circular(10),
@@ -102,7 +102,7 @@ class GameItemWidget extends StatelessWidget {
                           maxLines: 1,
                           overflow: TextOverflow.ellipsis,
                           style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                                color: Colors.white,
+                                color: game.status == GameStatus.createdNew ? Color(0xFF4DE354) : Colors.white,
                               ),
                         ),
                       ),
@@ -110,7 +110,7 @@ class GameItemWidget extends StatelessWidget {
                       if (game.status != GameStatus.completed)
                         Icon(
                           CupertinoIcons.play_arrow_solid,
-                          color: Colors.white,
+                          color: game.status == GameStatus.createdNew ? Color(0xFF4DE354) : Colors.white,
                         ),
                       if (game.status == GameStatus.completed)
                         Icon(
@@ -159,7 +159,7 @@ class GameItemWidget extends StatelessWidget {
                     text: TextSpan(
                       children: [
                         TextSpan(
-                          text: "Score   ",
+                          text: "Score  ",
                           style: Theme.of(context).textTheme.titleMedium?.copyWith(
                                 color: Colors.white,
                               ),
@@ -210,7 +210,7 @@ class GameItemWidget extends StatelessWidget {
                             child: Text(
                               "Start",
                               style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                                    color: Colors.red,
+                                    color: Color(0xFF4DE354),
                                     // fontSize: 14,
                                   ),
                             ),

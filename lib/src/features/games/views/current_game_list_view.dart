@@ -52,9 +52,10 @@ class _CurrentGameViewState extends State<CurrentGameView> {
               if (gameList.isEmpty) {
                 return Center(
                   child: Text(
-                    "No Games.",
+                    "No Games. Click ( Start New Game ) button !",
                     style: Theme.of(context).textTheme.bodyMedium?.copyWith(
                           color: Colors.black45,
+
                         ),
                   ),
                 );

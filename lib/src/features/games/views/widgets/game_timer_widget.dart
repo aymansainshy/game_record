@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hareeg/src/features/games/data/model/game_model.dart';
 import 'package:hareeg/src/features/games/views/blocs/game-timer-bloc/game_timer_bloc.dart';
+import 'package:hareeg/src/features/games/views/blocs/save-game-locally-bloc/save_game_locally_bloc.dart';
 import 'package:hareeg/src/features/games/views/blocs/sigle-game-bloc/single_game_bloc.dart';
 import 'package:hareeg/src/theme/app_theme.dart';
 
@@ -13,6 +14,8 @@ class GameTimerWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final savingStatus = context.select((SaveGameLocallyBloc bloc) => bloc.state);
+
     return BlocBuilder<GameTimerBloc, GameTimerState>(
       builder: (context, timerState) {
         switch (timerState) {
@@ -38,6 +41,9 @@ class GameTimerWidget extends StatelessWidget {
                 context.read<GameTimerBloc>().add(const TimerPaused());
                 context.read<SingleGameBloc>().add(UpdateGameDuration(game: game, duration: timerState.duration));
                 context.read<SingleGameBloc>().add(UpdateGameStatus(game: game, status: GameStatus.paused));
+
+                // To Save game status locally when paused ...
+                context.read<SaveGameLocallyBloc>().add(SaveGameStatus(game: game));
               },
               child: Icon(
                 Icons.pause,
@@ -47,18 +53,28 @@ class GameTimerWidget extends StatelessWidget {
             );
 
           case TimerRunPause():
-            return GestureDetector(
-              onTap: () {
-                context.read<GameTimerBloc>().add(const TimerResumed());
-                context.read<SingleGameBloc>().add(UpdateGameStatus(game: game, status: GameStatus.currentPlaying));
-              },
-              child: Icon(
-                CupertinoIcons.play_arrow,
-                // CupertinoIcons.play_arrow_solid,
-                color: AppColors.primaryColorHex,
-                size: 40,
-              ),
-            );
+            if (savingStatus is SavingGameInProgress) {
+              return SizedBox(
+                height: 25,
+                width: 25,
+                child: CircularProgressIndicator(
+                  color: AppColors.primaryColorHex,
+                ),
+              );
+            } else {
+              return GestureDetector(
+                onTap: () {
+                  context.read<GameTimerBloc>().add(const TimerResumed());
+                  context.read<SingleGameBloc>().add(UpdateGameStatus(game: game, status: GameStatus.currentPlaying));
+                },
+                child: Icon(
+                  CupertinoIcons.play_arrow,
+                  // CupertinoIcons.play_arrow_solid,
+                  color: AppColors.primaryColorHex,
+                  size: 40,
+                ),
+              );
+            }
           case TimerRunComplete():
             return GestureDetector(
               onTap: () {
