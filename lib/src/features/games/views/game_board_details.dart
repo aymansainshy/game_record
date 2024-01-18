@@ -83,7 +83,6 @@ class GameBoardDetailsView extends StatelessWidget {
                   if (result) {
                     context.read<GameTimerBloc>().add(const TimerPaused());
                     context.read<SingleGameBloc>().add(UpdateGameDuration(game: game, duration: duration));
-
                     context.read<GamesBloc>().add(GetAllGames());
                     Navigator.of(context).pop();
                   }
@@ -276,18 +275,18 @@ class _GameBoardState extends State<GameBoard> {
               (index) => Container(
                 height: 50,
                 width: (mediaQuery.width / widget.game.getGamePlayers().length),
-                padding: EdgeInsets.all(8),
+                padding: EdgeInsets.all(5),
                 decoration: BoxDecoration(
                   color: colors[index],
-                  // borderRadius: BorderRadius.all(
-                  //   Radius.circular(10),
-                  // ),
+                  borderRadius: BorderRadius.all(
+                    Radius.circular(6),
+                  ),
                 ),
                 child: Container(
                   decoration: BoxDecoration(
                     color: Colors.white.withOpacity(0.5),
                     borderRadius: BorderRadius.all(
-                      Radius.circular(6),
+                      Radius.circular(5),
                     ),
                   ),
                   child: LayoutBuilder(builder: (context, constraints) {
@@ -306,7 +305,7 @@ class _GameBoardState extends State<GameBoard> {
             )
           ],
         ),
-        SizedBox(height: 10),
+        // SizedBox(height: 5),
         Expanded(
           child: SingleChildScrollView(
             child: Row(
@@ -326,18 +325,18 @@ class _GameBoardState extends State<GameBoard> {
                           return Container(
                             height: 48,
                             width: (mediaQuery.width / widget.game.getGamePlayers().length),
-                            padding: EdgeInsets.all(8),
+                            padding: EdgeInsets.all(6),
                             decoration: BoxDecoration(
                               color: colors[pIndex].withOpacity(0.5),
                               borderRadius: BorderRadius.all(
-                                Radius.circular(10),
+                                Radius.circular(6),
                               ),
                             ),
                             child: Container(
                               decoration: BoxDecoration(
                                 color: Colors.white,
                                 borderRadius: BorderRadius.all(
-                                  Radius.circular(6),
+                                  Radius.circular(5),
                                 ),
                               ),
                               child: LayoutBuilder(builder: (context, constraints) {

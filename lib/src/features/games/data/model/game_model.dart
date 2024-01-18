@@ -59,7 +59,7 @@ class Game {
     return _players;
   }
 
-  List<GamePlayer>? getCurrentPlayers() {
+  List<GamePlayer> getCurrentPlayers() {
     final currentPlayers = this._players.where((player) => !player.isFire()).toList();
     return currentPlayers;
   }
@@ -102,8 +102,14 @@ class GamePlayer {
     return game.champion == this.player.id;
   }
 
-  void addScore(int? newScore) {
+  bool addScore(int? newScore) {
     this._playerScores.add(newScore);
+
+    if (isFire()) {
+      print("WWWWWiiiiiiii ${this.player.name} iiiiiiiiiiiiiii");
+    }
+
+    return isFire();
   }
 
   int totalPlayerScore() {

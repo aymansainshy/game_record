@@ -26,7 +26,7 @@ class TotalScoreWidget extends StatelessWidget {
       decoration: BoxDecoration(
         color: gamePlayer.isFire() ? Color(0xFFD22323) : color,
         borderRadius: BorderRadius.all(
-          Radius.circular(10),
+          Radius.circular(6),
         ),
       ),
       child: Stack(
@@ -37,7 +37,7 @@ class TotalScoreWidget extends StatelessWidget {
             decoration: BoxDecoration(
               color: gamePlayer.isFire() ? Colors.orange : Colors.white,
               borderRadius: BorderRadius.all(
-                Radius.circular(6),
+                Radius.circular(5),
               ),
             ),
             child: LayoutBuilder(builder: (context, constraints) {
