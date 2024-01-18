@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:hareeg/src/features/games/data/model/game_model.dart';
+import 'package:hareeg/src/theme/app_theme.dart';
 
 class TotalScoreWidget extends StatelessWidget {
   const TotalScoreWidget({
@@ -22,9 +23,13 @@ class TotalScoreWidget extends StatelessWidget {
     return Container(
       height: 50,
       width: (mediaQuery.width / gamePlayerLength),
-      padding: EdgeInsets.all(8),
+      padding: EdgeInsets.all(10),
       decoration: BoxDecoration(
         color: gamePlayer.isFire() ? Color(0xFFD22323) : color,
+        border: Border.all(
+          color: Colors.black, // You can change the color as needed
+          width: 3,
+        ),
         borderRadius: BorderRadius.all(
           Radius.circular(6),
         ),
@@ -37,7 +42,7 @@ class TotalScoreWidget extends StatelessWidget {
             decoration: BoxDecoration(
               color: gamePlayer.isFire() ? Colors.orange : Colors.white,
               borderRadius: BorderRadius.all(
-                Radius.circular(5),
+                Radius.circular(2),
               ),
             ),
             child: LayoutBuilder(builder: (context, constraints) {
@@ -45,8 +50,8 @@ class TotalScoreWidget extends StatelessWidget {
                 child: Text(
                   gamePlayer.totalPlayerScore().toString(),
                   style: Theme.of(context).textTheme.titleMedium?.copyWith(
-                    fontWeight: FontWeight.bold,
-                  ),
+                        fontWeight: FontWeight.bold,
+                      ),
                 ),
               );
             }),

@@ -12,7 +12,7 @@ class SaveGameLocallyBloc extends Bloc<SaveGameLocallyEvent, SaveGameLocallyStat
   SaveGameLocallyBloc() : super(SaveGameLocallyInitial()) {
     on<SaveGameStatus>((event, emit) async {
       emit(SavingGameInProgress());
-      await Future.delayed(Duration(milliseconds: 3000));
+      await Future.delayed(Duration(milliseconds: 1800));
       emit(SavingGameSuccess());
     });
   }

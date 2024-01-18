@@ -200,34 +200,36 @@ class GameBoardDetailsView extends StatelessWidget {
                                       ),
                                     ),
                                   ),
-                                  onPressed: () {
-                                    if (game.isContainFiredPerson()) {
-                                      ScaffoldMessenger.of(context).showSnackBar(
-                                        SnackBar(
-                                          content: Text("You can't add new Players, the game contains 🔥persons"),
-                                          duration: Duration(milliseconds: 1000),
-                                        ),
-                                      );
-                                      return;
-                                    }
+                                  onPressed: savingStatus is SavingGameInProgress
+                                      ? null
+                                      : () {
+                                          if (game.isContainFiredPerson()) {
+                                            ScaffoldMessenger.of(context).showSnackBar(
+                                              SnackBar(
+                                                content: Text("You can't add new Players, the game contains 🔥persons"),
+                                                duration: Duration(milliseconds: 1000),
+                                              ),
+                                            );
+                                            return;
+                                          }
 
-                                    if (game.getGamePlayers().length >= 6) {
-                                      ScaffoldMessenger.of(context).showSnackBar(
-                                        SnackBar(
-                                          content: Text("You can't add new Players, Max is 6 Players"),
-                                          duration: Duration(milliseconds: 1000),
-                                        ),
-                                      );
-                                      return;
-                                    }
+                                          if (game.getGamePlayers().length >= 6) {
+                                            ScaffoldMessenger.of(context).showSnackBar(
+                                              SnackBar(
+                                                content: Text("You can't add new Players, Max is 6 Players"),
+                                                duration: Duration(milliseconds: 1000),
+                                              ),
+                                            );
+                                            return;
+                                          }
 
-                                    showModalBottomSheet(
-                                      context: context,
-                                      builder: (context) {
-                                        return AddNewPlayerToCurrentGameSheet(game: game);
-                                      },
-                                    );
-                                  },
+                                          showModalBottomSheet(
+                                            context: context,
+                                            builder: (context) {
+                                              return AddNewPlayerToCurrentGameSheet(game: game);
+                                            },
+                                          );
+                                        },
                                   child: Row(
                                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                                     children: [
