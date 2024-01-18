@@ -210,7 +210,7 @@ class GameItemWidget extends StatelessWidget {
                             child: Text(
                               "Start",
                               style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                                    color: Colors.red,
+                                    color: Color(0xFF4DE354),
                                     // fontSize: 14,
                                   ),
                             ),

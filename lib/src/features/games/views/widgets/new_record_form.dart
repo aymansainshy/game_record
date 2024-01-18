@@ -86,6 +86,9 @@ class NewRecordForm extends StatelessWidget {
           ),
         ),
         hintText: "0",
+        hintStyle: Theme.of(context).textTheme.titleLarge?.copyWith(
+              color: Colors.grey[400],
+            ),
         filled: true,
         fillColor: Theme.of(context).colorScheme.onPrimary,
         focusColor: Theme.of(context).colorScheme.primary,

@@ -62,7 +62,7 @@ class GameBoardDetailsView extends StatelessWidget {
               title: BlocBuilder<SaveGameLocallyBloc, SaveGameLocallyState>(
                 builder: (context, savingState) {
                   if (savingState is SavingGameInProgress) {
-                    return Text("Saving game status ...");
+                    return Text("Saving game .....");
                   }
                   return Text(gameStatusTextWidget(game.status));
                 },
@@ -87,7 +87,7 @@ class GameBoardDetailsView extends StatelessWidget {
                                   },
                                   builder: (context, savingState) {
                                     return AlertDialog(
-                                      title: Text("Save Game status before exit."),
+                                      title: Text("Save the game before exit."),
                                       actions: [
                                         TextButton(
                                           onPressed: () {
@@ -100,9 +100,10 @@ class GameBoardDetailsView extends StatelessWidget {
                                             context.read<SaveGameLocallyBloc>().add(SaveGameStatus(game: game));
                                           },
                                           child: Text(
-                                            "${savingState is SavingGameInProgress ? "Saving status ...." : "Save game status & Exit"}",
+                                            "${savingState is SavingGameInProgress ? "Saving game ...." : "Save game & Exit"}",
                                             style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                                                  color: Colors.red,
+                                                  fontWeight: FontWeight.bold,
+                                                  color: Colors.redAccent,
                                                 ),
                                           ),
                                         ),
@@ -110,7 +111,9 @@ class GameBoardDetailsView extends StatelessWidget {
                                           onPressed: () {
                                             Navigator.of(context).pop(false);
                                           },
-                                          child: Text("Continue playing"),
+                                          child: Text(
+                                            "Continue playing",
+                                          ),
                                         ),
                                       ],
                                     );
@@ -290,7 +293,7 @@ class _GameBoardState extends State<GameBoard> {
   final List<Color> colors = [
     Colors.blueGrey,
     Colors.deepPurpleAccent,
-    Colors.black,
+    Colors.cyan,
     AppColors.primaryColorHex,
     Colors.green,
     Colors.deepOrange,
@@ -325,7 +328,7 @@ class _GameBoardState extends State<GameBoard> {
                   decoration: BoxDecoration(
                     color: Colors.white.withOpacity(0.5),
                     borderRadius: BorderRadius.all(
-                      Radius.circular(5),
+                      Radius.circular(4),
                     ),
                   ),
                   child: LayoutBuilder(builder: (context, constraints) {
@@ -364,7 +367,7 @@ class _GameBoardState extends State<GameBoard> {
                           return Container(
                             height: 48,
                             width: (mediaQuery.width / widget.game.getGamePlayers().length),
-                            padding: EdgeInsets.all(6),
+                            padding: EdgeInsets.all(5),
                             decoration: BoxDecoration(
                               color: colors[pIndex].withOpacity(0.5),
                               borderRadius: BorderRadius.all(
@@ -375,7 +378,7 @@ class _GameBoardState extends State<GameBoard> {
                               decoration: BoxDecoration(
                                 color: Colors.white,
                                 borderRadius: BorderRadius.all(
-                                  Radius.circular(5),
+                                  Radius.circular(4),
                                 ),
                               ),
                               child: LayoutBuilder(builder: (context, constraints) {

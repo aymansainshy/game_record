@@ -68,7 +68,7 @@ class TotalScoreWidget extends StatelessWidget {
           if (gamePlayer.isChampion(game) ?? false)
             Positioned(
               top: -20,
-              left: -10,
+              left: -15,
               child: Text(
                 "👑",
                 style: Theme.of(context).textTheme.displaySmall?.copyWith(),
