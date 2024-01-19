@@ -32,7 +32,7 @@ class NewRecordForm extends StatelessWidget {
       textInputAction: TextInputAction.next,
       textAlign: TextAlign.center,
       inputFormatters: [
-        LengthLimitingTextInputFormatter(2),
+        LengthLimitingTextInputFormatter(3),
         FilteringTextInputFormatter.allow(RegExp(r'^-?\d*\.?\d*')),
       ],
       // onFieldSubmitted: (_) {
@@ -40,19 +40,19 @@ class NewRecordForm extends StatelessWidget {
       // },
       validator: (value) {
         if (value == null) {
-          return "Invalid";
+          return "Add score";
         }
         if (value.isEmpty) {
-          return "Invalid empty";
+          return "Invalid input";
         }
         var parsedValue = int.tryParse(value);
         if (parsedValue == null) {
-          return "Invalid int";
+          return "Invalid number";
         }
         return null;
       },
       onChanged: (value) {
-        if (value.length == 2) {
+        if (value.length == 3) {
           FocusScope.of(context).nextFocus();
         }
       },

@@ -155,6 +155,16 @@ class _AddNewRecordDialogState extends State<AddNewRecordDialog> {
                                       print("WAAAAAAAAAAAIiiiiiiiiiiiiiiiiiiiiiiiiiiiiii");
                                     }
 
+
+                                    // Update game duration and saved locally after every score ..
+                                    context.read<SingleGameBloc>().add(UpdateGameDuration(
+                                      game: widget.game,
+                                      duration: duration,
+                                    ));
+                                    context.read<SaveGameLocallyBloc>().add(SaveGameStatus(game: widget.game));
+
+
+
                                     final updatedGPlayerList = widget.game.getCurrentPlayers();
                                     print("Current Players : ${updatedGPlayerList.length}");
 
@@ -196,7 +206,7 @@ class _AddNewRecordDialogState extends State<AddNewRecordDialog> {
                     onPressed: () {
                       _saveForm();
                     },
-                    child: Text("Save Record"),
+                    child: Text("Save Score"),
                   ),
                 ),
               ),

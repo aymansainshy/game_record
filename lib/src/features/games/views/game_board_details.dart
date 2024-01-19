@@ -259,7 +259,7 @@ class GameBoardDetailsView extends StatelessWidget {
                                   child: Row(
                                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                                     children: [
-                                      Text("Add Record"),
+                                      Text("Add New Score"),
                                       Icon(Icons.edit_calendar_outlined),
                                     ],
                                   ),

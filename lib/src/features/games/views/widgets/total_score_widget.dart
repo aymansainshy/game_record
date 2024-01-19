@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:hareeg/src/features/games/data/model/game_model.dart';
-import 'package:hareeg/src/theme/app_theme.dart';
 
 class TotalScoreWidget extends StatelessWidget {
   const TotalScoreWidget({
