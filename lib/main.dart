@@ -10,6 +10,7 @@ void main() async {
 
   await Hive.initFlutter();
   injector.setup();
+
   SystemChrome.setPreferredOrientations([
     DeviceOrientation.portraitUp,
     DeviceOrientation.portraitDown,

@@ -259,7 +259,7 @@ class GameBoardDetailsView extends StatelessWidget {
                                   child: Row(
                                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                                     children: [
-                                      Text("Add Record"),
+                                      Text("Add New Score"),
                                       Icon(Icons.edit_calendar_outlined),
                                     ],
                                   ),
@@ -328,7 +328,7 @@ class _GameBoardState extends State<GameBoard> {
                   decoration: BoxDecoration(
                     color: Colors.white.withOpacity(0.5),
                     borderRadius: BorderRadius.all(
-                      Radius.circular(4),
+                      Radius.circular(3),
                     ),
                   ),
                   child: LayoutBuilder(builder: (context, constraints) {
@@ -378,7 +378,7 @@ class _GameBoardState extends State<GameBoard> {
                               decoration: BoxDecoration(
                                 color: Colors.white,
                                 borderRadius: BorderRadius.all(
-                                  Radius.circular(4),
+                                  Radius.circular(3),
                                 ),
                               ),
                               child: LayoutBuilder(builder: (context, constraints) {
