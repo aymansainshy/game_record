@@ -85,6 +85,7 @@ class _AddNewRecordDialogState extends State<AddNewRecordDialog> {
   @override
   Widget build(BuildContext context) {
     final mediaQuery = MediaQuery.sizeOf(context);
+
     final duration = context.select((GameTimerBloc bloc) => bloc.state.duration);
 
     return Dialog(
@@ -154,6 +155,7 @@ class _AddNewRecordDialogState extends State<AddNewRecordDialog> {
                                       // TODO: For fire sound ....
                                       print("WAAAAAAAAAAAIiiiiiiiiiiiiiiiiiiiiiiiiiiiiii");
                                     }
+
                                     widget.game.updateGameDuration(duration);
 
                                     final updatedGPlayerList = widget.game.getCurrentPlayers();

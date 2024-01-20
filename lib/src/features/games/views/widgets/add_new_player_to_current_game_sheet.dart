@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hareeg/src/features/games/data/model/game_model.dart';
 import 'package:hareeg/src/features/games/views/blocs/players-bloc/players_bloc.dart';
+import 'package:hareeg/src/features/games/views/blocs/save-game-locally-bloc/save_game_locally_bloc.dart';
 import 'package:hareeg/src/features/games/views/blocs/sigle-game-bloc/single_game_bloc.dart';
 import 'package:hareeg/src/features/games/views/widgets/create_new_player_bottom_sheet.dart';
 import 'package:hareeg/src/features/games/views/widgets/player_item_widget.dart';
@@ -169,6 +170,9 @@ class _AddNewPlayerToCurrentGameSheetState extends State<AddNewPlayerToCurrentGa
                               players: gamePlayers!,
                             ),
                           );
+
+                      context.read<SaveGameLocallyBloc>().add(SaveGameStatus(game: widget.game));
+
                       BlocProvider.of<PlayersBloc>(context).add(ClearPlayerFromAddList());
                       Navigator.pop(context);
                     }
