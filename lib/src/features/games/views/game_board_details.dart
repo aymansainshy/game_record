@@ -93,9 +93,14 @@ class GameBoardDetailsView extends StatelessWidget {
                                           onPressed: () {
                                             // TODO: save game status
                                             context.read<GameTimerBloc>().add(const TimerPaused());
+
                                             context
                                                 .read<SingleGameBloc>()
                                                 .add(UpdateGameDuration(game: game, duration: duration));
+
+                                            context
+                                                .read<SingleGameBloc>()
+                                                .add(UpdateGameStatus(status: GameStatus.paused, game: game));
 
                                             context.read<SaveGameLocallyBloc>().add(SaveGameStatus(game: game));
                                           },
