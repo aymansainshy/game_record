@@ -40,7 +40,6 @@ class GameItemWidget extends StatelessWidget {
         } else {
           context.read<GameTimerBloc>().add(SetTimerInitial(
                 duration: game.getGameDuration(),
-                gameId: game.id,
               ));
         }
 

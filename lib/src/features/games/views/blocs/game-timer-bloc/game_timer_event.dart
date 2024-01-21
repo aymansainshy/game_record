@@ -16,10 +16,10 @@ final class TimerPaused extends GameTimerEvent {
 }
 
 final class SetTimerInitial extends GameTimerEvent {
-  const SetTimerInitial({required this.gameId, required this.duration});
+  const SetTimerInitial({required this.duration});
 
   final int duration;
-  final String gameId;
+// final String gameId;
 }
 
 final class TimerResumed extends GameTimerEvent {
@@ -31,8 +31,8 @@ class TimerReset extends GameTimerEvent {
 }
 
 class _TimerTicked extends GameTimerEvent {
-  const _TimerTicked({required this.gameId, required this.duration});
+  const _TimerTicked({required this.duration});
 
   final int duration;
-  final String gameId;
+// final String gameId;
 }
