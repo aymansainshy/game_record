@@ -85,6 +85,7 @@ class _AddNewRecordDialogState extends State<AddNewRecordDialog> {
   @override
   Widget build(BuildContext context) {
     final mediaQuery = MediaQuery.sizeOf(context);
+
     final duration = context.select((GameTimerBloc bloc) => bloc.state.duration);
 
     return Dialog(
@@ -155,36 +156,21 @@ class _AddNewRecordDialogState extends State<AddNewRecordDialog> {
                                       print("WAAAAAAAAAAAIiiiiiiiiiiiiiiiiiiiiiiiiiiiiii");
                                     }
 
-
-                                    // Update game duration and saved locally after every score ..
-                                    context.read<SingleGameBloc>().add(UpdateGameDuration(
-                                      game: widget.game,
-                                      duration: duration,
-                                    ));
-                                    context.read<SaveGameLocallyBloc>().add(SaveGameStatus(game: widget.game));
-
-
+                                    widget.game.updateGameDuration(duration);
 
                                     final updatedGPlayerList = widget.game.getCurrentPlayers();
-                                    print("Current Players : ${updatedGPlayerList.length}");
 
                                     if (updatedGPlayerList.length == 1) {
                                       widget.game.champion = updatedGPlayerList.first.player.id;
+                                      widget.game.status = GameStatus.completed;
 
                                       // TODO: For champion sound ....
                                       // TODO: trigger some animation ....
 
-                                      context.read<SingleGameBloc>().add(UpdateGameDuration(
-                                            game: widget.game,
-                                            duration: duration,
-                                          ));
-                                      context.read<SingleGameBloc>().add(UpdateGameStatus(
-                                            status: GameStatus.completed,
-                                            game: widget.game,
-                                          ));
-
-                                      context.read<SaveGameLocallyBloc>().add(SaveGameStatus(game: widget.game));
                                       context.read<GameTimerBloc>().add(const TimerReset());
+                                      context.read<SaveGameLocallyBloc>().add(SaveGameStatus(game: widget.game));
+                                    } else {
+                                      context.read<SaveGameLocallyBloc>().add(SaveGameStatus(game: widget.game));
                                     }
                                   }
                                 },

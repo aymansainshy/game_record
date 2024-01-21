@@ -10,9 +10,10 @@ part 'game_timer_state.dart';
 
 class GameTimerBloc extends Bloc<GameTimerEvent, GameTimerState> {
   final Ticker _ticker;
-  static const int _duration = 0;
+  static int _duration = 0;
+  late Timer _timer;
 
-  StreamSubscription<int>? _tickerSubscription;
+  // StreamSubscription<int>? _tickerSubscription;
 
   GameTimerBloc(Ticker ticker)
       : _ticker = ticker,
@@ -33,11 +34,21 @@ class GameTimerBloc extends Bloc<GameTimerEvent, GameTimerState> {
 
   void _onStarted(TimerStarted event, Emitter<GameTimerState> emit) {
     emit(TimerRunInProgress(event.duration));
-    _tickerSubscription?.cancel();
-    _tickerSubscription = _ticker.tick(ticks: event.duration).listen((duration) => add(_TimerTicked(
-          duration: duration,
-          gameId: event.gameId,
-        )));
+
+    _duration = event.duration;
+
+    _timer = Timer.periodic(Duration(seconds: 1), (timer) {
+      _duration++;
+      add(_TimerTicked(
+        duration: _duration,
+      ));
+    });
+
+    // _tickerSubscription?.cancel();
+    // _tickerSubscription = _ticker.tick(ticks: event.duration).listen((duration) => add(_TimerTicked(
+    //       duration: duration,
+    //       gameId: event.gameId,
+    //     )));
   }
 
   void _onTicked(_TimerTicked event, Emitter<GameTimerState> emit) {
@@ -46,26 +57,38 @@ class GameTimerBloc extends Bloc<GameTimerEvent, GameTimerState> {
 
   void _onPaused(TimerPaused event, Emitter<GameTimerState> emit) {
     if (state is TimerRunInProgress) {
-      _tickerSubscription?.pause();
+      _duration = state.duration;
+      _timer.cancel();
+      // _tickerSubscription?.pause();
       emit(TimerRunPause(state.duration));
     }
   }
 
   void _onResumed(TimerResumed resume, Emitter<GameTimerState> emit) {
-    if (state is TimerRunPause) {
-      _tickerSubscription?.resume();
-      emit(TimerRunInProgress(state.duration));
-    }
+    emit(TimerRunInProgress(_duration));
+
+    // if (state is TimerRunPause) {
+    _timer = Timer.periodic(Duration(seconds: 1), (timer) {
+      _duration++;
+      add(_TimerTicked(
+        duration: _duration,
+      ));
+    });
+    // _tickerSubscription?.resume();
+    // }
   }
 
   void _onReset(TimerReset event, Emitter<GameTimerState> emit) {
-    _tickerSubscription?.cancel();
-    emit(const GameTimerInitial(_duration));
+    // _tickerSubscription?.cancel();
+    _duration = 0;
+    _timer.cancel();
+    emit(GameTimerInitial(_duration));
   }
 
   @override
   Future<void> close() {
-    _tickerSubscription?.cancel();
+    _timer.cancel();
+    // _tickerSubscription?.cancel();
     return super.close();
   }
 }

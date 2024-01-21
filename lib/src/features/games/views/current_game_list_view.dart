@@ -43,7 +43,10 @@ class _CurrentGameViewState extends State<CurrentGameView> {
 
             case GamesSuccess():
               final gameList = gamesStates.games
-                      ?.where((game) => game?.status == GameStatus.createdNew || game?.status == GameStatus.paused)
+                      ?.where((game) =>
+                          game?.status == GameStatus.createdNew ||
+                          game?.status == GameStatus.paused ||
+                          game?.status == GameStatus.currentPlaying)
                       .toList()
                       .reversed
                       .toList() ??
@@ -55,7 +58,6 @@ class _CurrentGameViewState extends State<CurrentGameView> {
                     "No Games. Click ( Start New Game ) button !",
                     style: Theme.of(context).textTheme.bodyMedium?.copyWith(
                           color: Colors.black45,
-
                         ),
                   ),
                 );

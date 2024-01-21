@@ -32,10 +32,14 @@ class GameItemWidget extends StatelessWidget {
     // final mediaQuery = MediaQuery.sizeOf(context);
     return GestureDetector(
       onTap: () {
-        if (game.status != GameStatus.currentPlaying) {
-          context.read<GameTimerBloc>().add(SetTimerInitial(
+        if (game.status == GameStatus.currentPlaying) {
+          context.read<GameTimerBloc>().add(TimerStarted(
                 duration: game.getGameDuration(),
                 gameId: game.id,
+              ));
+        } else {
+          context.read<GameTimerBloc>().add(SetTimerInitial(
+                duration: game.getGameDuration(),
               ));
         }
 
