@@ -1,5 +1,5 @@
 import 'package:dio/dio.dart';
-import 'package:hareeg/src/config/app_model.dart';
+import 'package:hareeg/src/config/app_configration.dart';
 import 'package:hareeg/src/core/api/api_routes.dart';
 
 class DioInterceptor extends Interceptor {

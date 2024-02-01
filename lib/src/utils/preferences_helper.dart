@@ -1,68 +1,68 @@
-import '../config/app_model.dart';
+import '../config/app_configration.dart';
 
 class PreferencesHelper {
   static Future<bool?> clear() async {
-    return await AppModel.preferences?.clear();
+    return await AppConfig.preferences?.clear();
   }
 
   static bool containsKey(String key) {
-    return AppModel.preferences?.containsKey(key) ?? false;
+    return AppConfig.preferences?.containsKey(key) ?? false;
   }
 
   static dynamic get(String key) {
-    return AppModel.preferences?.get(key);
+    return AppConfig.preferences?.get(key);
   }
 
   static bool? getBool(String key) {
-    return AppModel.preferences?.getBool(key);
+    return AppConfig.preferences?.getBool(key);
   }
 
   static double? getDouble(String key) {
-    return AppModel.preferences?.getDouble(key);
+    return AppConfig.preferences?.getDouble(key);
   }
 
   static int? getInt(String key) {
-    return AppModel.preferences?.getInt(key);
+    return AppConfig.preferences?.getInt(key);
   }
 
   static Set<String>? getKeys() {
-    return AppModel.preferences?.getKeys();
+    return AppConfig.preferences?.getKeys();
   }
 
   static String? getString(String key) {
-    return AppModel.preferences?.getString(key);
+    return AppConfig.preferences?.getString(key);
   }
 
   static List<String>? getStringList(String key) {
-    return AppModel.preferences?.getStringList(key);
+    return AppConfig.preferences?.getStringList(key);
   }
 
   static Future<void> reload() async {
-    return await AppModel.preferences?.reload();
+    return await AppConfig.preferences?.reload();
   }
 
   static Future<bool?> remove(String key) async {
-    return await AppModel.preferences?.remove(key);
+    return await AppConfig.preferences?.remove(key);
   }
 
   static Future<bool?> setBool(String key, bool value) async {
-    return await AppModel.preferences?.setBool(key, value);
+    return await AppConfig.preferences?.setBool(key, value);
   }
 
   static Future<bool?> setDouble(String key, double value) async {
-    return await AppModel.preferences?.setDouble(key, value);
+    return await AppConfig.preferences?.setDouble(key, value);
   }
 
   static Future<bool?> setInt(String key, int value) async {
-    return await AppModel.preferences?.setInt(key, value);
+    return await AppConfig.preferences?.setInt(key, value);
   }
 
   static Future<bool?> setString(String key, String value) async {
-    return await AppModel.preferences?.setString(key, value);
+    return await AppConfig.preferences?.setString(key, value);
   }
 
   static Future<bool?> setStringList(String key, List<String> value) async {
-    return await AppModel.preferences?.setStringList(key, value);
+    return await AppConfig.preferences?.setStringList(key, value);
   }
 
   ///Singleton factory

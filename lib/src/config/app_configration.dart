@@ -1,6 +1,6 @@
 import 'package:shared_preferences/shared_preferences.dart';
 
-class AppModel {
+class AppConfig{
   static bool debug = true;
   static String version = '1.0.0';
   static String appName = 'Hareeg Record';
@@ -19,11 +19,11 @@ class AppModel {
   // }
 
   ///Singleton factory
-  static final AppModel _instance = AppModel._internal();
+  static final AppConfig _instance = AppConfig._internal();
 
-  factory AppModel() {
+  factory AppConfig() {
     return _instance;
   }
 
-  AppModel._internal();
+  AppConfig._internal();
 }

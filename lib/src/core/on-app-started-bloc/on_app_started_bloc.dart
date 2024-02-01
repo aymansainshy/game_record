@@ -5,7 +5,7 @@ import 'dart:io';
 
 import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:hareeg/src/config/app_model.dart';
+import 'package:hareeg/src/config/app_configration.dart';
 import 'package:hareeg/src/config/preferences_config.dart';
 import 'package:hareeg/src/utils/preferences_helper.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -45,7 +45,7 @@ class OnAppStartedAppBloc extends Bloc<AppEvent, OnAppStartedAppState> {
       emit(AppSetupInProgress());
 
       try {
-        AppModel.preferences = await SharedPreferences.getInstance();
+        AppConfig.preferences = await SharedPreferences.getInstance();
         // PreferencesHelper.clear();
 
         // Setup user if Exist ......
