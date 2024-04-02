@@ -26,12 +26,11 @@ class _CreateNewGameBottomSheetState extends State<CreateNewGameBottomSheet> {
   @override
   Widget build(BuildContext context) {
     final mediaQuery = MediaQuery.sizeOf(context);
-    return SizedBox(
-      height: mediaQuery.height,
-      width: mediaQuery.width,
-      child: SafeArea(
+    return SafeArea(
+      child: SingleChildScrollView(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
+          mainAxisSize: MainAxisSize.min,
           children: [
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 10),
@@ -60,8 +59,12 @@ class _CreateNewGameBottomSheetState extends State<CreateNewGameBottomSheet> {
               onTap: () {
                 showModalBottomSheet(
                   context: context,
+                  isScrollControlled: true,
                   builder: (context) {
-                    return CreateNewPlayerBottomSheet();
+                    return Padding(
+                      padding: EdgeInsets.only(bottom: MediaQuery.of(context).viewInsets.bottom),
+                      child: CreateNewPlayerBottomSheet(),
+                    );
                   },
                 );
               },
@@ -110,16 +113,14 @@ class _CreateNewGameBottomSheetState extends State<CreateNewGameBottomSheet> {
                 }
 
                 final playersList = playersState.players!.reversed.toList();
-                return Expanded(
-                  child: ListView.builder(
-                      shrinkWrap: true,
-                      itemCount: playersList.length,
-                      itemBuilder: (context, index) {
-                        return PlayerItemWidget(
-                          player: playersList[index],
-                        );
-                      }),
-                );
+                return ListView.builder(
+                    shrinkWrap: true,
+                    itemCount: playersList.length,
+                    itemBuilder: (context, index) {
+                      return PlayerItemWidget(
+                        player: playersList[index],
+                      );
+                    });
               },
             ),
             const SizedBox(height: 10),

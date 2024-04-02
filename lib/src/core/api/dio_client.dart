@@ -1,5 +1,5 @@
 import 'package:dio/dio.dart';
-import 'package:hareeg/src/config/app_model.dart';
+import 'package:hareeg/src/config/app_configration.dart';
 import 'package:hareeg/src/core/api/dio_interceptor.dart';
 import 'package:hareeg/src/core/api/network_result.dart';
 import 'package:hareeg/src/core/api/network_services.dart';
@@ -8,7 +8,7 @@ class DioClient extends NetworkServices<Map<String, dynamic>> {
   DioClient() {
     dio = Dio(
       BaseOptions(
-        baseUrl: AppModel.domain,
+        baseUrl: AppConfig.domain,
         receiveTimeout: const Duration(seconds: 5),
         connectTimeout: const Duration(seconds: 5),
         sendTimeout: const Duration(seconds: 5),

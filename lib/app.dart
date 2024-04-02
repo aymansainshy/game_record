@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:hareeg/src/config/app_model.dart';
+import 'package:hareeg/src/config/app_configration.dart';
 import 'package:hareeg/src/core/on-app-started-bloc/on_app_started_bloc.dart';
 import 'package:hareeg/src/core/widgets/splash_view.dart';
 import 'package:hareeg/src/features/games/views/blocs/game-timer-bloc/game_timer_bloc.dart';
@@ -46,7 +46,7 @@ class MyApp extends StatelessWidget {
           builder: (context, appState) {
             if (appState is AppSetupInComplete) {
               return MaterialApp.router(
-                title: AppModel.appName,
+                title: AppConfig.appName,
                 debugShowCheckedModeBanner: false,
                 theme: AppTheme.lightTheme,
                 routerConfig: inject<AppRouter>().router,
