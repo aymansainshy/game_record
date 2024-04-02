@@ -49,7 +49,6 @@ class GameBoardDetailsView extends StatelessWidget {
     final secondsStr = (duration % 60).floor().toString().padLeft(2, '0');
     final hoursStr = (((duration / 60) / 60) % 60).floor().toString().padLeft(2, '0');
 
-
     final savingStatus = context.select((SaveGameLocallyBloc bloc) => bloc.state);
 
     return PopScope(
@@ -227,6 +226,7 @@ class GameBoardDetailsView extends StatelessWidget {
 
                                       showModalBottomSheet(
                                         context: context,
+                                        isScrollControlled: true,
                                         builder: (context) {
                                           return AddNewPlayerToCurrentGameSheet(game: game);
                                         },

@@ -72,6 +72,7 @@ class _HomeViewState extends State<HomeView> {
               onPressed: () {
                 showModalBottomSheet(
                   context: context,
+                  isScrollControlled: true,
                   builder: (context) {
                     return const CreateNewGameBottomSheet();
                   },
