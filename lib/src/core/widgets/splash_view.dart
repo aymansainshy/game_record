@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hareeg/src/core/on-app-started-bloc/on_app_started_bloc.dart';
 import 'package:hareeg/src/theme/app_theme.dart';
-import 'package:hareeg/src/utils/assets_helper.dart';
 
 late int _duration;
 late String _imagePath;

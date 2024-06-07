@@ -1,6 +1,4 @@
 import 'package:dio/dio.dart';
-import 'package:hareeg/src/config/app_configration.dart';
-import 'package:hareeg/src/core/api/api_routes.dart';
 
 class DioInterceptor extends Interceptor {
   final Dio dio;
@@ -9,29 +7,29 @@ class DioInterceptor extends Interceptor {
 
   @override
   void onRequest(RequestOptions options, RequestInterceptorHandler handler) {
-    String? accessToken;  //AppModel.user?.accessToken;
+    // String? accessToken;  //AppModel.user?.accessToken;
 
     // options.headers['content-type'] = 'application/json';
     // options.headers['Accept'] = 'application/json';
 
-    if (accessToken != null) {
-      String endpointRoute = options.path;
-
-      if (endpointRoute == ApiRoutes.logOut ||
-          endpointRoute == ApiRoutes.getProduct ||
-          endpointRoute == ApiRoutes.createProduct ||
-          endpointRoute == ApiRoutes.getOrders ||
-          endpointRoute == ApiRoutes.createOrder ||
-          endpointRoute.contains("order-details")) {
-        options.headers['Authorization'] = 'Bearer $accessToken';
-      }
-
-      if (endpointRoute == ApiRoutes.createProduct) {
-        options.headers['content-type'] = 'multipart/form-data';
-      }
-
-      return handler.next(options);
-    }
+    // if (accessToken != null) {
+    //   String endpointRoute = options.path;
+    //
+    //   if (endpointRoute == ApiRoutes.logOut ||
+    //       endpointRoute == ApiRoutes.getProduct ||
+    //       endpointRoute == ApiRoutes.createProduct ||
+    //       endpointRoute == ApiRoutes.getOrders ||
+    //       endpointRoute == ApiRoutes.createOrder ||
+    //       endpointRoute.contains("order-details")) {
+    //     options.headers['Authorization'] = 'Bearer $accessToken';
+    //   }
+    //
+    //   if (endpointRoute == ApiRoutes.createProduct) {
+    //     options.headers['content-type'] = 'multipart/form-data';
+    //   }
+    //
+    //   return handler.next(options);
+    // }
 
     super.onRequest(options, handler);
   }

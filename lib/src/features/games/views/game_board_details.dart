@@ -56,7 +56,7 @@ class GameBoardDetailsView extends StatelessWidget {
       child: Scaffold(
         appBar: AppBar(
           automaticallyImplyLeading: false,
-          backgroundColor: Theme.of(context).colorScheme.background,
+          backgroundColor: Theme.of(context).colorScheme.surface,
           title: savingStatus is SavingGameInProgress
               ? Text("Saving game .....")
               : Text(gameStatusTextWidget(game.status)),
@@ -189,12 +189,12 @@ class GameBoardDetailsView extends StatelessWidget {
                           Expanded(
                             child: ElevatedButton(
                               style: ButtonStyle(
-                                padding: MaterialStateProperty.all<EdgeInsets>(
+                                padding: WidgetStateProperty.all<EdgeInsets>(
                                   EdgeInsets.zero,
                                 ),
-                                backgroundColor: MaterialStateProperty.all<Color>(Theme.of(context).primaryColor),
-                                foregroundColor: MaterialStateProperty.all<Color>(Colors.white),
-                                shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                                backgroundColor: WidgetStateProperty.all<Color>(Theme.of(context).primaryColor),
+                                foregroundColor: WidgetStateProperty.all<Color>(Colors.white),
+                                shape: WidgetStateProperty.all<RoundedRectangleBorder>(
                                   RoundedRectangleBorder(
                                     borderRadius: BorderRadius.circular(5.0),
                                     // side: BorderSide(color: Colors.red)

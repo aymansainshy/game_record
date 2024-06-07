@@ -37,12 +37,12 @@ class AppTheme {
     hintColor: AppColors.hintColor,
     elevatedButtonTheme: ElevatedButtonThemeData(
       style: ButtonStyle(
-        padding: MaterialStateProperty.all<EdgeInsets>(
+        padding: WidgetStateProperty.all<EdgeInsets>(
           EdgeInsets.zero,
         ),
-        backgroundColor: MaterialStateProperty.all<Color>(AppColors.primaryColorHex),
-        foregroundColor: MaterialStateProperty.all<Color>(Colors.white),
-        shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+        backgroundColor: WidgetStateProperty.all<Color>(AppColors.primaryColorHex),
+        foregroundColor: WidgetStateProperty.all<Color>(Colors.white),
+        shape: WidgetStateProperty.all<RoundedRectangleBorder>(
           RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(5.0),
             // side: BorderSide(color: Colors.red)
