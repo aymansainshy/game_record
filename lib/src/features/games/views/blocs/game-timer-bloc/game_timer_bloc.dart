@@ -9,15 +9,12 @@ part 'game_timer_event.dart';
 part 'game_timer_state.dart';
 
 class GameTimerBloc extends Bloc<GameTimerEvent, GameTimerState> {
-  final Ticker _ticker;
   static int _duration = 0;
-  late Timer _timer;
+  Timer? _timer;
 
   // StreamSubscription<int>? _tickerSubscription;
 
-  GameTimerBloc(Ticker ticker)
-      : _ticker = ticker,
-        super(GameTimerInitial(_duration)) {
+  GameTimerBloc(Ticker _ticker) : super(GameTimerInitial(_duration)) {
     on<SetTimerInitial>(_onSetStarterTime);
 
     on<TimerStarted>(_onStarted);
@@ -36,6 +33,7 @@ class GameTimerBloc extends Bloc<GameTimerEvent, GameTimerState> {
     emit(TimerRunInProgress(event.duration));
 
     _duration = event.duration;
+    _cancelTimer();
 
     _timer = Timer.periodic(Duration(seconds: 1), (timer) {
       _duration++;
@@ -52,13 +50,15 @@ class GameTimerBloc extends Bloc<GameTimerEvent, GameTimerState> {
   }
 
   void _onTicked(_TimerTicked event, Emitter<GameTimerState> emit) {
-    emit(event.duration > 0 ? TimerRunInProgress(event.duration) : TimerRunComplete());
+    emit(event.duration > 0
+        ? TimerRunInProgress(event.duration)
+        : TimerRunComplete());
   }
 
   void _onPaused(TimerPaused event, Emitter<GameTimerState> emit) {
     if (state is TimerRunInProgress) {
       _duration = state.duration;
-      _timer.cancel();
+      _cancelTimer();
       // _tickerSubscription?.pause();
       emit(TimerRunPause(state.duration));
     }
@@ -66,6 +66,7 @@ class GameTimerBloc extends Bloc<GameTimerEvent, GameTimerState> {
 
   void _onResumed(TimerResumed resume, Emitter<GameTimerState> emit) {
     emit(TimerRunInProgress(_duration));
+    _cancelTimer();
 
     // if (state is TimerRunPause) {
     _timer = Timer.periodic(Duration(seconds: 1), (timer) {
@@ -81,13 +82,18 @@ class GameTimerBloc extends Bloc<GameTimerEvent, GameTimerState> {
   void _onReset(TimerReset event, Emitter<GameTimerState> emit) {
     // _tickerSubscription?.cancel();
     _duration = 0;
-    _timer.cancel();
+    _cancelTimer();
     emit(GameTimerInitial(_duration));
+  }
+
+  void _cancelTimer() {
+    _timer?.cancel();
+    _timer = null;
   }
 
   @override
   Future<void> close() {
-    _timer.cancel();
+    _cancelTimer();
     // _tickerSubscription?.cancel();
     return super.close();
   }

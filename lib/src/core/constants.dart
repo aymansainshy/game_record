@@ -23,7 +23,8 @@ customeAlertDialoge({
       isCloseButton: true,
       isOverlayTapDismiss: false,
       descStyle: TextStyle(fontSize: 14),
-      backgroundColor: Theme.of(context).dialogBackgroundColor,
+      backgroundColor: Theme.of(context).dialogTheme.backgroundColor ??
+          Theme.of(context).colorScheme.surface,
       descTextAlign: TextAlign.center,
       animationDuration: Duration(milliseconds: 400),
       alertBorder: RoundedRectangleBorder(

@@ -43,13 +43,17 @@ class GameBoardDetailsView extends StatelessWidget {
   Widget build(BuildContext context) {
     final mediaQuery = MediaQuery.sizeOf(context);
 
-    final duration = context.select((GameTimerBloc bloc) => bloc.state.duration);
+    final duration =
+        context.select((GameTimerBloc bloc) => bloc.state.duration);
 
-    final minutesStr = ((duration / 60) % 60).floor().toString().padLeft(2, '0');
+    final minutesStr =
+        ((duration / 60) % 60).floor().toString().padLeft(2, '0');
     final secondsStr = (duration % 60).floor().toString().padLeft(2, '0');
-    final hoursStr = (((duration / 60) / 60) % 60).floor().toString().padLeft(2, '0');
+    final hoursStr =
+        (((duration / 60) / 60) % 60).floor().toString().padLeft(2, '0');
 
-    final savingStatus = context.select((SaveGameLocallyBloc bloc) => bloc.state);
+    final savingStatus =
+        context.select((SaveGameLocallyBloc bloc) => bloc.state);
 
     return PopScope(
       canPop: false,
@@ -69,7 +73,8 @@ class GameBoardDetailsView extends StatelessWidget {
                           context: context,
                           barrierDismissible: false,
                           builder: (context) {
-                            return BlocConsumer<SaveGameLocallyBloc, SaveGameLocallyState>(
+                            return BlocConsumer<SaveGameLocallyBloc,
+                                SaveGameLocallyState>(
                               listener: (context, savingState) {
                                 if (savingState is SavingGameFailure) {
                                   Navigator.of(context).pop(false);
@@ -85,21 +90,30 @@ class GameBoardDetailsView extends StatelessWidget {
                                     TextButton(
                                       onPressed: () {
                                         // TODO: save game status
-                                        context.read<GameTimerBloc>().add(const TimerPaused());
+                                        context
+                                            .read<GameTimerBloc>()
+                                            .add(const TimerPaused());
+
+                                        context.read<SingleGameBloc>().add(
+                                            UpdateGameDuration(
+                                                game: game,
+                                                duration: duration));
+
+                                        context.read<SingleGameBloc>().add(
+                                            UpdateGameStatus(
+                                                status: GameStatus.paused,
+                                                game: game));
 
                                         context
-                                            .read<SingleGameBloc>()
-                                            .add(UpdateGameDuration(game: game, duration: duration));
-
-                                        context
-                                            .read<SingleGameBloc>()
-                                            .add(UpdateGameStatus(status: GameStatus.paused, game: game));
-
-                                        context.read<SaveGameLocallyBloc>().add(SaveGameStatus(game: game));
+                                            .read<SaveGameLocallyBloc>()
+                                            .add(SaveGameStatus(game: game));
                                       },
                                       child: Text(
                                         "${savingState is SavingGameInProgress ? "Saving game ...." : "Save game & Exit"}",
-                                        style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                                        style: Theme.of(context)
+                                            .textTheme
+                                            .bodyMedium
+                                            ?.copyWith(
                                               fontWeight: FontWeight.bold,
                                               color: Colors.redAccent,
                                             ),
@@ -128,7 +142,9 @@ class GameBoardDetailsView extends StatelessWidget {
                       Navigator.of(context).pop();
                     }
                   },
-            icon: Platform.isAndroid ? Icon(Icons.arrow_back) : Icon(CupertinoIcons.back),
+            icon: Platform.isAndroid
+                ? Icon(Icons.arrow_back)
+                : Icon(CupertinoIcons.back),
           ),
         ),
         body: SizedBox(
@@ -141,7 +157,8 @@ class GameBoardDetailsView extends StatelessWidget {
               children: [
                 if (game.status == GameStatus.completed)
                   Padding(
-                    padding: const EdgeInsets.only(left: 10, right: 10, top: 15),
+                    padding:
+                        const EdgeInsets.only(left: 10, right: 10, top: 15),
                     child: Text(
                       DateFormat.yMMMMEEEEd().format(game.createdAt),
                       style: Theme.of(context).textTheme.titleLarge?.copyWith(
@@ -163,7 +180,10 @@ class GameBoardDetailsView extends StatelessWidget {
                             "${hoursStr} : ${minutesStr} : ${secondsStr}",
                             maxLines: 1,
                             overflow: TextOverflow.ellipsis,
-                            style: Theme.of(context).textTheme.displayLarge?.copyWith(
+                            style: Theme.of(context)
+                                .textTheme
+                                .displayLarge
+                                ?.copyWith(
                                   color: AppColors.primaryColorHex,
                                 ),
                           ),
@@ -183,18 +203,23 @@ class GameBoardDetailsView extends StatelessWidget {
                     height: 50,
                     child: Row(
                       children: [
-                        if (game.status == GameStatus.paused || game.status == GameStatus.createdNew)
+                        if (game.status == GameStatus.paused ||
+                            game.status == GameStatus.createdNew)
                           Expanded(child: SizedBox.shrink()),
-                        if (game.status == GameStatus.paused || game.status == GameStatus.createdNew)
+                        if (game.status == GameStatus.paused ||
+                            game.status == GameStatus.createdNew)
                           Expanded(
                             child: ElevatedButton(
                               style: ButtonStyle(
                                 padding: WidgetStateProperty.all<EdgeInsets>(
                                   EdgeInsets.zero,
                                 ),
-                                backgroundColor: WidgetStateProperty.all<Color>(Theme.of(context).primaryColor),
-                                foregroundColor: WidgetStateProperty.all<Color>(Colors.white),
-                                shape: WidgetStateProperty.all<RoundedRectangleBorder>(
+                                backgroundColor: WidgetStateProperty.all<Color>(
+                                    Theme.of(context).primaryColor),
+                                foregroundColor: WidgetStateProperty.all<Color>(
+                                    Colors.white),
+                                shape: WidgetStateProperty.all<
+                                    RoundedRectangleBorder>(
                                   RoundedRectangleBorder(
                                     borderRadius: BorderRadius.circular(5.0),
                                     // side: BorderSide(color: Colors.red)
@@ -205,20 +230,26 @@ class GameBoardDetailsView extends StatelessWidget {
                                   ? null
                                   : () {
                                       if (game.isContainFiredPerson()) {
-                                        ScaffoldMessenger.of(context).showSnackBar(
+                                        ScaffoldMessenger.of(context)
+                                            .showSnackBar(
                                           SnackBar(
-                                            content: Text("You can't add new Players, the game contains 🔥persons"),
-                                            duration: Duration(milliseconds: 1000),
+                                            content: Text(
+                                                "You can't add new Players, the game contains 🔥persons"),
+                                            duration:
+                                                Duration(milliseconds: 1000),
                                           ),
                                         );
                                         return;
                                       }
 
                                       if (game.getGamePlayers().length >= 6) {
-                                        ScaffoldMessenger.of(context).showSnackBar(
+                                        ScaffoldMessenger.of(context)
+                                            .showSnackBar(
                                           SnackBar(
-                                            content: Text("You can't add new Players, Max is 6 Players"),
-                                            duration: Duration(milliseconds: 1000),
+                                            content: Text(
+                                                "You can't add new Players, Max is 6 Players"),
+                                            duration:
+                                                Duration(milliseconds: 1000),
                                           ),
                                         );
                                         return;
@@ -228,12 +259,14 @@ class GameBoardDetailsView extends StatelessWidget {
                                         context: context,
                                         isScrollControlled: true,
                                         builder: (context) {
-                                          return AddNewPlayerToCurrentGameSheet(game: game);
+                                          return AddNewPlayerToCurrentGameSheet(
+                                              game: game);
                                         },
                                       );
                                     },
                               child: Row(
-                                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceEvenly,
                                 children: [
                                   Text("Add Player to game"),
                                   Icon(CupertinoIcons.person_add_solid),
@@ -241,7 +274,8 @@ class GameBoardDetailsView extends StatelessWidget {
                               ),
                             ),
                           ),
-                        if (game.status == GameStatus.currentPlaying) Expanded(child: SizedBox.shrink()),
+                        if (game.status == GameStatus.currentPlaying)
+                          Expanded(child: SizedBox.shrink()),
                         if (game.status == GameStatus.currentPlaying)
                           Expanded(
                             child: ElevatedButton(
@@ -256,7 +290,8 @@ class GameBoardDetailsView extends StatelessWidget {
                                 );
                               },
                               child: Row(
-                                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceEvenly,
                                 children: [
                                   Text("Add New Score"),
                                   Icon(Icons.edit_calendar_outlined),
@@ -323,7 +358,7 @@ class _GameBoardState extends State<GameBoard> {
                 ),
                 child: Container(
                   decoration: BoxDecoration(
-                    color: Colors.white.withOpacity(0.5),
+                    color: Colors.white.withValues(alpha: 0.5),
                     borderRadius: BorderRadius.all(
                       Radius.circular(3),
                     ),
@@ -358,15 +393,17 @@ class _GameBoardState extends State<GameBoard> {
 
                     return Column(
                       children: [
-                        ...List.generate(gamePlayers.getPlayerScores().length, (index) {
+                        ...List.generate(gamePlayers.getPlayerScores().length,
+                            (index) {
                           final scoresList = gamePlayers.getPlayerScores();
 
                           return Container(
                             height: 48,
-                            width: (mediaQuery.width / widget.game.getGamePlayers().length),
+                            width: (mediaQuery.width /
+                                widget.game.getGamePlayers().length),
                             padding: EdgeInsets.all(5),
                             decoration: BoxDecoration(
-                              color: colors[pIndex].withOpacity(0.5),
+                              color: colors[pIndex].withValues(alpha: 0.5),
                               borderRadius: BorderRadius.all(
                                 Radius.circular(6),
                               ),
@@ -378,13 +415,17 @@ class _GameBoardState extends State<GameBoard> {
                                   Radius.circular(3),
                                 ),
                               ),
-                              child: LayoutBuilder(builder: (context, constraints) {
+                              child: LayoutBuilder(
+                                  builder: (context, constraints) {
                                 return Center(
                                   child: Text(
                                     scoresList[index].toString(),
-                                    style: Theme.of(context).textTheme.bodyLarge?.copyWith(
-                                        // fontWeight: FontWeight.bold,
-                                        ),
+                                    style: Theme.of(context)
+                                        .textTheme
+                                        .bodyLarge
+                                        ?.copyWith(
+                                            // fontWeight: FontWeight.bold,
+                                            ),
                                   ),
                                 );
                               }),

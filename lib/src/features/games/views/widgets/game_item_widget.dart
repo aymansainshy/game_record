@@ -26,9 +26,11 @@ class GameItemWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     final duration = game.getGameDuration();
 
-    final minutesStr = ((duration / 60) % 60).floor().toString().padLeft(2, '0');
+    final minutesStr =
+        ((duration / 60) % 60).floor().toString().padLeft(2, '0');
     final secondsStr = (duration % 60).floor().toString().padLeft(2, '0');
-    final hoursStr = (((duration / 60) / 60) % 60).floor().toString().padLeft(2, '0');
+    final hoursStr =
+        (((duration / 60) / 60) % 60).floor().toString().padLeft(2, '0');
     // final mediaQuery = MediaQuery.sizeOf(context);
     return GestureDetector(
       onTap: () {
@@ -51,11 +53,14 @@ class GameItemWidget extends StatelessWidget {
         margin: const EdgeInsets.all(5),
         padding: const EdgeInsets.all(10),
         decoration: BoxDecoration(
-          color:
-              game.status == GameStatus.completed ? Theme.of(context).colorScheme.secondary : AppColors.primaryColorHex,
+          color: game.status == GameStatus.completed
+              ? Theme.of(context).colorScheme.secondary
+              : AppColors.primaryColorHex,
           border: Border.all(
             width: 4,
-            color: game.status == GameStatus.createdNew ? Color(0xFF4DE354) : AppColors.primaryColorHex,
+            color: game.status == GameStatus.createdNew
+                ? Color(0xFF4DE354)
+                : AppColors.primaryColorHex,
           ),
           borderRadius: const BorderRadius.all(
             Radius.circular(10),
@@ -85,10 +90,11 @@ class GameItemWidget extends StatelessWidget {
                           "Game# ${game.gameNo}",
                           maxLines: 1,
                           overflow: TextOverflow.ellipsis,
-                          style: Theme.of(context).textTheme.bodyLarge?.copyWith(
-                                color: Colors.grey,
-                                fontWeight: FontWeight.bold,
-                              ),
+                          style:
+                              Theme.of(context).textTheme.bodyLarge?.copyWith(
+                                    color: Colors.grey,
+                                    fontWeight: FontWeight.bold,
+                                  ),
                         ),
                       ),
                     ),
@@ -105,16 +111,21 @@ class GameItemWidget extends StatelessWidget {
                           "${hoursStr} : ${minutesStr} : ${secondsStr}",
                           maxLines: 1,
                           overflow: TextOverflow.ellipsis,
-                          style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                                color: game.status == GameStatus.createdNew ? Color(0xFF4DE354) : Colors.white,
-                              ),
+                          style:
+                              Theme.of(context).textTheme.bodyMedium?.copyWith(
+                                    color: game.status == GameStatus.createdNew
+                                        ? Color(0xFF4DE354)
+                                        : Colors.white,
+                                  ),
                         ),
                       ),
                       const SizedBox(width: 15),
                       if (game.status != GameStatus.completed)
                         Icon(
                           CupertinoIcons.play_arrow_solid,
-                          color: game.status == GameStatus.createdNew ? Color(0xFF4DE354) : Colors.white,
+                          color: game.status == GameStatus.createdNew
+                              ? Color(0xFF4DE354)
+                              : Colors.white,
                         ),
                       if (game.status == GameStatus.completed)
                         Icon(
@@ -148,7 +159,9 @@ class GameItemWidget extends StatelessWidget {
                         ? "   👑  ${game.getGameChampion(game.champion)?.player.name}  👑"
                         : "  No Champion Yet",
                     style: Theme.of(context).textTheme.titleMedium?.copyWith(
-                          color: game.status == GameStatus.completed ? Colors.orange : Color(0xFF4DE354),
+                          color: game.status == GameStatus.completed
+                              ? Colors.orange
+                              : Color(0xFF4DE354),
                           fontSize: 20,
                         ),
                   ),
@@ -164,47 +177,78 @@ class GameItemWidget extends StatelessWidget {
                       children: [
                         TextSpan(
                           text: "Score  ",
-                          style: Theme.of(context).textTheme.titleMedium?.copyWith(
-                                color: Colors.white,
-                              ),
+                          style:
+                              Theme.of(context).textTheme.titleMedium?.copyWith(
+                                    color: Colors.white,
+                                  ),
                         ),
                         TextSpan(
                           text: game.champion != null
                               ? "${game.getGameChampion(game.champion)?.totalPlayerScore()}"
                               : "--",
-                          style: Theme.of(context).textTheme.titleLarge?.copyWith(
-                                color: Colors.redAccent,
-                              ),
+                          style:
+                              Theme.of(context).textTheme.titleLarge?.copyWith(
+                                    color: Colors.redAccent,
+                                  ),
                         ),
                       ],
                     ),
                   ),
                 if (game.status != GameStatus.completed)
-                  Text("Scores", style: Theme.of(context).textTheme.titleMedium?.copyWith(color: Colors.white)),
-                const SizedBox(width: 20),
+                  Text("Scores",
+                      style: Theme.of(context)
+                          .textTheme
+                          .titleMedium
+                          ?.copyWith(color: Colors.white)),
                 if (game.status != GameStatus.completed)
-                  ...List.generate(game.getGamePlayers().length, (index) {
-                    return Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 8.0),
-                      child: Column(
-                        children: [
-                          Text(
-                            game.getGamePlayers()[index].player.name.substring(0, 2),
-                            style: Theme.of(context).textTheme.bodySmall?.copyWith(color: Colors.grey),
-                          ),
-                          Text("--", style: Theme.of(context).textTheme.titleSmall?.copyWith(color: Colors.redAccent)),
-                          Text(
-                            "${game.getGamePlayers()[index].totalPlayerScore()}",
-                            style: Theme.of(context).textTheme.bodySmall?.copyWith(color: Colors.greenAccent),
-                          ),
-                        ],
+                  const SizedBox(width: 12),
+                if (game.status != GameStatus.completed)
+                  Expanded(
+                    child: SingleChildScrollView(
+                      scrollDirection: Axis.horizontal,
+                      child: Row(
+                        children: List.generate(game.getGamePlayers().length,
+                            (index) {
+                          return Padding(
+                            padding: const EdgeInsets.symmetric(horizontal: 6),
+                            child: Column(
+                              children: [
+                                Text(
+                                  game
+                                      .getGamePlayers()[index]
+                                      .player
+                                      .name
+                                      .substring(0, 2),
+                                  style: Theme.of(context)
+                                      .textTheme
+                                      .bodySmall
+                                      ?.copyWith(color: Colors.grey),
+                                ),
+                                Text("--",
+                                    style: Theme.of(context)
+                                        .textTheme
+                                        .titleSmall
+                                        ?.copyWith(color: Colors.redAccent)),
+                                Text(
+                                  "${game.getGamePlayers()[index].totalPlayerScore()}",
+                                  style: Theme.of(context)
+                                      .textTheme
+                                      .bodySmall
+                                      ?.copyWith(color: Colors.greenAccent),
+                                ),
+                              ],
+                            ),
+                          );
+                        }),
                       ),
-                    );
-                  }),
-                const Spacer(),
+                    ),
+                  ),
+                if (game.status == GameStatus.completed) const Spacer(),
+                const SizedBox(width: 10),
                 SizedBox(
                   height: 25,
                   child: Row(
+                    mainAxisSize: MainAxisSize.min,
                     children: [
                       if (game.status == GameStatus.createdNew)
                         Transform.translate(
@@ -213,7 +257,10 @@ class GameItemWidget extends StatelessWidget {
                             height: 21,
                             child: Text(
                               "Start",
-                              style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .bodyMedium
+                                  ?.copyWith(
                                     color: Color(0xFF4DE354),
                                     // fontSize: 14,
                                   ),
@@ -227,7 +274,10 @@ class GameItemWidget extends StatelessWidget {
                             height: 21,
                             child: Text(
                               "Continue",
-                              style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .bodyMedium
+                                  ?.copyWith(
                                     color: Colors.grey,
                                     // fontSize: 14,
                                   ),
@@ -241,7 +291,10 @@ class GameItemWidget extends StatelessWidget {
                             height: 21,
                             child: Text(
                               "Details",
-                              style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .bodyMedium
+                                  ?.copyWith(
                                     color: Colors.grey,
                                     // fontSize: 14,
                                   ),

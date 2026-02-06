@@ -32,7 +32,9 @@ class AppTheme {
     colorScheme: colorScheme,
     brightness: Brightness.light,
     fontFamily: "Poppins",
-    indicatorColor: AppColors.indicatorColor,
+    tabBarTheme: const TabBarThemeData(
+      indicatorColor: AppColors.indicatorColor,
+    ),
     dividerColor: AppColors.dividerColor,
     hintColor: AppColors.hintColor,
     elevatedButtonTheme: ElevatedButtonThemeData(
@@ -40,7 +42,8 @@ class AppTheme {
         padding: WidgetStateProperty.all<EdgeInsets>(
           EdgeInsets.zero,
         ),
-        backgroundColor: WidgetStateProperty.all<Color>(AppColors.primaryColorHex),
+        backgroundColor:
+            WidgetStateProperty.all<Color>(AppColors.primaryColorHex),
         foregroundColor: WidgetStateProperty.all<Color>(Colors.white),
         shape: WidgetStateProperty.all<RoundedRectangleBorder>(
           RoundedRectangleBorder(

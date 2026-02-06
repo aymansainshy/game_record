@@ -1,5 +1,3 @@
-
-
 import 'package:flutter/material.dart';
 import 'package:hareeg/src/theme/app_theme.dart';
 
@@ -44,7 +42,7 @@ class _CBottomNavigationBarState extends State<CBottomNavigationBar> {
                 color: Colors.white,
                 boxShadow: [
                   BoxShadow(
-                    color: Colors.grey.withOpacity(0.1),
+                    color: Colors.grey.withValues(alpha: 0.1),
                     spreadRadius: 3,
                     blurRadius: 2,
                     offset: const Offset(0, -5),
@@ -59,7 +57,8 @@ class _CBottomNavigationBarState extends State<CBottomNavigationBar> {
                 width: mediaQuery.width / 2,
                 height: 55,
                 color: Colors.transparent,
-                padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 2),
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 15, vertical: 2),
                 child: LayoutBuilder(
                   builder: (context, constraints) {
                     return Container(
@@ -94,12 +93,16 @@ class _CBottomNavigationBarState extends State<CBottomNavigationBar> {
                         Icon(
                           widget.bottomNavItems[index].icon,
                           size: widget.pageIndex == index ? 20 : 18,
-                          color: widget.pageIndex == index ? Colors.white : Colors.grey,
+                          color: widget.pageIndex == index
+                              ? Colors.white
+                              : Colors.grey,
                         ),
                         Text(
                           widget.bottomNavItems[index].label,
                           style: TextStyle(
-                            color: widget.pageIndex == index ? Colors.white : Colors.grey,
+                            color: widget.pageIndex == index
+                                ? Colors.white
+                                : Colors.grey,
                           ),
                         ),
                       ],

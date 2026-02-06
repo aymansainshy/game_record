@@ -88,7 +88,7 @@ class BuildFormField extends StatelessWidget {
       //   leading: 0.5, // Set the desired leading
       // ),
       maxLines: maxLines,
-      cursorColor: Theme.of(context).indicatorColor,
+      cursorColor: Theme.of(context).colorScheme.primary,
       textDirection: textDirection,
       initialValue: initialValue,
       onSaved: onSaved,
